@@ -136,7 +136,7 @@ const enviaFormulario = () => {
                                 <h4 class="mt-1 mb-3">{{ user.tipo }}</h4>
                                 <label
                                     v-if="!imagen_cargada"
-                                    class="btn_principal"
+                                    class="btn_principal bg-primary"
                                     for="file_foto"
                                     ><b>Cambiar foto</b
                                     ><input
@@ -176,24 +176,18 @@ const enviaFormulario = () => {
                                 </div>
                                 <div class="col-8">{{ user.full_ci }}</div>
                             </div>
-                            <template v-if="user.tipo != 'CLIENTE'">
-                                <div class="row">
-                                    <div
-                                        class="text-right font-weight-bold col-4"
-                                    >
-                                        Dirección:
-                                    </div>
-                                    <div class="col-8">{{ user.dir }}</div>
+                            <div class="row">
+                                <div class="text-right font-weight-bold col-4">
+                                    Dirección:
                                 </div>
-                                <div class="row">
-                                    <div
-                                        class="text-right font-weight-bold col-4"
-                                    >
-                                        Correo:
-                                    </div>
-                                    <div class="col-8">{{ user.email }}</div>
+                                <div class="col-8">{{ user.dir }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="text-right font-weight-bold col-4">
+                                    Correo:
                                 </div>
-                            </template>
+                                <div class="col-8">{{ user.email }}</div>
+                            </div>
                             <div class="row">
                                 <div class="text-right font-weight-bold col-4">
                                     Teléfono/Celular:

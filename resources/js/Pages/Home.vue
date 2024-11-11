@@ -53,7 +53,7 @@ const { props } = usePage();
                     <p>{{ item.cantidad }}</p>
                 </div>
                 <div class="stats-link">
-                    <Link :href="route(item.url)"
+                    <Link :href="route(item.url ? item.url : 'inicio')"
                         >Ver más <i class="fa fa-arrow-alt-circle-right"></i
                     ></Link>
                 </div>

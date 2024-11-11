@@ -100,10 +100,6 @@ class User extends Authenticatable
     }
 
     // RELACIONES
-    public function cliente()
-    {
-        return $this->hasOne(Cliente::class, 'user_id');
-    }
 
     // FUNCIONES
     public static function getNombreUsuario($nom, $apep)

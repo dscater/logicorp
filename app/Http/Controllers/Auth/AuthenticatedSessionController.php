@@ -32,14 +32,7 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
-
-        Notificacion::notificacion1();
-        Notificacion::notificacion2();
-        Notificacion::notificacion3();
-        Notificacion::notificacion4();
-
         return redirect()->intended(route('inicio'));
     }
 

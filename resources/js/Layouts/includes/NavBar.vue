@@ -43,7 +43,7 @@ onBeforeUnmount(() => {});
 </script>
 <template>
     <!-- BEGIN #header -->
-    <div id="header" class="app-header" data-bs-theme="dark">
+    <div id="header" class="app-header bg-principal" data-bs-theme="dark">
         <!-- BEGIN navbar-header -->
         <div class="navbar-header">
             <a href="index.html" class="navbar-brand"

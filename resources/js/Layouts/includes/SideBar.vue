@@ -519,104 +519,108 @@ const logout = () => {
                     </Link>
                 </div>
                 <div
-                    v-if="user_logeado.permisos.includes('pagos.index')"
-                    class="menu-item"
-                    :class="[route_current == 'pagos.index' ? 'active' : '']"
-                >
-                    <Link :href="route('pagos.index')" class="menu-link">
-                        <div class="menu-icon">
-                            <i class="fa fa-money-bill"></i>
-                        </div>
-                        <div class="menu-text">Pagos</div>
-                    </Link>
-                </div>
-                <div
-                    v-if="user_logeado.permisos.includes('venta_lotes.index')"
                     class="menu-item"
                     :class="[
-                        route_current == 'venta_lotes.index' ? 'active' : '',
+                        route_current == 'programacions.index' ? 'active' : '',
                     ]"
                 >
-                    <Link :href="route('venta_lotes.index')" class="menu-link">
+                    <a href="" class="menu-link">
+                        <div class="menu-icon">
+                            <i class="fa fa-table"></i>
+                        </div>
+                        <div class="menu-text">Programación</div>
+                    </a>
+                </div>
+                <div
+                    class="menu-item"
+                    :class="[
+                        route_current == 'asignacions.index' ? 'active' : '',
+                    ]"
+                >
+                    <a href="" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-clipboard-list"></i>
                         </div>
-                        <div class="menu-text">Venta de Lotes</div>
-                    </Link>
+                        <div class="menu-text">
+                            Asignación de Empresas/Sociedad
+                        </div>
+                    </a>
                 </div>
                 <div
-                    v-if="user_logeado.permisos.includes('clientes.index')"
                     class="menu-item"
-                    :class="[route_current == 'clientes.index' ? 'active' : '']"
+                    :class="[
+                        route_current == 'contratos.index' ? 'active' : '',
+                    ]"
                 >
-                    <Link :href="route('clientes.index')" class="menu-link">
+                    <a href="" class="menu-link">
+                        <div class="menu-icon">
+                            <i class="fa fa-clipboard-list"></i>
+                        </div>
+                        <div class="menu-text">Contratos</div>
+                    </a>
+                </div>
+                <div
+                    class="menu-item"
+                    :class="[
+                        route_current == 'productos.index' ? 'active' : '',
+                    ]"
+                >
+                    <a href="" class="menu-link">
+                        <div class="menu-icon">
+                            <i class="fa fa-box"></i>
+                        </div>
+                        <div class="menu-text">Productos</div>
+                    </a>
+                </div>
+                <div
+                    class="menu-item"
+                    :class="[
+                        route_current == 'vehiculos.index' ? 'active' : '',
+                    ]"
+                >
+                    <a href="" class="menu-link">
+                        <div class="menu-icon">
+                            <i class="fa fa-truck"></i>
+                        </div>
+                        <div class="menu-text">Vehículos</div>
+                    </a>
+                </div>
+                <div
+                    class="menu-item"
+                    :class="[
+                        route_current == 'condutors.index' ? 'active' : '',
+                    ]"
+                >
+                    <a href="" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-user-friends"></i>
                         </div>
-                        <div class="menu-text">Clientes</div>
-                    </Link>
+                        <div class="menu-text">Conductores</div>
+                    </a>
                 </div>
                 <div
-                    v-if="
-                        user_logeado.permisos.includes('planilla_cuotas.index')
-                    "
                     class="menu-item"
-                    :class="[
-                        route_current == 'planilla_cuotas.index'
-                            ? 'active'
-                            : '',
-                    ]"
+                    :class="[route_current == 'empresas.index' ? 'active' : '']"
                 >
-                    <Link
-                        :href="route('planilla_cuotas.index')"
-                        class="menu-link"
-                    >
-                        <div class="menu-icon">
-                            <i class="fa fa-clipboard"></i>
-                        </div>
-                        <div class="menu-text">Planilla de cuotas</div>
-                    </Link>
-                </div>
-                <div
-                    v-if="user_logeado.permisos.includes('lotes.index')"
-                    class="menu-item"
-                    :class="[route_current == 'lotes.index' ? 'active' : '']"
-                >
-                    <Link :href="route('lotes.index')" class="menu-link">
-                        <div class="menu-icon">
-                            <i class="fa fa-list"></i>
-                        </div>
-                        <div class="menu-text">Lotes</div>
-                    </Link>
-                </div>
-                <div
-                    v-if="user_logeado.permisos.includes('manzanos.index')"
-                    class="menu-item"
-                    :class="[route_current == 'manzanos.index' ? 'active' : '']"
-                >
-                    <Link :href="route('manzanos.index')" class="menu-link">
-                        <div class="menu-icon">
-                            <i class="fa fa-list"></i>
-                        </div>
-                        <div class="menu-text">Manzanos</div>
-                    </Link>
-                </div>
-                <div
-                    v-if="user_logeado.permisos.includes('urbanizacions.index')"
-                    class="menu-item"
-                    :class="[
-                        route_current == 'urbanizacions.index' ? 'active' : '',
-                    ]"
-                >
-                    <Link
-                        :href="route('urbanizacions.index')"
-                        class="menu-link"
-                    >
+                    <a href="" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-list-alt"></i>
                         </div>
-                        <div class="menu-text">Urbanización</div>
-                    </Link>
+                        <div class="menu-text">Empresas/Sociedad</div>
+                    </a>
+                </div>
+                <div
+                    class="menu-item"
+                    :class="[
+                        route_current == 'proveedors.index' ? 'active' : '',
+                    ]"
+                >
+                    <a href="" class="menu-link">
+                        <div class="menu-icon">
+                            <i class="fa fa-list"></i>
+                        </div>
+                        <div class="menu-text">Proveedores</div>
+                    </a>
                 </div>
                 <div
                     v-if="user_logeado.permisos.includes('usuarios.index')"
@@ -780,6 +784,9 @@ const logout = () => {
                     </div>
                 </div>
                 <div
+                    v-if="
+                        user_logeado.permisos.includes('configuracions.index')
+                    "
                     class="menu-item"
                     :class="[
                         route_current == 'configuracions.index' ? 'active' : '',

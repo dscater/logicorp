@@ -69,11 +69,36 @@ class UserController extends Controller
             $array_infos[] = [
                 'label' => 'USUARIOS',
                 'cantidad' => User::where('id', '!=', 1)->where("tipo", "!=", "CLIENTE")->count(),
-                'color' => 'bg-blue',
+                'color' => 'bg-principal',
                 'icon' => "fa-users",
                 "url" => "usuarios.index"
             ];
         }
+
+        $array_infos[] = [
+            'label' => 'CONTRATOS',
+            'cantidad' => 0,
+            'color' => 'bg-principal',
+            'icon' => "fa-clipboard-list",
+            "url" => ""
+        ];
+
+        $array_infos[] = [
+            'label' => 'PRODUCTOS',
+            'cantidad' => 0,
+            'color' => 'bg-principal',
+            'icon' => "fa-box",
+            "url" => ""
+        ];
+
+        $array_infos[] = [
+            'label' => 'VEHÍCULOS',
+            'cantidad' => 0,
+            'color' => 'bg-principal',
+            'icon' => "fa-truck",
+            "url" => ""
+        ];
+
         return $array_infos;
     }
 }
