@@ -573,54 +573,58 @@ const logout = () => {
                     </a>
                 </div>
                 <div
+                    v-if="user_logeado.permisos.includes('vehiculos.index')"
                     class="menu-item"
                     :class="[
                         route_current == 'vehiculos.index' ? 'active' : '',
                     ]"
                 >
-                    <a href="" class="menu-link">
+                    <Link :href="route('vehiculos.index')" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-truck"></i>
                         </div>
                         <div class="menu-text">Vehículos</div>
-                    </a>
+                    </Link>
                 </div>
                 <div
+                    v-if="user_logeado.permisos.includes('conductors.index')"
                     class="menu-item"
                     :class="[
-                        route_current == 'condutors.index' ? 'active' : '',
+                        route_current == 'conductors.index' ? 'active' : '',
                     ]"
                 >
-                    <a href="" class="menu-link">
+                    <Link :href="route('conductors.index')" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-user-friends"></i>
                         </div>
                         <div class="menu-text">Conductores</div>
-                    </a>
+                    </Link>
                 </div>
                 <div
+                    v-if="user_logeado.permisos.includes('empresas.index')"
                     class="menu-item"
                     :class="[route_current == 'empresas.index' ? 'active' : '']"
                 >
-                    <a href="" class="menu-link">
+                    <Link :href="route('empresas.index')" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-list-alt"></i>
                         </div>
                         <div class="menu-text">Empresas/Sociedad</div>
-                    </a>
+                    </Link>
                 </div>
                 <div
+                    v-if="user_logeado.permisos.includes('proveedors.index')"
                     class="menu-item"
                     :class="[
                         route_current == 'proveedors.index' ? 'active' : '',
                     ]"
                 >
-                    <a href="" class="menu-link">
+                    <Link :href="route('proveedors.index')" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-list"></i>
                         </div>
                         <div class="menu-text">Proveedores</div>
-                    </a>
+                    </Link>
                 </div>
                 <div
                     v-if="user_logeado.permisos.includes('usuarios.index')"

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 11-11-2024 a las 16:07:19
+-- Tiempo de generación: 19-11-2024 a las 19:32:08
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -70,14 +70,22 @@ CREATE TABLE `conductors` (
   `estado_civil` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nro_licencia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `categoria` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fecha_emision` date NOT NULL,
+  `fecha_emision` date DEFAULT NULL,
   `fecha_vencimiento` date NOT NULL,
   `fono` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `observacion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fecha_registro` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `conductors`
+--
+
+INSERT INTO `conductors` (`id`, `nombre`, `paterno`, `materno`, `ci`, `ci_exp`, `nacionalidad`, `fecha_nac`, `sexo`, `estado_civil`, `nro_licencia`, `categoria`, `fecha_emision`, `fecha_vencimiento`, `fono`, `foto`, `observacion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 'PEDRO', 'MARTINEZ', 'MAMANI', '3333333', 'LP', 'BOLIVIANO', '1991-01-01', 'MASCULINO', 'SOLTERO', '3333333', 'C', '2023-01-01', '2027-03-03', '77777777', '1732034697_1.jpg', 'OBSERVACION CONDUCTOR', '2024-11-19', '2024-11-19 20:44:57', '2024-11-19 20:46:58');
 
 -- --------------------------------------------------------
 
@@ -164,6 +172,14 @@ CREATE TABLE `empresas` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `empresas`
+--
+
+INSERT INTO `empresas` (`id`, `razon_social`, `nit`, `nom_representante`, `ap_representante`, `fono`, `correo`, `descripcion`, `tipo`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 'EMPRESA 1', '111111122', 'JUAN', 'PERES MAMANI', '6666666', 'EMPRESA1@GMAIL.COM', 'DESC. EMPRESA 1', 'EMPRESA', '2024-11-19', '2024-11-19 20:03:36', '2024-11-19 20:03:47'),
+(2, 'SOCIEDAD 1', '222233333', 'FERNANDO', 'PAREDES CHOQUE', '77766666', 'SOCIEDAD1@GMAIL.COM', '', 'ASOCIACIÓN', '2024-11-19', '2024-11-19 20:05:29', '2024-11-19 20:05:29');
+
 -- --------------------------------------------------------
 
 --
@@ -189,7 +205,24 @@ CREATE TABLE `historial_accions` (
 --
 
 INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `datos_original`, `datos_nuevo`, `modulo`, `fecha`, `hora`, `created_at`, `updated_at`) VALUES
-(1, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>nombre: JUAN<br/>paterno: PERES<br/>materno: MAMANI<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>password: $2y$12$ej1afafysGqKe.LEHxxzXedpL6h7lR3MiSqw32JiOC9Ol5CY30P7y<br/>tipo: GERENTE<br/>foto: 1731340717_JPERES.jpg<br/>fecha_registro: 2024-11-11<br/>acceso: 1<br/>created_at: 2024-11-11 15:58:37<br/>updated_at: 2024-11-11 15:58:37<br/>', NULL, 'USUARIOS', '2024-11-11', '15:58:37', '2024-11-11 19:58:37', '2024-11-11 19:58:37');
+(1, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 2<br/>usuario: JPERES<br/>nombre: JUAN<br/>paterno: PERES<br/>materno: MAMANI<br/>ci: 1111<br/>ci_exp: LP<br/>dir: LOS OLIVOS<br/>email: JUAN@GMAIL.COM<br/>fono: 7777777<br/>password: $2y$12$ej1afafysGqKe.LEHxxzXedpL6h7lR3MiSqw32JiOC9Ol5CY30P7y<br/>tipo: GERENTE<br/>foto: 1731340717_JPERES.jpg<br/>fecha_registro: 2024-11-11<br/>acceso: 1<br/>created_at: 2024-11-11 15:58:37<br/>updated_at: 2024-11-11 15:58:37<br/>', NULL, 'USUARIOS', '2024-11-11', '15:58:37', '2024-11-11 19:58:37', '2024-11-11 19:58:37'),
+(2, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PROVEEDOR', 'id: 1<br/>razon_social: PROVEEDOR 1<br/>descripcion: DESC. 1<br/>fecha_registro: <br/>created_at: 2024-11-19 15:44:13<br/>updated_at: 2024-11-19 15:44:13<br/>', NULL, 'PROVEEDORES', '2024-11-19', '15:44:13', '2024-11-19 19:44:13', '2024-11-19 19:44:13'),
+(3, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PROVEEDOR', 'id: 2<br/>razon_social: ASD<br/>descripcion: ASD<br/>fecha_registro: <br/>created_at: 2024-11-19 15:44:47<br/>updated_at: 2024-11-19 15:44:47<br/>', NULL, 'PROVEEDORES', '2024-11-19', '15:44:47', '2024-11-19 19:44:47', '2024-11-19 19:44:47'),
+(4, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PROVEEDOR', 'id: 2<br/>razon_social: ASD<br/>descripcion: ASD<br/>fecha_registro: <br/>created_at: 2024-11-19 15:44:47<br/>updated_at: 2024-11-19 15:44:47<br/>', 'id: 2<br/>razon_social: EEEE<br/>descripcion: FFF<br/>fecha_registro: <br/>created_at: 2024-11-19 15:44:47<br/>updated_at: 2024-11-19 15:44:53<br/>', 'PROVEEDORES', '2024-11-19', '15:44:53', '2024-11-19 19:44:53', '2024-11-19 19:44:53'),
+(5, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN PROVEEDOR', 'id: 2<br/>razon_social: EEEE<br/>descripcion: FFF<br/>fecha_registro: <br/>created_at: 2024-11-19 15:44:47<br/>updated_at: 2024-11-19 15:44:53<br/>', NULL, 'PROVEEDORES', '2024-11-19', '15:45:32', '2024-11-19 19:45:32', '2024-11-19 19:45:32'),
+(6, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PROVEEDOR', 'id: 2<br/>razon_social: PROVEEDOR 2<br/>descripcion: <br/>fecha_registro: <br/>created_at: 2024-11-19 15:46:05<br/>updated_at: 2024-11-19 15:46:05<br/>', NULL, 'PROVEEDORES', '2024-11-19', '15:46:05', '2024-11-19 19:46:05', '2024-11-19 19:46:05'),
+(7, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PROVEEDOR', 'id: 3<br/>razon_social: PROVEEDOR 3<br/>descripcion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 15:46:47<br/>updated_at: 2024-11-19 15:46:47<br/>', NULL, 'PROVEEDORES', '2024-11-19', '15:46:47', '2024-11-19 19:46:47', '2024-11-19 19:46:47'),
+(8, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA EMPRESA/SOCIEDAD', 'id: 1<br/>razon_social: EMPREAS 1<br/>nit: 1111111<br/>nom_representante: JUAN<br/>ap_representante: PERES<br/>fono: 6666666<br/>correo: EMPRESA1@GMAIL.COM<br/>descripcion: DESC. EMPRESA 1<br/>tipo: EMPRESA<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:03:36<br/>updated_at: 2024-11-19 16:03:36<br/>', NULL, 'EMPRESA/SOCIEDAD', '2024-11-19', '16:03:36', '2024-11-19 20:03:36', '2024-11-19 20:03:36'),
+(9, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA EMPRESA/SOCIEDAD', 'id: 1<br/>razon_social: EMPREAS 1<br/>nit: 1111111<br/>nom_representante: JUAN<br/>ap_representante: PERES<br/>fono: 6666666<br/>correo: EMPRESA1@GMAIL.COM<br/>descripcion: DESC. EMPRESA 1<br/>tipo: EMPRESA<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:03:36<br/>updated_at: 2024-11-19 16:03:36<br/>', 'id: 1<br/>razon_social: EMPRESA 1<br/>nit: 111111122<br/>nom_representante: JUAN<br/>ap_representante: PERES MAMANI<br/>fono: 6666666<br/>correo: EMPRESA1@GMAIL.COM<br/>descripcion: DESC. EMPRESA 1<br/>tipo: EMPRESA<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:03:36<br/>updated_at: 2024-11-19 16:03:47<br/>', 'EMPRESA/SOCIEDAD', '2024-11-19', '16:03:47', '2024-11-19 20:03:47', '2024-11-19 20:03:47'),
+(10, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA EMPRESA/SOCIEDAD', 'id: 2<br/>razon_social: SOCIEDAD 1<br/>nit: 222111<br/>nom_representante: FERNANDO<br/>ap_representante: PAREDES<br/>fono: 77777777<br/>correo: <br/>descripcion: <br/>tipo: ASOCIACIÓN<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:04:13<br/>updated_at: 2024-11-19 16:04:13<br/>', NULL, 'EMPRESA/SOCIEDAD', '2024-11-19', '16:04:13', '2024-11-19 20:04:13', '2024-11-19 20:04:13'),
+(11, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UNA EMPRESA/SOCIEDAD', 'id: 2<br/>razon_social: SOCIEDAD 1<br/>nit: 222111<br/>nom_representante: FERNANDO<br/>ap_representante: PAREDES<br/>fono: 77777777<br/>correo: <br/>descripcion: <br/>tipo: ASOCIACIÓN<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:04:13<br/>updated_at: 2024-11-19 16:04:13<br/>', NULL, 'EMPRESA/SOCIEDAD', '2024-11-19', '16:04:17', '2024-11-19 20:04:17', '2024-11-19 20:04:17'),
+(12, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA EMPRESA/SOCIEDAD', 'id: 2<br/>razon_social: SOCIEDAD 1<br/>nit: 222233333<br/>nom_representante: FERNANDO<br/>ap_representante: PAREDES CHOQUE<br/>fono: 77766666<br/>correo: SOCIEDAD1@GMAIL.COM<br/>descripcion: <br/>tipo: ASOCIACIÓN<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:05:29<br/>updated_at: 2024-11-19 16:05:29<br/>', NULL, 'EMPRESA/SOCIEDAD', '2024-11-19', '16:05:29', '2024-11-19 20:05:29', '2024-11-19 20:05:29'),
+(13, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN CONDUCTOR', 'id: 1<br/>nombre: PEDRO<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 3333333<br/>ci_exp: LP<br/>nacionalidad: BOLIVIANO<br/>fecha_nac: 1990-01-01<br/>sexo: MASCULINO<br/>estado_civil: SOLTERO<br/>nro_licencia: 3333333<br/>categoria: C<br/>fecha_emision: 2023-01-01<br/>fecha_vencimiento: 2026-03-03<br/>fono: 77777777<br/>foto: 1732034697_1.jpg<br/>observacion: OBSERVACION CONDUCTOR<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:44:57<br/>updated_at: 2024-11-19 16:44:57<br/>', NULL, 'CONDUCTORES', '2024-11-19', '16:44:57', '2024-11-19 20:44:57', '2024-11-19 20:44:57'),
+(14, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CONDUCTOR', 'id: 1<br/>nombre: PEDRO<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 3333333<br/>ci_exp: LP<br/>nacionalidad: BOLIVIANO<br/>fecha_nac: 1990-01-01<br/>sexo: MASCULINO<br/>estado_civil: SOLTERO<br/>nro_licencia: 3333333<br/>categoria: C<br/>fecha_emision: 2023-01-01<br/>fecha_vencimiento: 2026-03-03<br/>fono: 77777777<br/>foto: 1732034697_1.jpg<br/>observacion: OBSERVACION CONDUCTOR<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:44:57<br/>updated_at: 2024-11-19 16:44:57<br/>', 'id: 1<br/>nombre: PEDROS<br/>paterno: MARTINEZS<br/>materno: MAMANIS<br/>ci: 33333331<br/>ci_exp: CB<br/>nacionalidad: BOLIVIANOS<br/>fecha_nac: 1991-01-01<br/>sexo: MASCULINOS<br/>estado_civil: SOLTEROS<br/>nro_licencia: 33333331<br/>categoria: C<br/>fecha_emision: 2023-01-01<br/>fecha_vencimiento: 2027-03-03<br/>fono: 777777771<br/>foto: 1732034697_1.jpg<br/>observacion: OBSERVACION CONDUCTORS<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:44:57<br/>updated_at: 2024-11-19 16:45:21<br/>', 'CONDUCTORES', '2024-11-19', '16:45:21', '2024-11-19 20:45:21', '2024-11-19 20:45:21'),
+(15, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CONDUCTOR', 'id: 1<br/>nombre: PEDROS<br/>paterno: MARTINEZS<br/>materno: MAMANIS<br/>ci: 33333331<br/>ci_exp: CB<br/>nacionalidad: BOLIVIANOS<br/>fecha_nac: 1991-01-01<br/>sexo: MASCULINOS<br/>estado_civil: SOLTEROS<br/>nro_licencia: 33333331<br/>categoria: C<br/>fecha_emision: 2023-01-01<br/>fecha_vencimiento: 2027-03-03<br/>fono: 777777771<br/>foto: 1732034697_1.jpg<br/>observacion: OBSERVACION CONDUCTORS<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:44:57<br/>updated_at: 2024-11-19 16:45:21<br/>', 'id: 1<br/>nombre: PEDRO<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 3333333<br/>ci_exp: LP<br/>nacionalidad: BOLIVIANO<br/>fecha_nac: 1991-01-01<br/>sexo: MASCULINO<br/>estado_civil: SOLTERO<br/>nro_licencia: 3333333<br/>categoria: C<br/>fecha_emision: 2023-01-01<br/>fecha_vencimiento: 2027-03-03<br/>fono: 77777777<br/>foto: 1732034697_1.jpg<br/>observacion: OBSERVACION CONDUCTOR<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:44:57<br/>updated_at: 2024-11-19 16:46:58<br/>', 'CONDUCTORES', '2024-11-19', '16:46:58', '2024-11-19 20:46:58', '2024-11-19 20:46:58'),
+(16, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN CONDUCTOR', 'id: 2<br/>nombre: ASD<br/>paterno: ASD<br/>materno: <br/>ci: 123213<br/>ci_exp: CB<br/>nacionalidad: ASD<br/>fecha_nac: 1990-01-01<br/>sexo: ASD<br/>estado_civil: QWEQWE<br/>nro_licencia: 123123<br/>categoria: D<br/>fecha_emision: <br/>fecha_vencimiento: 2024-03-03<br/>fono: 44444<br/>foto: <br/>observacion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:50:35<br/>updated_at: 2024-11-19 16:50:35<br/>', NULL, 'CONDUCTORES', '2024-11-19', '16:50:35', '2024-11-19 20:50:35', '2024-11-19 20:50:35'),
+(17, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CONDUCTOR', 'id: 2<br/>nombre: ASD<br/>paterno: ASD<br/>materno: <br/>ci: 123213<br/>ci_exp: CB<br/>nacionalidad: ASD<br/>fecha_nac: 1990-01-01<br/>sexo: ASD<br/>estado_civil: QWEQWE<br/>nro_licencia: 123123<br/>categoria: D<br/>fecha_emision: <br/>fecha_vencimiento: 2024-03-03<br/>fono: 44444<br/>foto: <br/>observacion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:50:35<br/>updated_at: 2024-11-19 16:50:35<br/>', 'id: 2<br/>nombre: ASD<br/>paterno: ASD<br/>materno: <br/>ci: 123213<br/>ci_exp: CB<br/>nacionalidad: ASD<br/>fecha_nac: 1990-01-01<br/>sexo: ASD<br/>estado_civil: QWEQWE<br/>nro_licencia: 123123<br/>categoria: D<br/>fecha_emision: <br/>fecha_vencimiento: 2024-03-03<br/>fono: 44444<br/>foto: <br/>observacion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:50:35<br/>updated_at: 2024-11-19 16:50:35<br/>', 'CONDUCTORES', '2024-11-19', '16:50:43', '2024-11-19 20:50:43', '2024-11-19 20:50:43'),
+(18, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN CONDUCTOR', 'id: 2<br/>nombre: ASD<br/>paterno: ASD<br/>materno: <br/>ci: 123213<br/>ci_exp: CB<br/>nacionalidad: ASD<br/>fecha_nac: 1990-01-01<br/>sexo: ASD<br/>estado_civil: QWEQWE<br/>nro_licencia: 123123<br/>categoria: D<br/>fecha_emision: <br/>fecha_vencimiento: 2024-03-03<br/>fono: 44444<br/>foto: <br/>observacion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:50:35<br/>updated_at: 2024-11-19 16:50:35<br/>', NULL, 'CONDUCTORES', '2024-11-19', '16:50:59', '2024-11-19 20:50:59', '2024-11-19 20:50:59');
 
 -- --------------------------------------------------------
 
@@ -297,6 +330,15 @@ CREATE TABLE `proveedors` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `proveedors`
+--
+
+INSERT INTO `proveedors` (`id`, `razon_social`, `descripcion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 'PROVEEDOR 1', 'DESC. 1', '2024-11-19', '2024-11-19 19:44:13', '2024-11-19 19:44:13'),
+(2, 'PROVEEDOR 2', '', '2024-11-19', '2024-11-19 19:46:05', '2024-11-19 19:46:05'),
+(3, 'PROVEEDOR 3', '', '2024-11-19', '2024-11-19 19:46:47', '2024-11-19 19:46:47');
 
 -- --------------------------------------------------------
 
@@ -557,7 +599,7 @@ ALTER TABLE `asignacion_detalles`
 -- AUTO_INCREMENT de la tabla `conductors`
 --
 ALTER TABLE `conductors`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracions`
@@ -581,13 +623,13 @@ ALTER TABLE `contrato_detalles`
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -617,7 +659,7 @@ ALTER TABLE `programacions`
 -- AUTO_INCREMENT de la tabla `proveedors`
 --
 ALTER TABLE `proveedors`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

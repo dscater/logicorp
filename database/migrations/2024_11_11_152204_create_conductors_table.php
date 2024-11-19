@@ -24,10 +24,11 @@ return new class extends Migration
             $table->string("estado_civil");
             $table->string("nro_licencia");
             $table->string("categoria");
-            $table->date("fecha_emision");
+            $table->date("fecha_emision")->nullable();
             $table->date("fecha_vencimiento");
             $table->string("fono");
             $table->string("foto")->nullable();
+            $table->string("observacion")->nullable();
             $table->date("fecha_registro")->nullable();
             $table->timestamps();
         });
