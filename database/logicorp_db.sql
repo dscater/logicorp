@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 19-11-2024 a las 19:32:08
+-- Tiempo de generación: 19-11-2024 a las 21:56:34
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -222,7 +222,17 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (15, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CONDUCTOR', 'id: 1<br/>nombre: PEDROS<br/>paterno: MARTINEZS<br/>materno: MAMANIS<br/>ci: 33333331<br/>ci_exp: CB<br/>nacionalidad: BOLIVIANOS<br/>fecha_nac: 1991-01-01<br/>sexo: MASCULINOS<br/>estado_civil: SOLTEROS<br/>nro_licencia: 33333331<br/>categoria: C<br/>fecha_emision: 2023-01-01<br/>fecha_vencimiento: 2027-03-03<br/>fono: 777777771<br/>foto: 1732034697_1.jpg<br/>observacion: OBSERVACION CONDUCTORS<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:44:57<br/>updated_at: 2024-11-19 16:45:21<br/>', 'id: 1<br/>nombre: PEDRO<br/>paterno: MARTINEZ<br/>materno: MAMANI<br/>ci: 3333333<br/>ci_exp: LP<br/>nacionalidad: BOLIVIANO<br/>fecha_nac: 1991-01-01<br/>sexo: MASCULINO<br/>estado_civil: SOLTERO<br/>nro_licencia: 3333333<br/>categoria: C<br/>fecha_emision: 2023-01-01<br/>fecha_vencimiento: 2027-03-03<br/>fono: 77777777<br/>foto: 1732034697_1.jpg<br/>observacion: OBSERVACION CONDUCTOR<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:44:57<br/>updated_at: 2024-11-19 16:46:58<br/>', 'CONDUCTORES', '2024-11-19', '16:46:58', '2024-11-19 20:46:58', '2024-11-19 20:46:58'),
 (16, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN CONDUCTOR', 'id: 2<br/>nombre: ASD<br/>paterno: ASD<br/>materno: <br/>ci: 123213<br/>ci_exp: CB<br/>nacionalidad: ASD<br/>fecha_nac: 1990-01-01<br/>sexo: ASD<br/>estado_civil: QWEQWE<br/>nro_licencia: 123123<br/>categoria: D<br/>fecha_emision: <br/>fecha_vencimiento: 2024-03-03<br/>fono: 44444<br/>foto: <br/>observacion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:50:35<br/>updated_at: 2024-11-19 16:50:35<br/>', NULL, 'CONDUCTORES', '2024-11-19', '16:50:35', '2024-11-19 20:50:35', '2024-11-19 20:50:35'),
 (17, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CONDUCTOR', 'id: 2<br/>nombre: ASD<br/>paterno: ASD<br/>materno: <br/>ci: 123213<br/>ci_exp: CB<br/>nacionalidad: ASD<br/>fecha_nac: 1990-01-01<br/>sexo: ASD<br/>estado_civil: QWEQWE<br/>nro_licencia: 123123<br/>categoria: D<br/>fecha_emision: <br/>fecha_vencimiento: 2024-03-03<br/>fono: 44444<br/>foto: <br/>observacion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:50:35<br/>updated_at: 2024-11-19 16:50:35<br/>', 'id: 2<br/>nombre: ASD<br/>paterno: ASD<br/>materno: <br/>ci: 123213<br/>ci_exp: CB<br/>nacionalidad: ASD<br/>fecha_nac: 1990-01-01<br/>sexo: ASD<br/>estado_civil: QWEQWE<br/>nro_licencia: 123123<br/>categoria: D<br/>fecha_emision: <br/>fecha_vencimiento: 2024-03-03<br/>fono: 44444<br/>foto: <br/>observacion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:50:35<br/>updated_at: 2024-11-19 16:50:35<br/>', 'CONDUCTORES', '2024-11-19', '16:50:43', '2024-11-19 20:50:43', '2024-11-19 20:50:43'),
-(18, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN CONDUCTOR', 'id: 2<br/>nombre: ASD<br/>paterno: ASD<br/>materno: <br/>ci: 123213<br/>ci_exp: CB<br/>nacionalidad: ASD<br/>fecha_nac: 1990-01-01<br/>sexo: ASD<br/>estado_civil: QWEQWE<br/>nro_licencia: 123123<br/>categoria: D<br/>fecha_emision: <br/>fecha_vencimiento: 2024-03-03<br/>fono: 44444<br/>foto: <br/>observacion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:50:35<br/>updated_at: 2024-11-19 16:50:35<br/>', NULL, 'CONDUCTORES', '2024-11-19', '16:50:59', '2024-11-19 20:50:59', '2024-11-19 20:50:59');
+(18, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN CONDUCTOR', 'id: 2<br/>nombre: ASD<br/>paterno: ASD<br/>materno: <br/>ci: 123213<br/>ci_exp: CB<br/>nacionalidad: ASD<br/>fecha_nac: 1990-01-01<br/>sexo: ASD<br/>estado_civil: QWEQWE<br/>nro_licencia: 123123<br/>categoria: D<br/>fecha_emision: <br/>fecha_vencimiento: 2024-03-03<br/>fono: 44444<br/>foto: <br/>observacion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 16:50:35<br/>updated_at: 2024-11-19 16:50:35<br/>', NULL, 'CONDUCTORES', '2024-11-19', '16:50:59', '2024-11-19 20:50:59', '2024-11-19 20:50:59'),
+(19, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN CONDUCTOR', 'id: 2<br/>marca: MARCA 1<br/>modelo: MODELO 1<br/>anio: 2024<br/>placa: 2009 EFEE<br/>nro_chasis: 21122<br/>color: NEGRO<br/>foto: 1732052725_2.jpg<br/>descripcion: <br/>nro_bin: BIN1213123<br/>nro_cha_tanque: 13123132<br/>marca_tanque: SOSO22<br/>capacidad_tanque: 80 LTS<br/>nro_compartamiento: 22<br/>volumen_tanque: 80 LTS<br/>ejes_tanque: 3<br/>nro_precientos: 3<br/>tipo_tanque: TIPO TANQUE<br/>conductor_id: 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:45:25<br/>updated_at: 2024-11-19 21:45:25<br/>', NULL, 'CONDUCTORES', '2024-11-19', '21:45:25', '2024-11-20 01:45:25', '2024-11-20 01:45:25'),
+(20, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CONDUCTOR', 'id: 2<br/>marca: MARCA 1<br/>modelo: MODELO 1<br/>anio: 2024<br/>placa: 2009 EFEE<br/>nro_chasis: 21122<br/>color: NEGRO<br/>foto: 1732052725_2.jpg<br/>descripcion: <br/>nro_bin: BIN1213123<br/>nro_cha_tanque: 13123132<br/>marca_tanque: SOSO22<br/>capacidad_tanque: 80 LTS<br/>nro_compartamiento: 22<br/>volumen_tanque: 80 LTS<br/>ejes_tanque: 3<br/>nro_precientos: 3<br/>tipo_tanque: TIPO TANQUE<br/>conductor_id: 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:45:25<br/>updated_at: 2024-11-19 21:45:25<br/>', 'id: 2<br/>marca: MARCA 1<br/>modelo: MODELO 1<br/>anio: 2024<br/>placa: 2009 EFEE<br/>nro_chasis: 21122<br/>color: NEGRO<br/>foto: 1732052725_2.jpg<br/>descripcion: DESCRIPCION<br/>nro_bin: BIN1213123<br/>nro_cha_tanque: 13123132<br/>marca_tanque: SOSO22<br/>capacidad_tanque: 80 LTS<br/>nro_compartamiento: 22<br/>volumen_tanque: 80 LTS<br/>ejes_tanque: 3<br/>nro_precientos: 3<br/>tipo_tanque: TIPO TANQUE<br/>conductor_id: 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:45:25<br/>updated_at: 2024-11-19 21:46:11<br/>', 'CONDUCTORES', '2024-11-19', '21:46:11', '2024-11-20 01:46:11', '2024-11-20 01:46:11'),
+(21, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN CONDUCTOR', 'id: 3<br/>marca: AASD<br/>modelo: ASD<br/>anio: ASDAD<br/>placa: ADS<br/>nro_chasis: ASD<br/>color: ASD<br/>foto: <br/>descripcion: <br/>nro_bin: <br/>nro_cha_tanque: <br/>marca_tanque: <br/>capacidad_tanque: <br/>nro_compartamiento: <br/>volumen_tanque: 30 LTS<br/>ejes_tanque: <br/>nro_precientos: <br/>tipo_tanque: <br/>conductor_id: 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:46:28<br/>updated_at: 2024-11-19 21:46:28<br/>', NULL, 'CONDUCTORES', '2024-11-19', '21:46:28', '2024-11-20 01:46:28', '2024-11-20 01:46:28'),
+(22, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CONDUCTOR', 'id: 2<br/>marca: MARCA 1<br/>modelo: MODELO 1<br/>anio: 2024<br/>placa: 2009 EFEE<br/>nro_chasis: 21122<br/>color: NEGRO<br/>foto: 1732052725_2.jpg<br/>descripcion: DESCRIPCION<br/>nro_bin: BIN1213123<br/>nro_cha_tanque: 13123132<br/>marca_tanque: SOSO22<br/>capacidad_tanque: 80 LTS<br/>nro_compartamiento: 22<br/>volumen_tanque: 80 LTS<br/>ejes_tanque: 3<br/>nro_precientos: 3<br/>tipo_tanque: TIPO TANQUE<br/>conductor_id: 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:45:25<br/>updated_at: 2024-11-19 21:46:11<br/>', 'id: 2<br/>marca: MARCA 1<br/>modelo: MODELO 1<br/>anio: 2024<br/>placa: 2009 EFEE<br/>nro_chasis: 21122<br/>color: NEGRO<br/>foto: 1732052725_2.jpg<br/>descripcion: DESCRIPCION<br/>nro_bin: BIN1213123<br/>nro_cha_tanque: 13123132<br/>marca_tanque: SOSO22<br/>capacidad_tanque: 80 LTS<br/>nro_compartamiento: 22<br/>volumen_tanque: 80 LTS<br/>ejes_tanque: 3<br/>nro_precientos: 3<br/>tipo_tanque: TIPO TANQUE<br/>conductor_id: 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:45:25<br/>updated_at: 2024-11-19 21:46:11<br/>', 'CONDUCTORES', '2024-11-19', '21:47:25', '2024-11-20 01:47:25', '2024-11-20 01:47:25'),
+(23, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN CONDUCTOR', 'id: 3<br/>marca: AASD<br/>modelo: ASD<br/>anio: ASDAD<br/>placa: ADS<br/>nro_chasis: ASD<br/>color: ASD<br/>foto: <br/>descripcion: <br/>nro_bin: <br/>nro_cha_tanque: <br/>marca_tanque: <br/>capacidad_tanque: <br/>nro_compartamiento: <br/>volumen_tanque: 30 LTS<br/>ejes_tanque: <br/>nro_precientos: <br/>tipo_tanque: <br/>conductor_id: 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:46:28<br/>updated_at: 2024-11-19 21:46:28<br/>', NULL, 'CONDUCTORES', '2024-11-19', '21:49:30', '2024-11-20 01:49:30', '2024-11-20 01:49:30'),
+(24, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PROVEEDOR', 'id: 1<br/>nombre: PRODUCTO 1<br/>descripcion: DESC. 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:07<br/>updated_at: 2024-11-19 21:55:07<br/>', NULL, 'PROVEEDORES', '2024-11-19', '21:55:07', '2024-11-20 01:55:07', '2024-11-20 01:55:07'),
+(25, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PROVEEDOR', 'id: 1<br/>nombre: PRODUCTO 1<br/>descripcion: DESC. 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:07<br/>updated_at: 2024-11-19 21:55:07<br/>', 'id: 1<br/>nombre: PRODUCTO 1S<br/>descripcion: DESC. 1S<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:07<br/>updated_at: 2024-11-19 21:55:11<br/>', 'PROVEEDORES', '2024-11-19', '21:55:11', '2024-11-20 01:55:11', '2024-11-20 01:55:11'),
+(26, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PROVEEDOR', 'id: 1<br/>nombre: PRODUCTO 1S<br/>descripcion: DESC. 1S<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:07<br/>updated_at: 2024-11-19 21:55:11<br/>', 'id: 1<br/>nombre: PRODUCTO 1<br/>descripcion: DESC. 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:07<br/>updated_at: 2024-11-19 21:55:17<br/>', 'PROVEEDORES', '2024-11-19', '21:55:17', '2024-11-20 01:55:17', '2024-11-20 01:55:17'),
+(27, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PROVEEDOR', 'id: 2<br/>nombre: PRODUCTO 2<br/>descripcion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:23<br/>updated_at: 2024-11-19 21:55:23<br/>', NULL, 'PROVEEDORES', '2024-11-19', '21:55:23', '2024-11-20 01:55:23', '2024-11-20 01:55:23'),
+(28, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN PROVEEDOR', 'id: 2<br/>nombre: PRODUCTO 2<br/>descripcion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:23<br/>updated_at: 2024-11-19 21:55:23<br/>', NULL, 'PROVEEDORES', '2024-11-19', '21:55:26', '2024-11-20 01:55:26', '2024-11-20 01:55:26');
 
 -- --------------------------------------------------------
 
@@ -291,6 +301,13 @@ CREATE TABLE `productos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 'PRODUCTO 1', 'DESC. 1', '2024-11-19', '2024-11-20 01:55:07', '2024-11-20 01:55:17');
 
 -- --------------------------------------------------------
 
@@ -394,17 +411,23 @@ CREATE TABLE `vehiculos` (
   `nro_cha_tanque` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `marca_tanque` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `capacidad_tanque` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `nro_comportamiento` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nro_compartamiento` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `volumen_tanque` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ejes_tanque` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nro_precientos` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tipo_tanque` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `conductor_id` bigint UNSIGNED NOT NULL,
-  `observacion` varchar(600) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fecha_registro` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `vehiculos`
+--
+
+INSERT INTO `vehiculos` (`id`, `marca`, `modelo`, `anio`, `placa`, `nro_chasis`, `color`, `foto`, `descripcion`, `nro_bin`, `nro_cha_tanque`, `marca_tanque`, `capacidad_tanque`, `nro_compartamiento`, `volumen_tanque`, `ejes_tanque`, `nro_precientos`, `tipo_tanque`, `conductor_id`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(2, 'MARCA 1', 'MODELO 1', '2024', '2009 EFEE', '21122', 'NEGRO', '1732052725_2.jpg', 'DESCRIPCION', 'BIN1213123', '13123132', 'SOSO22', '80 LTS', '22', '80 LTS', '3', '3', 'TIPO TANQUE', 1, '2024-11-19', '2024-11-20 01:45:25', '2024-11-20 01:46:11');
 
 -- --------------------------------------------------------
 
@@ -629,7 +652,7 @@ ALTER TABLE `empresas`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -647,7 +670,7 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `programacions`
@@ -671,7 +694,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `viajes`

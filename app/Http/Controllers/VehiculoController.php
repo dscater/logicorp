@@ -14,35 +14,27 @@ use Inertia\Inertia;
 class VehiculoController extends Controller
 {
     public $validacion = [
-        "nombre" => "required",
-        "paterno" => "required",
-        "ci" => "required|numeric",
-        "ci_exp" => "required",
-        "nacionalidad" => "required",
-        "fecha_nac" => "required|date",
-        "sexo" => "required",
-        "estado_civil" => "required",
-        "nro_licencia" => "required",
-        "categoria" => "required",
-        "fecha_vencimiento" => "required",
-        "fono" => "required",
+        "marca" => "required",
+        "modelo" => "required",
+        "anio" => "required",
+        "placa" => "required",
+        "nro_chasis" => "required",
+        "color" => "required",
+        "volumen_tanque" => "required",
+        "conductor_id" => "required",
     ];
 
     public $mensajes = [
-        "nombre.required" => "Este campo es obligatorio",
-        "paterno.required" => "Este campo es obligatorio",
-        "ci.required" => "Este campo es obligatorio",
-        "ci.numeric" => "Debes ingresar un valor númerico",
-        "ci_exp.required" => "Este campo es obligatorio",
-        "nacionalidad.required" => "Este campo es obligatorio",
-        "fecha_nac.required" => "Este campo es obligatorio",
-        "sexo.required" => "Este campo es obligatorio",
-        "estado_civil.required" => "Este campo es obligatorio",
-        "nro_licencia.required" => "Este campo es obligatorio",
-        "categoria.required" => "Este campo es obligatorio",
-        "fecha_vencimiento.required" => "Este campo es obligatorio",
-        "fono.required" => "Este campo es obligatorio",
+        "marca.required" => "Este campo es obligatorio",
+        "modelo.required" => "Este campo es obligatorio",
+        "anio.required" => "Este campo es obligatorio",
+        "placa.required" => "Este campo es obligatorio",
+        "nro_chasis.required" => "Este campo es obligatorio",
+        "color.required" => "Este campo es obligatorio",
+        "volumen_tanque.required" => "Este campo es obligatorio",
+        "conductor_id.required" => "Este campo es obligatorio",
     ];
+
 
     public function index()
     {
@@ -59,7 +51,7 @@ class VehiculoController extends Controller
 
     public function api(Request $request)
     {
-        $vehiculos = Vehiculo::select("vehiculos.*");
+        $vehiculos = Vehiculo::with(["conductor"])->select("vehiculos.*");
         $vehiculos = $vehiculos->get();
         return response()->JSON(["data" => $vehiculos]);
     }
@@ -84,9 +76,6 @@ class VehiculoController extends Controller
         if ($request->hasFile('foto')) {
             $this->validacion['foto'] = 'image|mimes:jpeg,jpg,png|max:4096';
         }
-        if (!$request->fecha_emision) {
-            unset($request["fecha_emision"]);
-        }
 
         $request->validate($this->validacion, $this->mensajes);
 
@@ -96,15 +85,11 @@ class VehiculoController extends Controller
             $request["fecha_registro"] = date("Y-m-d");
             $nuevo_vehiculo = Vehiculo::create(array_map('mb_strtoupper', $request->except("foto")));
 
-            if (!$request->fecha_emision) {
-                $nuevo_vehiculo->fecha_emision = null;
-            }
-
             if ($request->hasFile('foto')) {
                 $file = $request->foto;
                 $nom_foto = time() . '_' . $nuevo_vehiculo->id . '.' . $file->getClientOriginalExtension();
                 $nuevo_vehiculo->foto = $nom_foto;
-                $file->move(public_path() . '/imgs/users/', $nom_foto);
+                $file->move(public_path() . '/imgs/vehiculos/', $nom_foto);
             }
             $nuevo_vehiculo->save();
 
@@ -140,9 +125,6 @@ class VehiculoController extends Controller
             $this->validacion['foto'] = 'image|mimes:jpeg,jpg,png|max:4096';
         }
 
-        if (!$request->fecha_emision) {
-            unset($request["fecha_emision"]);
-        }
         $request->validate($this->validacion, $this->mensajes);
         DB::beginTransaction();
         try {
@@ -152,12 +134,12 @@ class VehiculoController extends Controller
             if ($request->hasFile('foto')) {
                 $antiguo = $vehiculo->foto;
                 if ($antiguo != 'default.png') {
-                    \File::delete(public_path() . '/imgs/users/' . $antiguo);
+                    \File::delete(public_path() . '/imgs/vehiculos/' . $antiguo);
                 }
                 $file = $request->foto;
                 $nom_foto = time() . '_' . $vehiculo->id . '.' . $file->getClientOriginalExtension();
                 $vehiculo->foto = $nom_foto;
-                $file->move(public_path() . '/imgs/users/', $nom_foto);
+                $file->move(public_path() . '/imgs/vehiculos/', $nom_foto);
             }
             $vehiculo->save();
 

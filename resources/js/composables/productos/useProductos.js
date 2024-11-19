@@ -2,37 +2,21 @@ import axios from "axios";
 import { onMounted, ref } from "vue";
 import { usePage } from "@inertiajs/vue3";
 
-const oVehiculo = ref({
+const oProducto = ref({
     id: 0,
-    marca: "",
-    modelo: "",
-    anio: "",
-    placa: "",
-    nro_chasis: "",
-    color: "",
-    foto: null,
+    nombre: "",
     descripcion: "",
-    nro_bin: "",
-    nro_cha_tanque: "",
-    marca_tanque: "",
-    capacidad_tanque: "",
-    nro_compartamiento: "",
-    volumen_tanque: "",
-    ejes_tanque: "",
-    nro_precientos: "",
-    tipo_tanque: "",
-    conductor_id: "",
     _method: "POST",
 });
 
-export const useVehiculos = () => {
+export const useProductos = () => {
     const { flash } = usePage().props;
-    const getVehiculos = async () => {
+    const getProductos = async () => {
         try {
-            const response = await axios.get(route("vehiculos.listado"), {
+            const response = await axios.get(route("productos.listado"), {
                 headers: { Accept: "application/json" },
             });
-            return response.data.vehiculos;
+            return response.data.productos;
         } catch (err) {
             Swal.fire({
                 icon: "error",
@@ -51,28 +35,28 @@ export const useVehiculos = () => {
         }
     };
 
-    const getVehiculosByTipo = async (data) => {
+    const getProductosByTipo = async (data) => {
         try {
-            const response = await axios.get(route("vehiculos.byTipo"), {
+            const response = await axios.get(route("productos.byTipo"), {
                 headers: { Accept: "application/json" },
                 params: data,
             });
-            return response.data.vehiculos;
+            return response.data.productos;
         } catch (error) {
             console.error("Error:", error);
             throw error; // Puedes manejar el error según tus necesidades
         }
     };
 
-    const getVehiculosApi = async (data) => {
+    const getProductosApi = async (data) => {
         try {
             const response = await axios.get(
-                route("vehiculos.paginado", data),
+                route("productos.paginado", data),
                 {
                     headers: { Accept: "application/json" },
                 }
             );
-            return response.data.vehiculos;
+            return response.data.productos;
         } catch (err) {
             Swal.fire({
                 icon: "error",
@@ -90,9 +74,9 @@ export const useVehiculos = () => {
             throw err; // Puedes manejar el error según tus necesidades
         }
     };
-    const saveVehiculo = async (data) => {
+    const saveProducto = async (data) => {
         try {
-            const response = await axios.post(route("vehiculos.store", data), {
+            const response = await axios.post(route("productos.store", data), {
                 headers: { Accept: "application/json" },
             });
             Swal.fire({
@@ -121,10 +105,10 @@ export const useVehiculos = () => {
         }
     };
 
-    const deleteVehiculo = async (id) => {
+    const deleteProducto = async (id) => {
         try {
             const response = await axios.delete(
-                route("vehiculos.destroy", id),
+                route("productos.destroy", id),
                 {
                     headers: { Accept: "application/json" },
                 }
@@ -155,66 +139,34 @@ export const useVehiculos = () => {
         }
     };
 
-    const setVehiculo = (item = null) => {
+    const setProducto = (item = null) => {
         if (item) {
-            oVehiculo.value.id = item.id;
-            oVehiculo.value.marca = item.marca;
-            oVehiculo.value.modelo = item.modelo;
-            oVehiculo.value.anio = item.anio;
-            oVehiculo.value.placa = item.placa;
-            oVehiculo.value.nro_chasis = item.nro_chasis;
-            oVehiculo.value.color = item.color;
-            oVehiculo.value.foto = item.foto;
-            oVehiculo.value.descripcion = item.descripcion;
-            oVehiculo.value.nro_bin = item.nro_bin;
-            oVehiculo.value.nro_cha_tanque = item.nro_cha_tanque;
-            oVehiculo.value.marca_tanque = item.marca_tanque;
-            oVehiculo.value.capacidad_tanque = item.capacidad_tanque;
-            oVehiculo.value.nro_compartamiento = item.nro_compartamiento;
-            oVehiculo.value.volumen_tanque = item.volumen_tanque;
-            oVehiculo.value.ejes_tanque = item.ejes_tanque;
-            oVehiculo.value.nro_precientos = item.nro_precientos;
-            oVehiculo.value.tipo_tanque = item.tipo_tanque;
-            oVehiculo.value.conductor_id = item.conductor_id;
-            oVehiculo.value._method = "PUT";
-            return oVehiculo;
+            oProducto.value.id = item.id;
+            oProducto.value.nombre = item.nombre;
+            oProducto.value.descripcion = item.descripcion;
+            oProducto.value._method = "PUT";
+            return oProducto;
         }
         return false;
     };
 
-    const limpiarVehiculo = () => {
-        oVehiculo.value.id = 0;
-        oVehiculo.value.marca = "";
-        oVehiculo.value.modelo = "";
-        oVehiculo.value.anio = "";
-        oVehiculo.value.placa = "";
-        oVehiculo.value.nro_chasis = "";
-        oVehiculo.value.color = "";
-        oVehiculo.value.foto = null;
-        oVehiculo.value.descripcion = "";
-        oVehiculo.value.nro_bin = "";
-        oVehiculo.value.nro_cha_tanque = "";
-        oVehiculo.value.marca_tanque = "";
-        oVehiculo.value.capacidad_tanque = "";
-        oVehiculo.value.nro_compartamiento = "";
-        oVehiculo.value.volumen_tanque = "";
-        oVehiculo.value.ejes_tanque = "";
-        oVehiculo.value.nro_precientos = "";
-        oVehiculo.value.tipo_tanque = "";
-        oVehiculo.value.conductor_id = "";
-        oVehiculo.value._method = "POST";
+    const limpiarProducto = () => {
+        oProducto.value.id = 0;
+        oProducto.value.nombre = "";
+        oProducto.value.descripcion = "";
+        oProducto.value._method = "POST";
     };
 
     onMounted(() => {});
 
     return {
-        oVehiculo,
-        getVehiculos,
-        getVehiculosApi,
-        saveVehiculo,
-        deleteVehiculo,
-        setVehiculo,
-        limpiarVehiculo,
-        getVehiculosByTipo,
+        oProducto,
+        getProductos,
+        getProductosApi,
+        saveProducto,
+        deleteProducto,
+        setProducto,
+        limpiarProducto,
+        getProductosByTipo,
     };
 };

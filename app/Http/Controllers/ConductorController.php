@@ -97,10 +97,6 @@ class ConductorController extends Controller
             $request["fecha_registro"] = date("Y-m-d");
             $nuevo_conductor = Conductor::create(array_map('mb_strtoupper', $request->except("foto")));
 
-            if (!$request->fecha_emision) {
-                $nuevo_conductor->fecha_emision = null;
-            }
-
             if ($request->hasFile('foto')) {
                 $file = $request->foto;
                 $nom_foto = time() . '_' . $nuevo_conductor->id . '.' . $file->getClientOriginalExtension();
@@ -149,6 +145,10 @@ class ConductorController extends Controller
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($conductor, "conductors");
             $conductor->update(array_map('mb_strtoupper', $request->except("foto")));
+
+            if (!$request->fecha_emision) {
+                $conductor->fecha_emision = null;
+            }
 
             if ($request->hasFile('foto')) {
                 $antiguo = $conductor->foto;

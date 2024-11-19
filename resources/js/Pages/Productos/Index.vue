@@ -7,7 +7,7 @@ const breadbrums = [
         name_url: "inicio",
     },
     {
-        title: "Vehículos",
+        title: "Productos",
         disabled: false,
         url: "",
         name_url: "",
@@ -17,7 +17,7 @@ const breadbrums = [
 <script setup>
 import { useApp } from "@/composables/useApp";
 import { Head, Link } from "@inertiajs/vue3";
-import { useVehiculos } from "@/composables/vehiculos/useVehiculos";
+import { useProductos } from "@/composables/productos/useProductos";
 import { initDataTable } from "@/composables/datatable.js";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import PanelToolbar from "@/Components/PanelToolbar.vue";
@@ -29,8 +29,8 @@ onMounted(() => {
     }, 300);
 });
 
-const { getVehiculos, setVehiculo, limpiarVehiculo, deleteVehiculo } =
-    useVehiculos();
+const { getProductos, setProducto, limpiarProducto, deleteProducto } =
+    useProductos();
 
 const columns = [
     {
@@ -38,79 +38,12 @@ const columns = [
         data: "id",
     },
     {
-        title: "",
-        data: "url_foto",
-        render: function (data, type, row) {
-            return `<img src="${data}" class="rounded h-30px my-n1 mx-n1"/>`;
-        },
-    },
-    {
-        title: "MARCA",
-        data: "marca",
-    },
-    {
-        title: "MODELO",
-        data: "modelo",
-    },
-    {
-        title: "AÑO",
-        data: "anio",
-    },
-    {
-        title: "PLACA",
-        data: "placa",
-    },
-    {
-        title: "NRO. DE CHASIS",
-        data: "nro_chasis",
-    },
-    {
-        title: "COLOR",
-        data: "color",
+        title: "NOMBRE DE PRODUCTO",
+        data: "nombre",
     },
     {
         title: "DESCRIPCIÓN",
         data: "descripcion",
-    },
-    {
-        title: "NRO. BIN",
-        data: "nro_bin",
-    },
-    {
-        title: "NRO. CHASIS TANQUE",
-        data: "nro_cha_tanque",
-    },
-    {
-        title: "MARCA TANQUE",
-        data: "marca_tanque",
-    },
-    {
-        title: "CAPACIDAD",
-        data: "capacidad_tanque",
-    },
-    {
-        title: "NRO. COMPARTIMIENTO",
-        data: "nro_compartamiento",
-    },
-    {
-        title: "VOLUMEN (LITROS)",
-        data: "volumen_tanque",
-    },
-    {
-        title: "EJES",
-        data: "ejes_tanque",
-    },
-    {
-        title: "NRO. PRECIENTOS",
-        data: "nro_precientos",
-    },
-    {
-        title: "TIPO",
-        data: "tipo_tanque",
-    },
-    {
-        title: "CONDUCTOR",
-        data: "conductor.full_name",
     },
     {
         title: "FECHA DE REGISTRO",
@@ -126,9 +59,9 @@ const columns = [
                 }"><i class="fa fa-edit"></i></button>
                 <button class="mx-0 rounded-0 btn btn-danger eliminar"
                  data-id="${row.id}" 
-                 data-nombre="${row.full_name}" 
+                 data-nombre="${row.nombre}" 
                  data-url="${route(
-                     "vehiculos.destroy",
+                     "productos.destroy",
                      row.id
                  )}"><i class="fa fa-trash"></i></button>
             `;
@@ -140,24 +73,24 @@ const accion_dialog = ref(0);
 const open_dialog = ref(false);
 
 const agregarRegistro = () => {
-    limpiarVehiculo();
+    limpiarProducto();
     accion_dialog.value = 0;
     open_dialog.value = true;
 };
 
 const accionesRow = () => {
     // editar
-    $("#table-vehiculo").on("click", "button.editar", function (e) {
+    $("#table-producto").on("click", "button.editar", function (e) {
         e.preventDefault();
         let id = $(this).attr("data-id");
-        axios.get(route("vehiculos.show", id)).then((response) => {
-            setVehiculo(response.data);
+        axios.get(route("productos.show", id)).then((response) => {
+            setProducto(response.data);
             accion_dialog.value = 1;
             open_dialog.value = true;
         });
     });
     // eliminar
-    $("#table-vehiculo").on("click", "button.eliminar", function (e) {
+    $("#table-producto").on("click", "button.eliminar", function (e) {
         e.preventDefault();
         let nombre = $(this).attr("data-nombre");
         let id = $(this).attr("data-id");
@@ -172,7 +105,7 @@ const accionesRow = () => {
         }).then(async (result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                let respuesta = await deleteVehiculo(id);
+                let respuesta = await deleteProducto(id);
                 if (respuesta && respuesta.sw) {
                     updateDatatable();
                 }
@@ -189,9 +122,9 @@ const updateDatatable = () => {
 
 onMounted(async () => {
     datatable = initDataTable(
-        "#table-vehiculo",
+        "#table-producto",
         columns,
-        route("vehiculos.api")
+        route("productos.api")
     );
     datatableInitialized.value = true;
     accionesRow();
@@ -206,16 +139,16 @@ onBeforeUnmount(() => {
 });
 </script>
 <template>
-    <Head title="Vehículos"></Head>
+    <Head title="Productos"></Head>
 
     <!-- BEGIN breadcrumb -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javascript:;">Inicio</a></li>
-        <li class="breadcrumb-item active">Vehículos</li>
+        <li class="breadcrumb-item active">Productos</li>
     </ol>
     <!-- END breadcrumb -->
     <!-- BEGIN page-header -->
-    <h1 class="page-header">Vehículos</h1>
+    <h1 class="page-header">Productos</h1>
     <!-- END page-header -->
 
     <div class="row">
@@ -242,23 +175,13 @@ onBeforeUnmount(() => {
                 <!-- BEGIN panel-body -->
                 <div class="panel-body">
                     <table
-                        id="table-vehiculo"
+                        id="table-producto"
                         width="100%"
                         class="table table-striped table-bordered align-middle text-nowrap tabla_datos"
                     >
                         <thead>
                             <tr>
                                 <th width="2%"></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>

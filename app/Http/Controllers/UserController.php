@@ -37,6 +37,11 @@ class UserController extends Controller
             "vehiculos.edit",
             "vehiculos.destroy",
 
+            "productos.index",
+            "productos.create",
+            "productos.edit",
+            "productos.destroy",
+
             "configuracions.index",
             "configuracions.create",
             "configuracions.edit",

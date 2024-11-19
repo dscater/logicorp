@@ -4,6 +4,7 @@ use App\Http\Controllers\ConductorController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ReporteController;
@@ -93,6 +94,15 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("vehiculos/listado", [VehiculoController::class, 'listado'])->name("vehiculos.listado");
     Route::get("vehiculos/info/{urbanizacion}", [VehiculoController::class, 'info'])->name("vehiculos.info");
     Route::resource("vehiculos", VehiculoController::class)->only(
+        ["index", "store", "update", "show", "destroy"]
+    );
+
+    // PRODUCTOS
+    Route::get("productos/api", [ProductoController::class, 'api'])->name("productos.api");
+    Route::get("productos/paginado", [ProductoController::class, 'paginado'])->name("productos.paginado");
+    Route::get("productos/listado", [ProductoController::class, 'listado'])->name("productos.listado");
+    Route::get("productos/info/{urbanizacion}", [ProductoController::class, 'info'])->name("productos.info");
+    Route::resource("productos", ProductoController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
 
