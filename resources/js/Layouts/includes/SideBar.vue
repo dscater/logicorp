@@ -532,32 +532,34 @@ const logout = () => {
                     </a>
                 </div>
                 <div
+                    v-if="user_logeado.permisos.includes('asignacions.index')"
                     class="menu-item"
                     :class="[
                         route_current == 'asignacions.index' ? 'active' : '',
                     ]"
                 >
-                    <a href="" class="menu-link">
+                    <Link :href="route('asignacions.index')" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-clipboard-list"></i>
                         </div>
                         <div class="menu-text">
                             Asignación de Empresas/Sociedad
                         </div>
-                    </a>
+                    </Link>
                 </div>
                 <div
+                    v-if="user_logeado.permisos.includes('contratos.index')"
                     class="menu-item"
                     :class="[
                         route_current == 'contratos.index' ? 'active' : '',
                     ]"
                 >
-                    <a href="" class="menu-link">
+                    <Link :href="route('contratos.index')" class="menu-link">
                         <div class="menu-icon">
                             <i class="fa fa-clipboard-list"></i>
                         </div>
                         <div class="menu-text">Contratos</div>
-                    </a>
+                    </Link>
                 </div>
                 <div
                     v-if="user_logeado.permisos.includes('productos.index')"

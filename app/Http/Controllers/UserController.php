@@ -42,6 +42,16 @@ class UserController extends Controller
             "productos.edit",
             "productos.destroy",
 
+            "contratos.index",
+            "contratos.create",
+            "contratos.edit",
+            "contratos.destroy",
+
+            "asignacions.index",
+            "asignacions.create",
+            "asignacions.edit",
+            "asignacions.destroy",
+
             "configuracions.index",
             "configuracions.create",
             "configuracions.edit",

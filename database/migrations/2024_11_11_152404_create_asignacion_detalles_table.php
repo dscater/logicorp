@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('asignacion_detalles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("empresa_id");
-            $table->double("p_adjudicacion", 8, 2);
-            $table->double("cantidad");
-            $table->integer("cantidad_entero");
+            $table->unsignedBigInteger("asignacion_id");
+            $table->unsignedBigInteger("contrato_detalle_id");
             $table->timestamps();
 
-            $table->foreign("empresa_id")->on("empresas")->references("id");
+            $table->foreign("asignacion_id")->on("asignacions")->references("id");
+            $table->foreign("contrato_detalle_id")->on("contrato_detalles")->references("id");
         });
     }
 

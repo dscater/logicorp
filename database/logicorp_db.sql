@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 19-11-2024 a las 21:56:34
+-- Tiempo de generación: 20-11-2024 a las 21:24:04
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -35,6 +35,13 @@ CREATE TABLE `asignacions` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `asignacions`
+--
+
+INSERT INTO `asignacions` (`id`, `contrato_id`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 1, '2024-11-20', '2024-11-21 01:06:30', '2024-11-21 01:06:30');
+
 -- --------------------------------------------------------
 
 --
@@ -43,6 +50,29 @@ CREATE TABLE `asignacions` (
 
 CREATE TABLE `asignacion_detalles` (
   `id` bigint UNSIGNED NOT NULL,
+  `asignacion_id` bigint UNSIGNED NOT NULL,
+  `contrato_detalle_id` bigint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `asignacion_detalles`
+--
+
+INSERT INTO `asignacion_detalles` (`id`, `asignacion_id`, `contrato_detalle_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2024-11-21 01:06:30', '2024-11-21 01:06:30'),
+(2, 1, 2, '2024-11-21 01:06:30', '2024-11-21 01:06:30');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asignacion_empresas`
+--
+
+CREATE TABLE `asignacion_empresas` (
+  `id` bigint UNSIGNED NOT NULL,
+  `asignacion_detalle_id` bigint UNSIGNED NOT NULL,
   `empresa_id` bigint UNSIGNED NOT NULL,
   `p_adjudicacion` double NOT NULL,
   `cantidad` double NOT NULL,
@@ -50,6 +80,14 @@ CREATE TABLE `asignacion_detalles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `asignacion_empresas`
+--
+
+INSERT INTO `asignacion_empresas` (`id`, `asignacion_detalle_id`, `empresa_id`, `p_adjudicacion`, `cantidad`, `cantidad_entero`, `created_at`, `updated_at`) VALUES
+(2, 2, 1, 30, 10.5, 10, '2024-11-21 01:06:30', '2024-11-21 01:06:30'),
+(4, 1, 2, 25, 7.5, 7, '2024-11-21 01:18:02', '2024-11-21 01:18:02');
 
 -- --------------------------------------------------------
 
@@ -125,6 +163,7 @@ INSERT INTO `configuracions` (`id`, `nombre_sistema`, `alias`, `razon_social`, `
 CREATE TABLE `contratos` (
   `id` bigint UNSIGNED NOT NULL,
   `codigo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nro_cod` bigint UNSIGNED NOT NULL,
   `nro_lote` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `empresa_id` bigint UNSIGNED NOT NULL,
   `p_asignado` double NOT NULL,
@@ -132,6 +171,13 @@ CREATE TABLE `contratos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `contratos`
+--
+
+INSERT INTO `contratos` (`id`, `codigo`, `nro_cod`, `nro_lote`, `empresa_id`, `p_asignado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 'C.1', 1, '10001', 2, 90, '2024-11-20', '2024-11-20 20:59:12', '2024-11-20 20:59:12');
 
 -- --------------------------------------------------------
 
@@ -150,6 +196,14 @@ CREATE TABLE `contrato_detalles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `contrato_detalles`
+--
+
+INSERT INTO `contrato_detalles` (`id`, `contrato_id`, `proveedor_id`, `producto_id`, `tramo`, `frontera`, `cantidad`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 'TRAMO 1', 'FRONTERA 1', 30, '2024-11-20 20:59:12', '2024-11-20 20:59:12'),
+(2, 1, 2, 2, 'TRAMO 2', 'FRONTERA 2', 35, '2024-11-20 20:59:12', '2024-11-20 20:59:12');
 
 -- --------------------------------------------------------
 
@@ -232,7 +286,20 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (25, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PROVEEDOR', 'id: 1<br/>nombre: PRODUCTO 1<br/>descripcion: DESC. 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:07<br/>updated_at: 2024-11-19 21:55:07<br/>', 'id: 1<br/>nombre: PRODUCTO 1S<br/>descripcion: DESC. 1S<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:07<br/>updated_at: 2024-11-19 21:55:11<br/>', 'PROVEEDORES', '2024-11-19', '21:55:11', '2024-11-20 01:55:11', '2024-11-20 01:55:11'),
 (26, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PROVEEDOR', 'id: 1<br/>nombre: PRODUCTO 1S<br/>descripcion: DESC. 1S<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:07<br/>updated_at: 2024-11-19 21:55:11<br/>', 'id: 1<br/>nombre: PRODUCTO 1<br/>descripcion: DESC. 1<br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:07<br/>updated_at: 2024-11-19 21:55:17<br/>', 'PROVEEDORES', '2024-11-19', '21:55:17', '2024-11-20 01:55:17', '2024-11-20 01:55:17'),
 (27, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PROVEEDOR', 'id: 2<br/>nombre: PRODUCTO 2<br/>descripcion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:23<br/>updated_at: 2024-11-19 21:55:23<br/>', NULL, 'PROVEEDORES', '2024-11-19', '21:55:23', '2024-11-20 01:55:23', '2024-11-20 01:55:23'),
-(28, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN PROVEEDOR', 'id: 2<br/>nombre: PRODUCTO 2<br/>descripcion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:23<br/>updated_at: 2024-11-19 21:55:23<br/>', NULL, 'PROVEEDORES', '2024-11-19', '21:55:26', '2024-11-20 01:55:26', '2024-11-20 01:55:26');
+(28, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN PROVEEDOR', 'id: 2<br/>nombre: PRODUCTO 2<br/>descripcion: <br/>fecha_registro: 2024-11-19<br/>created_at: 2024-11-19 21:55:23<br/>updated_at: 2024-11-19 21:55:23<br/>', NULL, 'PROVEEDORES', '2024-11-19', '21:55:26', '2024-11-20 01:55:26', '2024-11-20 01:55:26'),
+(29, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PROVEEDOR', 'id: 2<br/>nombre: PRODUCTO3<br/>descripcion: <br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:32:39<br/>updated_at: 2024-11-20 16:32:39<br/>', NULL, 'PROVEEDORES', '2024-11-20', '16:32:39', '2024-11-20 20:32:39', '2024-11-20 20:32:39'),
+(30, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PROVEEDOR', 'id: 3<br/>nombre: PRODUCTO 3<br/>descripcion: <br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:32:44<br/>updated_at: 2024-11-20 16:32:44<br/>', NULL, 'PROVEEDORES', '2024-11-20', '16:32:44', '2024-11-20 20:32:44', '2024-11-20 20:32:44'),
+(31, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN PROVEEDOR', 'id: 2<br/>nombre: PRODUCTO3<br/>descripcion: <br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:32:39<br/>updated_at: 2024-11-20 16:32:39<br/>', 'id: 2<br/>nombre: PRODUCTO 2<br/>descripcion: <br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:32:39<br/>updated_at: 2024-11-20 16:32:51<br/>', 'PROVEEDORES', '2024-11-20', '16:32:51', '2024-11-20 20:32:51', '2024-11-20 20:32:51'),
+(32, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN CONTRATO', 'id: 1<br/>codigo: C.1<br/>nro_cod: 1<br/>nro_lote: 123<br/>empresa_id: 2<br/>p_asignado: 100<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:54:11<br/>updated_at: 2024-11-20 16:54:11<br/>', NULL, 'CONTRATOS', '2024-11-20', '16:54:11', '2024-11-20 20:54:11', '2024-11-20 20:54:11'),
+(33, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CONTRATO', 'id: 1<br/>codigo: C.1<br/>nro_cod: 1<br/>nro_lote: 123<br/>empresa_id: 2<br/>p_asignado: 100<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:54:11<br/>updated_at: 2024-11-20 16:54:11<br/>', 'id: 1<br/>codigo: C.1<br/>nro_cod: 1<br/>nro_lote: 1234<br/>empresa_id: 2<br/>p_asignado: 90<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:54:11<br/>updated_at: 2024-11-20 16:55:39<br/>', 'CONTRATOS', '2024-11-20', '16:55:39', '2024-11-20 20:55:39', '2024-11-20 20:55:39'),
+(34, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CONTRATO', 'id: 1<br/>codigo: C.1<br/>nro_cod: 1<br/>nro_lote: 1234<br/>empresa_id: 2<br/>p_asignado: 90<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:54:11<br/>updated_at: 2024-11-20 16:55:39<br/>', 'id: 1<br/>codigo: C.1<br/>nro_cod: 1<br/>nro_lote: 1234<br/>empresa_id: 2<br/>p_asignado: 90<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:54:11<br/>updated_at: 2024-11-20 16:55:39<br/>', 'CONTRATOS', '2024-11-20', '16:58:09', '2024-11-20 20:58:09', '2024-11-20 20:58:09'),
+(35, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN CONTRATO', 'id: 1<br/>codigo: C.1<br/>nro_cod: 1<br/>nro_lote: 1234<br/>empresa_id: 2<br/>p_asignado: 90<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:54:11<br/>updated_at: 2024-11-20 16:55:39<br/>', 'id: 1<br/>codigo: C.1<br/>nro_cod: 1<br/>nro_lote: 1234<br/>empresa_id: 2<br/>p_asignado: 90<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:54:11<br/>updated_at: 2024-11-20 16:55:39<br/>', 'CONTRATOS', '2024-11-20', '16:58:19', '2024-11-20 20:58:19', '2024-11-20 20:58:19'),
+(36, 1, 'ELIMINACIÓN', 'EL USUARIO admin ELIMINÓ UN CONTRATO', 'id: 1<br/>codigo: C.1<br/>nro_cod: 1<br/>nro_lote: 1234<br/>empresa_id: 2<br/>p_asignado: 90<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:54:11<br/>updated_at: 2024-11-20 16:55:39<br/>', NULL, 'CONTRATOS', '2024-11-20', '16:58:35', '2024-11-20 20:58:35', '2024-11-20 20:58:35'),
+(37, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN CONTRATO', 'id: 1<br/>codigo: C.1<br/>nro_cod: 1<br/>nro_lote: 10001<br/>empresa_id: 2<br/>p_asignado: 90<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 16:59:12<br/>updated_at: 2024-11-20 16:59:12<br/>', NULL, 'CONTRATOS', '2024-11-20', '16:59:12', '2024-11-20 20:59:12', '2024-11-20 20:59:12'),
+(38, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA ASIGNACIÓN DE EMPRESA/SOCIEDAD', 'id: 1<br/>contrato_id: 1<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 21:06:30<br/>updated_at: 2024-11-20 21:06:30<br/>', NULL, 'ASIGNACIÓN DE EMPRESA/SOCIEDAD', '2024-11-20', '21:06:30', '2024-11-21 01:06:30', '2024-11-21 01:06:30'),
+(39, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA ASIGNACIÓN DE EMPRESA/SOCIEDAD', 'id: 1<br/>contrato_id: 1<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 21:06:30<br/>updated_at: 2024-11-20 21:06:30<br/>', 'id: 1<br/>contrato_id: 1<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 21:06:30<br/>updated_at: 2024-11-20 21:06:30<br/>', 'ASIGNACIÓN DE EMPRESA/SOCIEDAD', '2024-11-20', '21:17:25', '2024-11-21 01:17:25', '2024-11-21 01:17:25'),
+(40, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA ASIGNACIÓN DE EMPRESA/SOCIEDAD', 'id: 1<br/>contrato_id: 1<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 21:06:30<br/>updated_at: 2024-11-20 21:06:30<br/>', 'id: 1<br/>contrato_id: 1<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 21:06:30<br/>updated_at: 2024-11-20 21:06:30<br/>', 'ASIGNACIÓN DE EMPRESA/SOCIEDAD', '2024-11-20', '21:17:36', '2024-11-21 01:17:36', '2024-11-21 01:17:36'),
+(41, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA ASIGNACIÓN DE EMPRESA/SOCIEDAD', 'id: 1<br/>contrato_id: 1<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 21:06:30<br/>updated_at: 2024-11-20 21:06:30<br/>', 'id: 1<br/>contrato_id: 1<br/>fecha_registro: 2024-11-20<br/>created_at: 2024-11-20 21:06:30<br/>updated_at: 2024-11-20 21:06:30<br/>', 'ASIGNACIÓN DE EMPRESA/SOCIEDAD', '2024-11-20', '21:18:02', '2024-11-21 01:18:02', '2024-11-21 01:18:02');
 
 -- --------------------------------------------------------
 
@@ -265,7 +332,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2024_11_11_152404_create_asignacion_detalles_table', 2),
 (13, '2024_11_11_152414_create_programacions_table', 2),
 (14, '2024_11_11_152429_create_viajes_table', 3),
-(15, '2024_11_11_152454_create_pagos_table', 3);
+(15, '2024_11_11_152454_create_pagos_table', 3),
+(16, '2024_11_20_202332_create_asignacion_empresas_table', 4);
 
 -- --------------------------------------------------------
 
@@ -307,7 +375,9 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 'PRODUCTO 1', 'DESC. 1', '2024-11-19', '2024-11-20 01:55:07', '2024-11-20 01:55:17');
+(1, 'PRODUCTO 1', 'DESC. 1', '2024-11-19', '2024-11-20 01:55:07', '2024-11-20 01:55:17'),
+(2, 'PRODUCTO 2', '', '2024-11-20', '2024-11-20 20:32:39', '2024-11-20 20:32:51'),
+(3, 'PRODUCTO 3', '', '2024-11-20', '2024-11-20 20:32:44', '2024-11-20 20:32:44');
 
 -- --------------------------------------------------------
 
@@ -501,7 +571,16 @@ ALTER TABLE `asignacions`
 --
 ALTER TABLE `asignacion_detalles`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `asignacion_detalles_empresa_id_foreign` (`empresa_id`);
+  ADD KEY `asignacion_detalles_asignacion_id_foreign` (`asignacion_id`),
+  ADD KEY `asignacion_detalles_contrato_detalle_id_foreign` (`contrato_detalle_id`);
+
+--
+-- Indices de la tabla `asignacion_empresas`
+--
+ALTER TABLE `asignacion_empresas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `asignacion_empresas_asignacion_detalle_id_foreign` (`asignacion_detalle_id`),
+  ADD KEY `asignacion_empresas_empresa_id_foreign` (`empresa_id`);
 
 --
 -- Indices de la tabla `conductors`
@@ -610,13 +689,19 @@ ALTER TABLE `viajes`
 -- AUTO_INCREMENT de la tabla `asignacions`
 --
 ALTER TABLE `asignacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `asignacion_detalles`
 --
 ALTER TABLE `asignacion_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `asignacion_empresas`
+--
+ALTER TABLE `asignacion_empresas`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `conductors`
@@ -634,13 +719,13 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `contratos`
 --
 ALTER TABLE `contratos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `contrato_detalles`
 --
 ALTER TABLE `contrato_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `empresas`
@@ -652,13 +737,13 @@ ALTER TABLE `empresas`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
@@ -670,7 +755,7 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `programacions`
@@ -716,7 +801,15 @@ ALTER TABLE `asignacions`
 -- Filtros para la tabla `asignacion_detalles`
 --
 ALTER TABLE `asignacion_detalles`
-  ADD CONSTRAINT `asignacion_detalles_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`);
+  ADD CONSTRAINT `asignacion_detalles_asignacion_id_foreign` FOREIGN KEY (`asignacion_id`) REFERENCES `asignacions` (`id`),
+  ADD CONSTRAINT `asignacion_detalles_contrato_detalle_id_foreign` FOREIGN KEY (`contrato_detalle_id`) REFERENCES `contrato_detalles` (`id`);
+
+--
+-- Filtros para la tabla `asignacion_empresas`
+--
+ALTER TABLE `asignacion_empresas`
+  ADD CONSTRAINT `asignacion_empresas_asignacion_detalle_id_foreign` FOREIGN KEY (`asignacion_detalle_id`) REFERENCES `asignacion_detalles` (`id`),
+  ADD CONSTRAINT `asignacion_empresas_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`);
 
 --
 -- Filtros para la tabla `contrato_detalles`

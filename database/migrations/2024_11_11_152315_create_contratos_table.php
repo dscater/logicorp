@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('contratos', function (Blueprint $table) {
             $table->id();
             $table->string("codigo")->unique();
+            $table->unsignedBigInteger("nro_cod");
             $table->string("nro_lote");
             $table->unsignedBigInteger("empresa_id");
             $table->double("p_asignado", 8, 2);

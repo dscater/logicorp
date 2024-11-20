@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AsignacionController;
 use App\Http\Controllers\ConductorController;
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\ProductoController;
@@ -103,6 +105,24 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("productos/listado", [ProductoController::class, 'listado'])->name("productos.listado");
     Route::get("productos/info/{urbanizacion}", [ProductoController::class, 'info'])->name("productos.info");
     Route::resource("productos", ProductoController::class)->only(
+        ["index", "store", "update", "show", "destroy"]
+    );
+
+    // CONTRATOS
+    Route::get("contratos/api", [ContratoController::class, 'api'])->name("contratos.api");
+    Route::get("contratos/paginado", [ContratoController::class, 'paginado'])->name("contratos.paginado");
+    Route::get("contratos/listado", [ContratoController::class, 'listado'])->name("contratos.listado");
+    Route::get("contratos/info/{urbanizacion}", [ContratoController::class, 'info'])->name("contratos.info");
+    Route::resource("contratos", ContratoController::class)->only(
+        ["index", "store", "update", "show", "destroy"]
+    );
+
+    // ASIGNACIONS
+    Route::get("asignacions/api", [AsignacionController::class, 'api'])->name("asignacions.api");
+    Route::get("asignacions/paginado", [AsignacionController::class, 'paginado'])->name("asignacions.paginado");
+    Route::get("asignacions/listado", [AsignacionController::class, 'listado'])->name("asignacions.listado");
+    Route::get("asignacions/info/{urbanizacion}", [AsignacionController::class, 'info'])->name("asignacions.info");
+    Route::resource("asignacions", AsignacionController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
 

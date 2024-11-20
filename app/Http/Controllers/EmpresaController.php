@@ -43,9 +43,15 @@ class EmpresaController extends Controller
         return Inertia::render("Empresas/Index");
     }
 
-    public function listado()
+    public function listado(Request $request)
     {
-        $empresas = Empresa::select("empresas.*")->get();
+        $empresas = Empresa::select("empresas.*");
+
+        if (isset($request->tipo) && $request->tipo) {
+            $empresas->where("tipo", $request->tipo);
+        }
+
+        $empresas  = $empresas->get();
         return response()->JSON([
             "empresas" => $empresas
         ]);

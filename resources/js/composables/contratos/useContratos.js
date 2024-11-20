@@ -1,28 +1,26 @@
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, reactive } from "vue";
 import { usePage } from "@inertiajs/vue3";
 
-const oEmpresa = ref({
+const oContrato = reactive({
     id: 0,
-    razon_social: "",
-    nit: "",
-    nom_representante: "",
-    ap_representante: "",
-    fono: "",
-    correo: "",
-    descripcion: "",
-    tipo: "",
+    codigo: "",
+    nro_lote: "",
+    empresa_id: "",
+    p_asignado: "",
+    contrato_detalles: [],
+    eliminados: [],
     _method: "POST",
 });
 
-export const useEmpresas = () => {
+export const useContratos = () => {
     const { flash } = usePage().props;
-    const getEmpresas = async (data) => {
+    const getContratos = async () => {
         try {
-            const response = await axios.get(route("empresas.listado", data), {
+            const response = await axios.get(route("contratos.listado"), {
                 headers: { Accept: "application/json" },
             });
-            return response.data.empresas;
+            return response.data.contratos;
         } catch (err) {
             Swal.fire({
                 icon: "error",
@@ -41,25 +39,28 @@ export const useEmpresas = () => {
         }
     };
 
-    const getEmpresasByTipo = async (data) => {
+    const getContratosByTipo = async (data) => {
         try {
-            const response = await axios.get(route("empresas.byTipo"), {
+            const response = await axios.get(route("contratos.byTipo"), {
                 headers: { Accept: "application/json" },
                 params: data,
             });
-            return response.data.empresas;
+            return response.data.contratos;
         } catch (error) {
             console.error("Error:", error);
             throw error; // Puedes manejar el error según tus necesidades
         }
     };
 
-    const getEmpresasApi = async (data) => {
+    const getContratosApi = async (data) => {
         try {
-            const response = await axios.get(route("empresas.paginado", data), {
-                headers: { Accept: "application/json" },
-            });
-            return response.data.empresas;
+            const response = await axios.get(
+                route("contratos.paginado", data),
+                {
+                    headers: { Accept: "application/json" },
+                }
+            );
+            return response.data.contratos;
         } catch (err) {
             Swal.fire({
                 icon: "error",
@@ -77,40 +78,9 @@ export const useEmpresas = () => {
             throw err; // Puedes manejar el error según tus necesidades
         }
     };
-    const saveEmpresa = async (data) => {
+    const saveContrato = async (data) => {
         try {
-            const response = await axios.post(route("empresas.store", data), {
-                headers: { Accept: "application/json" },
-            });
-            Swal.fire({
-                icon: "success",
-                title: "Correcto",
-                text: `${flash.bien ? flash.bien : "Proceso realizado"}`,
-                confirmButtonColor: "#3085d6",
-                confirmButtonText: `Aceptar`,
-            });
-            return response.data;
-        } catch (err) {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: `${
-                    flash.error
-                        ? flash.error
-                        : err.response?.data
-                        ? err.response?.data?.message
-                        : "Hay errores en el formulario"
-                }`,
-                confirmButtonColor: "#3085d6",
-                confirmButtonText: `Aceptar`,
-            });
-            throw err; // Puedes manejar el error según tus necesidades
-        }
-    };
-
-    const deleteEmpresa = async (id) => {
-        try {
-            const response = await axios.delete(route("empresas.destroy", id), {
+            const response = await axios.post(route("contratos.store", data), {
                 headers: { Accept: "application/json" },
             });
             Swal.fire({
@@ -139,46 +109,80 @@ export const useEmpresas = () => {
         }
     };
 
-    const setEmpresa = (item = null) => {
+    const deleteContrato = async (id) => {
+        try {
+            const response = await axios.delete(
+                route("contratos.destroy", id),
+                {
+                    headers: { Accept: "application/json" },
+                }
+            );
+            Swal.fire({
+                icon: "success",
+                title: "Correcto",
+                text: `${flash.bien ? flash.bien : "Proceso realizado"}`,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: `Aceptar`,
+            });
+            return response.data;
+        } catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: `${
+                    flash.error
+                        ? flash.error
+                        : err.response?.data
+                        ? err.response?.data?.message
+                        : "Hay errores en el formulario"
+                }`,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: `Aceptar`,
+            });
+            throw err; // Puedes manejar el error según tus necesidades
+        }
+    };
+
+    const setContrato = (item = null, detalle = false) => {
         if (item) {
-            oEmpresa.value.id = item.id;
-            oEmpresa.value.razon_social = item.razon_social;
-            oEmpresa.value.nit = item.nit;
-            oEmpresa.value.nom_representante = item.nom_representante;
-            oEmpresa.value.ap_representante = item.ap_representante;
-            oEmpresa.value.fono = item.fono;
-            oEmpresa.value.correo = item.correo;
-            oEmpresa.value.descripcion = item.descripcion;
-            oEmpresa.value.tipo = item.tipo;
-            oEmpresa.value._method = "PUT";
-            return oEmpresa;
+            oContrato.id = item.id;
+            oContrato.codigo = item.codigo;
+            oContrato.nro_lote = item.nro_lote;
+            oContrato.empresa_id = item.empresa_id;
+            oContrato.p_asignado = item.p_asignado;
+            oContrato.contrato_detalles = item.contrato_detalles;
+            oContrato.eliminados = [];
+            oContrato._method = "PUT";
+            if (detalle) {
+                oContrato.empresa = item.empresa;
+                oContrato.fecha_registro_t = item.fecha_registro_t;
+            }
+            return oContrato;
         }
         return false;
     };
 
-    const limpiarEmpresa = () => {
-        oEmpresa.value.id = 0;
-        oEmpresa.value.razon_social = "";
-        oEmpresa.value.nit = "";
-        oEmpresa.value.nom_representante = "";
-        oEmpresa.value.ap_representante = "";
-        oEmpresa.value.fono = "";
-        oEmpresa.value.correo = "";
-        oEmpresa.value.descripcion = "";
-        oEmpresa.value.tipo = "";
-        oEmpresa.value._method = "POST";
+    const limpiarContrato = () => {
+        oContrato.id = 0;
+        oContrato.codigo = "";
+        oContrato.nro_lote = "";
+        oContrato.empresa_id = "";
+        oContrato.p_asignado = "";
+        oContrato.contrato_detalles = [];
+        oContrato.eliminados = [];
+        oContrato._method = "POST";
     };
 
     onMounted(() => {});
 
     return {
-        oEmpresa,
-        getEmpresas,
-        getEmpresasApi,
-        saveEmpresa,
-        deleteEmpresa,
-        setEmpresa,
-        limpiarEmpresa,
-        getEmpresasByTipo,
+        oContrato,
+        getContratos,
+        getContratosApi,
+        saveContrato,
+        deleteContrato,
+        setContrato,
+        limpiarContrato,
+        getContratosByTipo,
     };
 };

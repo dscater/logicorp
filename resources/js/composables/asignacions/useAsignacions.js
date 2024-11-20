@@ -1,28 +1,23 @@
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, reactive } from "vue";
 import { usePage } from "@inertiajs/vue3";
 
-const oEmpresa = ref({
+const oAsignacion = reactive({
     id: 0,
-    razon_social: "",
-    nit: "",
-    nom_representante: "",
-    ap_representante: "",
-    fono: "",
-    correo: "",
-    descripcion: "",
-    tipo: "",
+    contrato_id: "",
+    asignacion_detalles: [],
+    eliminados: [],
     _method: "POST",
 });
 
-export const useEmpresas = () => {
+export const useAsignacions = () => {
     const { flash } = usePage().props;
-    const getEmpresas = async (data) => {
+    const getAsignacions = async () => {
         try {
-            const response = await axios.get(route("empresas.listado", data), {
+            const response = await axios.get(route("asignacions.listado"), {
                 headers: { Accept: "application/json" },
             });
-            return response.data.empresas;
+            return response.data.asignacions;
         } catch (err) {
             Swal.fire({
                 icon: "error",
@@ -41,25 +36,28 @@ export const useEmpresas = () => {
         }
     };
 
-    const getEmpresasByTipo = async (data) => {
+    const getAsignacionsByTipo = async (data) => {
         try {
-            const response = await axios.get(route("empresas.byTipo"), {
+            const response = await axios.get(route("asignacions.byTipo"), {
                 headers: { Accept: "application/json" },
                 params: data,
             });
-            return response.data.empresas;
+            return response.data.asignacions;
         } catch (error) {
             console.error("Error:", error);
             throw error; // Puedes manejar el error según tus necesidades
         }
     };
 
-    const getEmpresasApi = async (data) => {
+    const getAsignacionsApi = async (data) => {
         try {
-            const response = await axios.get(route("empresas.paginado", data), {
-                headers: { Accept: "application/json" },
-            });
-            return response.data.empresas;
+            const response = await axios.get(
+                route("asignacions.paginado", data),
+                {
+                    headers: { Accept: "application/json" },
+                }
+            );
+            return response.data.asignacions;
         } catch (err) {
             Swal.fire({
                 icon: "error",
@@ -77,11 +75,14 @@ export const useEmpresas = () => {
             throw err; // Puedes manejar el error según tus necesidades
         }
     };
-    const saveEmpresa = async (data) => {
+    const saveAsignacion = async (data) => {
         try {
-            const response = await axios.post(route("empresas.store", data), {
-                headers: { Accept: "application/json" },
-            });
+            const response = await axios.post(
+                route("asignacions.store", data),
+                {
+                    headers: { Accept: "application/json" },
+                }
+            );
             Swal.fire({
                 icon: "success",
                 title: "Correcto",
@@ -108,11 +109,14 @@ export const useEmpresas = () => {
         }
     };
 
-    const deleteEmpresa = async (id) => {
+    const deleteAsignacion = async (id) => {
         try {
-            const response = await axios.delete(route("empresas.destroy", id), {
-                headers: { Accept: "application/json" },
-            });
+            const response = await axios.delete(
+                route("asignacions.destroy", id),
+                {
+                    headers: { Accept: "application/json" },
+                }
+            );
             Swal.fire({
                 icon: "success",
                 title: "Correcto",
@@ -139,46 +143,44 @@ export const useEmpresas = () => {
         }
     };
 
-    const setEmpresa = (item = null) => {
+    const setAsignacion = (item = null, detalle = false) => {
         if (item) {
-            oEmpresa.value.id = item.id;
-            oEmpresa.value.razon_social = item.razon_social;
-            oEmpresa.value.nit = item.nit;
-            oEmpresa.value.nom_representante = item.nom_representante;
-            oEmpresa.value.ap_representante = item.ap_representante;
-            oEmpresa.value.fono = item.fono;
-            oEmpresa.value.correo = item.correo;
-            oEmpresa.value.descripcion = item.descripcion;
-            oEmpresa.value.tipo = item.tipo;
-            oEmpresa.value._method = "PUT";
-            return oEmpresa;
+            oAsignacion.id = item.id;
+            oAsignacion.contrato_id = item.contrato_id;
+            oAsignacion.asignacion_detalles = item.asignacion_detalles;
+            oAsignacion.eliminados = [];
+            oAsignacion._method = "PUT";
+            if (detalle) {
+                oAsignacion.asignacion_detalles = item.asignacion_detalles;
+                oAsignacion.contrato = item.contrato;
+                oAsignacion.fecha_registro_t = item.fecha_registro_t;
+            }
+            return oAsignacion;
         }
         return false;
     };
 
-    const limpiarEmpresa = () => {
-        oEmpresa.value.id = 0;
-        oEmpresa.value.razon_social = "";
-        oEmpresa.value.nit = "";
-        oEmpresa.value.nom_representante = "";
-        oEmpresa.value.ap_representante = "";
-        oEmpresa.value.fono = "";
-        oEmpresa.value.correo = "";
-        oEmpresa.value.descripcion = "";
-        oEmpresa.value.tipo = "";
-        oEmpresa.value._method = "POST";
+    const limpiarAsignacion = () => {
+        oAsignacion.id = 0;
+        oAsignacion.contrato_id = "";
+        oAsignacion.nro_lote = "";
+        oAsignacion.empresa_id = "";
+        oAsignacion.p_asignado = "";
+        oAsignacion.asignacion_detalles = [];
+        oAsignacion.eliminados = [];
+        oAsignacion._method = "POST";
     };
 
     onMounted(() => {});
 
     return {
-        oEmpresa,
-        getEmpresas,
-        getEmpresasApi,
-        saveEmpresa,
-        deleteEmpresa,
-        setEmpresa,
-        limpiarEmpresa,
-        getEmpresasByTipo,
+        oAsignacion,
+        getAsignacions,
+        getAsignacionsApi,
+        saveAsignacion,
+        deleteAsignacion,
+        setAsignacion,
+        limpiarAsignacion,
+        getAsignacionsByTipo,
     };
 };
