@@ -6,6 +6,7 @@ use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\PagoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramacionController;
@@ -69,7 +70,6 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("proveedors/api", [ProveedorController::class, 'api'])->name("proveedors.api");
     Route::get("proveedors/paginado", [ProveedorController::class, 'paginado'])->name("proveedors.paginado");
     Route::get("proveedors/listado", [ProveedorController::class, 'listado'])->name("proveedors.listado");
-    Route::get("proveedors/info/{urbanizacion}", [ProveedorController::class, 'info'])->name("proveedors.info");
     Route::resource("proveedors", ProveedorController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
@@ -78,7 +78,6 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("empresas/api", [EmpresaController::class, 'api'])->name("empresas.api");
     Route::get("empresas/paginado", [EmpresaController::class, 'paginado'])->name("empresas.paginado");
     Route::get("empresas/listado", [EmpresaController::class, 'listado'])->name("empresas.listado");
-    Route::get("empresas/info/{urbanizacion}", [EmpresaController::class, 'info'])->name("empresas.info");
     Route::resource("empresas", EmpresaController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
@@ -87,7 +86,6 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("conductors/api", [ConductorController::class, 'api'])->name("conductors.api");
     Route::get("conductors/paginado", [ConductorController::class, 'paginado'])->name("conductors.paginado");
     Route::get("conductors/listado", [ConductorController::class, 'listado'])->name("conductors.listado");
-    Route::get("conductors/info/{urbanizacion}", [ConductorController::class, 'info'])->name("conductors.info");
     Route::resource("conductors", ConductorController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
@@ -96,7 +94,6 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("vehiculos/api", [VehiculoController::class, 'api'])->name("vehiculos.api");
     Route::get("vehiculos/paginado", [VehiculoController::class, 'paginado'])->name("vehiculos.paginado");
     Route::get("vehiculos/listado", [VehiculoController::class, 'listado'])->name("vehiculos.listado");
-    Route::get("vehiculos/info/{urbanizacion}", [VehiculoController::class, 'info'])->name("vehiculos.info");
     Route::resource("vehiculos", VehiculoController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
@@ -105,7 +102,6 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("productos/api", [ProductoController::class, 'api'])->name("productos.api");
     Route::get("productos/paginado", [ProductoController::class, 'paginado'])->name("productos.paginado");
     Route::get("productos/listado", [ProductoController::class, 'listado'])->name("productos.listado");
-    Route::get("productos/info/{urbanizacion}", [ProductoController::class, 'info'])->name("productos.info");
     Route::resource("productos", ProductoController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
@@ -114,7 +110,6 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("contratos/api", [ContratoController::class, 'api'])->name("contratos.api");
     Route::get("contratos/paginado", [ContratoController::class, 'paginado'])->name("contratos.paginado");
     Route::get("contratos/listado", [ContratoController::class, 'listado'])->name("contratos.listado");
-    Route::get("contratos/info/{urbanizacion}", [ContratoController::class, 'info'])->name("contratos.info");
     Route::resource("contratos", ContratoController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
@@ -123,7 +118,6 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("asignacions/api", [AsignacionController::class, 'api'])->name("asignacions.api");
     Route::get("asignacions/paginado", [AsignacionController::class, 'paginado'])->name("asignacions.paginado");
     Route::get("asignacions/listado", [AsignacionController::class, 'listado'])->name("asignacions.listado");
-    Route::get("asignacions/info/{urbanizacion}", [AsignacionController::class, 'info'])->name("asignacions.info");
     Route::resource("asignacions", AsignacionController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
@@ -132,18 +126,28 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("programacions/api", [ProgramacionController::class, 'api'])->name("programacions.api");
     Route::get("programacions/paginado", [ProgramacionController::class, 'paginado'])->name("programacions.paginado");
     Route::get("programacions/listado", [ProgramacionController::class, 'listado'])->name("programacions.listado");
-    Route::get("programacions/info/{urbanizacion}", [ProgramacionController::class, 'info'])->name("programacions.info");
     Route::resource("programacions", ProgramacionController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
 
     // VIAJES
-    Route::get("viajes/api", [ViajeController::class, 'api'])->name("viajes.api");
-    Route::get("viajes/paginado", [ViajeController::class, 'paginado'])->name("viajes.paginado");
-    Route::get("viajes/listado", [ViajeController::class, 'listado'])->name("viajes.listado");
-    Route::get("viajes/info/{urbanizacion}", [ViajeController::class, 'info'])->name("viajes.info");
+    Route::get("programacions/viajes/api/{programacion}", [ViajeController::class, 'api'])->name("viajes.api");
+    Route::get("programacions/viajes/paginado", [ViajeController::class, 'paginado'])->name("viajes.paginado");
+    Route::get("programacions/viajes/listado", [ViajeController::class, 'listado'])->name("viajes.listado");
+    Route::get("programacions/viajes/{programacion}", [ViajeController::class, 'index'])->name("viajes.index");
+    Route::post("programacions/viajes/{programacion}", [ViajeController::class, 'store'])->name("viajes.store");
     Route::resource("viajes", ViajeController::class)->only(
-        ["index", "store", "update", "show", "destroy"]
+        ["update", "show", "destroy"]
+    );
+
+    // PAGOS
+    Route::get("programacions/pagos/api/{programacion}", [PagoController::class, 'api'])->name("pagos.api");
+    Route::get("programacions/pagos/paginado", [PagoController::class, 'paginado'])->name("pagos.paginado");
+    Route::get("programacions/pagos/listado", [PagoController::class, 'listado'])->name("pagos.listado");
+    Route::get("programacions/pagos/{programacion}", [PagoController::class, 'index'])->name("pagos.index");
+    Route::post("programacions/pagos/{programacion}", [PagoController::class, 'store'])->name("pagos.store");
+    Route::resource("pagos", PagoController::class)->only(
+        ["update", "show", "destroy"]
     );
 
     // REPORTES

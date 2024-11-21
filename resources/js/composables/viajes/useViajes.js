@@ -56,9 +56,9 @@ const oViaje = ref({
 
 export const useViajes = () => {
     const { flash } = usePage().props;
-    const getViajes = async () => {
+    const getViajes = async (data) => {
         try {
-            const response = await axios.get(route("viajes.listado"), {
+            const response = await axios.get(route("viajes.listado", data), {
                 headers: { Accept: "application/json" },
             });
             return response.data.viajes;

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\HistorialAccion;
+use App\Models\Pago;
+use App\Models\Programacion;
 use App\Models\Viaje;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
@@ -16,6 +19,7 @@ class ViajeController extends Controller
         "programacion_id" => "required",
         "volumen_programado" => "required",
         "tramo" => "required",
+        "importe_bs" => "required",
     ];
 
     public $mensajes = [
@@ -24,22 +28,51 @@ class ViajeController extends Controller
         "tramo.required" => "Este campo es obligatorio",
     ];
 
-    public function index()
+    public function index(Programacion $programacion)
     {
-        return Inertia::render("Viajes/Index");
+        return Inertia::render("Viajes/Index", compact("programacion"));
     }
 
-    public function listado()
+    public function listado(Request $request)
     {
-        $viajes = Viaje::select("viajes.*")->get();
+        $viajes = Viaje::select("viajes.*");
+
+        if (isset($request->programacion_id) && trim($request->programacion_id) != "") {
+            $viajes->where("programacion_id", $request->programacion_id);
+        }
+
+        if ($request->sin_pago) {
+            Log::debug("AAAA");
+            if ($request->id && $request->id != '') {
+                Log::debug($request->id);
+                Log::debug("BBB");
+                $viajes = $viajes->whereNotExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('pagos')
+                        ->whereRaw('pagos.viaje_id = viajes.id');
+                })->orWhere(function ($subquery) use ($request) {
+                    $subquery->whereIn('viajes.id', [$request->id]);
+                });
+            } else {
+                Log::debug("CCC");
+                $viajes = $viajes->whereNotExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('pagos')
+                        ->whereRaw('pagos.viaje_id = viajes.id');
+                });
+            }
+        }
+
+        $viajes = $viajes->get();
         return response()->JSON([
             "viajes" => $viajes
         ]);
     }
 
-    public function api(Request $request)
+    public function api(Programacion $programacion, Request $request)
     {
         $viajes = Viaje::with(["programacion"])->select("viajes.*");
+        $viajes->where("programacion_id", $programacion->id);
         $viajes = $viajes->get();
         return response()->JSON(["data" => $viajes]);
     }
@@ -131,7 +164,7 @@ class ViajeController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route("viajes.index")->with("bien", "Registro realizado");
+            return redirect()->route("viajes.index", $nuevo_viaje->programacion_id)->with("bien", "Registro realizado");
         } catch (\Exception $e) {
             DB::rollBack();
             throw ValidationException::withMessages([
@@ -203,7 +236,7 @@ class ViajeController extends Controller
             ];
 
             $datos_original = HistorialAccion::getDetalleRegistro($viaje, "viajes");
-            $viaje->update(array_map('mb_strtoupper', $request->all()));
+            $viaje->update(array_map('mb_strtoupper', $datos));
 
             $datos_nuevo = HistorialAccion::getDetalleRegistro($viaje, "viajes");
             HistorialAccion::create([
@@ -218,7 +251,7 @@ class ViajeController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route("viajes.index")->with("bien", "Registro actualizado");
+            return redirect()->route("viajes.index", $viaje->programacion_id)->with("bien", "Registro actualizado");
         } catch (\Exception $e) {
             DB::rollBack();
             // Log::debug($e->getMessage());
@@ -232,6 +265,13 @@ class ViajeController extends Controller
     {
         DB::beginTransaction();
         try {
+            $usos = Pago::where("viaje_id", $viaje->id)->get();
+            if (count($usos) > 0) {
+                throw ValidationException::withMessages([
+                    'error' =>  "No es posible eliminar este registro porque esta siendo utilizado por otros registros",
+                ]);
+            }
+
             $datos_original = HistorialAccion::getDetalleRegistro($viaje, "viajes");
             $viaje->delete();
             HistorialAccion::create([

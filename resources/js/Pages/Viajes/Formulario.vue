@@ -45,14 +45,14 @@ const { flash } = usePage().props;
 
 const tituloDialog = computed(() => {
     return accion.value == 0
-        ? `<i class="fa fa-plus"></i>Agregar Registro`
-        : `<i class="fa fa-edit"></i>Editar Registro`;
+        ? `<i class="fa fa-plus"></i> Agregar Registro`
+        : `<i class="fa fa-edit"></i> Editar Registro`;
 });
 
 const enviarFormulario = () => {
     let url =
         form["_method"] == "POST"
-            ? route("viajes.store")
+            ? route("viajes.store", form.programacion.id)
             : route("viajes.update", form.id);
 
     form.post(url, {
@@ -133,31 +133,8 @@ onMounted(() => {});
                     <form @submit.prevent="enviarFormulario()">
                         <div class="row">
                             <div class="col-md-4">
-                                <label>Seleccionar programación*</label>
-                                <select
-                                    class="form-select"
-                                    :class="{
-                                        'parsley-error':
-                                            form.errors?.programacion_id,
-                                    }"
-                                    v-model="form.programacion_id"
-                                >
-                                    <option value="">- Seleccione -</option>
-                                    <option
-                                        v-for="item in listProgramacions"
-                                        :value="item.id"
-                                    >
-                                        {{ item.full_name }}
-                                    </option>
-                                </select>
-                                <ul
-                                    v-if="form.errors?.programacion_id"
-                                    class="parsley-errors-list filled"
-                                >
-                                    <li class="parsley-required">
-                                        {{ form.errors?.programacion_id }}
-                                    </li>
-                                </ul>
+                                <label>Programación*</label><br />
+                                {{ form.programacion?.full_name }}
                             </div>
                             <div class="col-md-4">
                                 <label>Volumen programado*</label>
@@ -1001,7 +978,7 @@ onMounted(() => {});
                                 </ul>
                             </div>
                             <div class="col-md-4">
-                                <label>Importe en BS.</label>
+                                <label>Importe en BS*</label>
                                 <input
                                     type="text"
                                     class="form-control"

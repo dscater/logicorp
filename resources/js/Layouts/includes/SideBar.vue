@@ -519,27 +519,14 @@ const logout = () => {
                     </Link>
                 </div>
                 <div
-                    v-if="user_logeado.permisos.includes('viajes.index')"
-                    class="menu-item"
-                    :class="[
-                        route_current == 'viajes.index' ? 'active' : '',
-                    ]"
-                >
-                    <Link
-                        :href="route('viajes.index')"
-                        class="menu-link"
-                    >
-                        <div class="menu-icon">
-                            <i class="fa fa-list-alt"></i>
-                        </div>
-                        <div class="menu-text">Viajes</div>
-                    </Link>
-                </div>
-                <div
                     v-if="user_logeado.permisos.includes('programacions.index')"
                     class="menu-item"
                     :class="[
-                        route_current == 'programacions.index' ? 'active' : '',
+                        route_current == 'programacions.index' ||
+                        route_current == 'viajes.index' ||
+                        route_current == 'pagos.index'
+                            ? 'active'
+                            : '',
                     ]"
                 >
                     <Link

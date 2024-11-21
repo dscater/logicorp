@@ -1,19 +1,3 @@
-<script>
-const breadbrums = [
-    {
-        title: "Inicio",
-        disabled: false,
-        url: route("inicio"),
-        name_url: "inicio",
-    },
-    {
-        title: "Viajes",
-        disabled: false,
-        url: "",
-        name_url: "",
-    },
-];
-</script>
 <script setup>
 import { useApp } from "@/composables/useApp";
 import { Head, Link } from "@inertiajs/vue3";
@@ -24,22 +8,24 @@ import PanelToolbar from "@/Components/PanelToolbar.vue";
 import Formulario from "./Formulario.vue";
 import Detalle from "./Detalle.vue";
 const { setLoading } = useApp();
+const props = defineProps({
+    programacion: {
+        type: Object,
+        default: null,
+    },
+});
 onMounted(() => {
     setTimeout(() => {
         setLoading(false);
     }, 300);
 });
 
-const { getViajes, setViaje, limpiarViaje, deleteViaje } = useViajes();
+const { getViajes, setViaje, limpiarViaje, deleteViaje, oViaje } = useViajes();
 
 const columns = [
     {
         title: "",
         data: "id",
-    },
-    {
-        title: "PROGRAMACIÓN",
-        data: "programacion.full_name",
     },
     {
         title: "VOLUMEN PROGRAMADO",
@@ -74,7 +60,7 @@ const columns = [
                 }"><i class="fa fa-edit"></i></button>
                 <button class="mx-0 rounded-0 btn btn-danger eliminar"
                  data-id="${row.id}" 
-                 data-nombre="${row.programacion.full_name}" 
+                 data-nombre="${row.volumen_programado}|${row.tramo}" 
                  data-url="${route(
                      "viajes.destroy",
                      row.id
@@ -91,6 +77,8 @@ const open_dialog_det = ref(false);
 
 const agregarRegistro = () => {
     limpiarViaje();
+    oViaje.value.programacion_id = props.programacion.id;
+    oViaje.value.programacion = props.programacion;
     accion_dialog.value = 0;
     open_dialog.value = true;
 };
@@ -111,7 +99,7 @@ const accionesRow = () => {
         e.preventDefault();
         let id = $(this).attr("data-id");
         axios.get(route("viajes.show", id)).then((response) => {
-            setViaje(response.data);
+            setViaje(response.data, true);
             accion_dialog.value = 1;
             open_dialog.value = true;
         });
@@ -148,7 +136,11 @@ const updateDatatable = () => {
 };
 
 onMounted(async () => {
-    datatable = initDataTable("#table-viaje", columns, route("viajes.api"));
+    datatable = initDataTable(
+        "#table-viaje",
+        columns,
+        route("viajes.api", props.programacion.id)
+    );
     datatableInitialized.value = true;
     accionesRow();
 });
@@ -167,11 +159,14 @@ onBeforeUnmount(() => {
     <!-- BEGIN breadcrumb -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javascript:;">Inicio</a></li>
+        <li class="breadcrumb-item">
+            <Link :href="route('programacions.index')">Programación</Link>
+        </li>
         <li class="breadcrumb-item active">Viajes</li>
     </ol>
     <!-- END breadcrumb -->
     <!-- BEGIN page-header -->
-    <h1 class="page-header">Viajes</h1>
+    <h1 class="page-header">Programación > Viajes</h1>
     <!-- END page-header -->
 
     <div class="row">
@@ -181,9 +176,15 @@ onBeforeUnmount(() => {
                 <!-- BEGIN panel-heading -->
                 <div class="panel-heading">
                     <h4 class="panel-title btn-nuevo">
+                        <Link
+                            :href="route('programacions.index')"
+                            class="btn btn-outline-default d-inline-block"
+                        >
+                            <i class="fa fa-arrow-left"></i> Volver
+                        </Link>
                         <button
                             type="button"
-                            class="btn btn-primary"
+                            class="btn btn-primary mx-2"
                             @click="agregarRegistro"
                         >
                             <i class="fa fa-plus"></i> Nuevo
@@ -197,6 +198,18 @@ onBeforeUnmount(() => {
                 <!-- END panel-heading -->
                 <!-- BEGIN panel-body -->
                 <div class="panel-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>
+                                        Programación:
+                                        {{ props.programacion.full_name }}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <table
                         id="table-viaje"
                         width="100%"
@@ -205,7 +218,6 @@ onBeforeUnmount(() => {
                         <thead>
                             <tr>
                                 <th width="2%"></th>
-                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
