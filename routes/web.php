@@ -8,11 +8,13 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProgramacionController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\VehiculoController;
+use App\Http\Controllers\ViajeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -123,6 +125,24 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     Route::get("asignacions/listado", [AsignacionController::class, 'listado'])->name("asignacions.listado");
     Route::get("asignacions/info/{urbanizacion}", [AsignacionController::class, 'info'])->name("asignacions.info");
     Route::resource("asignacions", AsignacionController::class)->only(
+        ["index", "store", "update", "show", "destroy"]
+    );
+
+    // PROGRAMACIONS
+    Route::get("programacions/api", [ProgramacionController::class, 'api'])->name("programacions.api");
+    Route::get("programacions/paginado", [ProgramacionController::class, 'paginado'])->name("programacions.paginado");
+    Route::get("programacions/listado", [ProgramacionController::class, 'listado'])->name("programacions.listado");
+    Route::get("programacions/info/{urbanizacion}", [ProgramacionController::class, 'info'])->name("programacions.info");
+    Route::resource("programacions", ProgramacionController::class)->only(
+        ["index", "store", "update", "show", "destroy"]
+    );
+
+    // VIAJES
+    Route::get("viajes/api", [ViajeController::class, 'api'])->name("viajes.api");
+    Route::get("viajes/paginado", [ViajeController::class, 'paginado'])->name("viajes.paginado");
+    Route::get("viajes/listado", [ViajeController::class, 'listado'])->name("viajes.listado");
+    Route::get("viajes/info/{urbanizacion}", [ViajeController::class, 'info'])->name("viajes.info");
+    Route::resource("viajes", ViajeController::class)->only(
         ["index", "store", "update", "show", "destroy"]
     );
 

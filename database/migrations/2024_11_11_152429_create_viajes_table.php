@@ -51,10 +51,14 @@ return new class extends Migration
             $table->double("vol_parte_lts")->nullable();
             $table->double("peso_parte")->nullable();
             $table->text("observaciones2")->nullable();
+            $table->string("nro_solicitud_hr")->nullable();
+            $table->string("nro_ruta")->nullable();
+            $table->date("fecha_hr")->nullable();
+            $table->text("observaciones3")->nullable();
             $table->string("nro_fac_albodab")->nullable();
             $table->date("fecha_factura")->nullable();
             $table->decimal("importe_bs", 24, 2)->nullable();
-            $table->text("observaciones3")->nullable();
+            $table->text("observaciones4")->nullable();
             $table->text("observaciones_general")->nullable();
             $table->date("fecha_registro")->nullable();
             $table->timestamps();

@@ -52,6 +52,16 @@ class UserController extends Controller
             "asignacions.edit",
             "asignacions.destroy",
 
+            "programacions.index",
+            "programacions.create",
+            "programacions.edit",
+            "programacions.destroy",
+
+            "viajes.index",
+            "viajes.create",
+            "viajes.edit",
+            "viajes.destroy",
+
             "configuracions.index",
             "configuracions.create",
             "configuracions.edit",
