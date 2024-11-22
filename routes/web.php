@@ -153,5 +153,21 @@ Route::middleware('auth')->prefix("admin")->group(function () {
     // REPORTES
     Route::get('reportes/usuarios', [ReporteController::class, 'usuarios'])->name("reportes.usuarios");
     Route::get('reportes/r_usuarios', [ReporteController::class, 'r_usuarios'])->name("reportes.r_usuarios");
+
+    Route::get('reportes/consolidacion_viajes', [ReporteController::class, 'consolidacion_viajes'])->name("reportes.consolidacion_viajes");
+    Route::get('reportes/r_consolidacion_viajes', [ReporteController::class, 'r_consolidacion_viajes'])->name("reportes.r_consolidacion_viajes");
+
+    Route::get('reportes/consolidacion_viajes_empresas', [ReporteController::class, 'consolidacion_viajes_empresas'])->name("reportes.consolidacion_viajes_empresas");
+    Route::get('reportes/r_consolidacion_viajes_empresas', [ReporteController::class, 'r_consolidacion_viajes_empresas'])->name("reportes.r_consolidacion_viajes_empresas");
+
+    Route::get('reportes/consolidacion_viajes_facturacion', [ReporteController::class, 'consolidacion_viajes_facturacion'])->name("reportes.consolidacion_viajes_facturacion");
+    Route::get('reportes/r_consolidacion_viajes_facturacion', [ReporteController::class, 'r_consolidacion_viajes_facturacion'])->name("reportes.r_consolidacion_viajes_facturacion");
+
+    Route::get('reportes/pagos_empresas', [ReporteController::class, 'pagos_empresas'])->name("reportes.pagos_empresas");
+    Route::get('reportes/r_pagos_empresas', [ReporteController::class, 'r_pagos_empresas'])->name("reportes.r_pagos_empresas");
+
+    Route::get('reportes/predicciones', [ReporteController::class, 'predicciones'])->name("reportes.predicciones");
+    Route::get('reportes/r_predicciones', [ReporteController::class, 'r_predicciones'])->name("reportes.r_predicciones");
+
 });
 require __DIR__ . '/auth.php';

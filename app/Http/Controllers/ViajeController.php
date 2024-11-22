@@ -236,7 +236,7 @@ class ViajeController extends Controller
             ];
 
             $datos_original = HistorialAccion::getDetalleRegistro($viaje, "viajes");
-            $viaje->update(array_map('mb_strtoupper', $datos));
+            $viaje->update($datos);
 
             $datos_nuevo = HistorialAccion::getDetalleRegistro($viaje, "viajes");
             HistorialAccion::create([

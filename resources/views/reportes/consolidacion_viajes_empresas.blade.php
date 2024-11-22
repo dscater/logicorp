@@ -3,17 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>LotesTerrenos</title>
+    <title>ConsolidacionViajesEmpresas</title>
     <style type="text/css">
         * {
             font-family: sans-serif;
         }
 
         @page {
-            margin-top: 1cm;
-            margin-bottom: 1cm;
-            margin-left: 1.5cm;
-            margin-right: 1cm;
+            margin-top: 1.5cm;
+            margin-bottom: 0.3cm;
+            margin-left: 0.3cm;
+            margin-right: 0.3cm;
         }
 
         table {
@@ -31,11 +31,11 @@
         }
 
         table thead tr th {
-            font-size: 7pt;
+            font-size: 8pt;
         }
 
         table tbody tr td {
-            font-size: 6pt;
+            font-size: 7.2pt;
         }
 
 
@@ -134,12 +134,12 @@
         }
 
         .bg-principal {
-            background: #1867C0;
+            background: #669eb9;
             color: white;
         }
 
-        .derecha {
-            text-align: right;
+        .bg-gray {
+            background: rgb(236, 236, 236)
         }
 
         .bold {
@@ -150,78 +150,34 @@
             width: 45px;
         }
 
+        .txt_info {
+            font-size: 7.4pt;
+        }
+
         .page-break {
             page-break-after: always;
+        }
+
+        .table_info{
+            width: 50%;
+            margin: auto;
         }
     </style>
 </head>
 
 <body>
     @inject('configuracion', 'App\Models\Configuracion')
-    @php
-        $contador = 0;
-    @endphp
-    @foreach ($urbanizacions as $urbanizacion)
-        <div class="encabezado">
-            <div class="logo">
-                <img src="{{ $configuracion->first()->logo_b64 }}">
-            </div>
-            <h2 class="titulo">
-                {{ $configuracion->first()->razon_social }}
-            </h2>
-            <h4 class="texto">VENTA DE LOTES</h4>
-            <h4 class="fecha">Expedido: {{ date('d-m-Y') }}</h4>
+    <div class="encabezado">
+        <div class="logo">
+            <img src="{{ $configuracion->first()->logo_b64 }}">
         </div>
-
-        <h4>{{ $urbanizacion->nombre }}</h4>
-        @php
-            $venta_lotes = App\Models\VentaLote::where('urbanizacion_id', $urbanizacion->id)->get();
-        @endphp
-        <table border="1">
-            <thead>
-                <tr>
-                    <th width="3%">N°</th>
-                    <th>MANZANO/LOTE</th>
-                    <th>TIPO DE PAGO</th>
-                    <th>TOTAL VENTA</th>
-                    <th>FECHA DE REGISTRO</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $cont = 1;
-                    $suma_total = 0;
-                @endphp
-                @forelse ($venta_lotes as $venta_lote)
-                    <tr>
-                        <td>{{ $cont++ }}</td>
-                        <td>{{ $venta_lote->manzano->nombre }}/{{ $venta_lote->lote->nombre }}</td>
-                        <td>{{ $venta_lote->tipo_pago }}</td>
-                        <td class="centreado">{{ $venta_lote->total_venta }}</td>
-                        <td>{{ $venta_lote->fecha_registro_t }}</td>
-                    </tr>
-                    @php
-                        $suma_total += (float) $venta_lote->total_venta;
-                    @endphp
-                @empty
-                    <tr>
-                        <td colspan="5" class="centreado">Sin registros</td>
-                    </tr>
-                @endforelse
-                <tr>
-                    <td colspan="3" class="derecha bold">TOTAL</td>
-                    <td class="centreado bold">{{ number_format($suma_total, 2, '.', ',') }}</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-        @php
-            $contador++;
-        @endphp
-        @if ($contador < count($urbanizacions))
-            <div class="page-break"></div>
-        @endif
-    @endforeach
+        <h2 class="titulo">
+            {{ $configuracion->first()->razon_social }}
+        </h2>
+        <h4 class="texto">CONSOLIDACIÓN DE VIAJES</h4>
+        <h4 class="fecha">Expedido: {{ date('d-m-Y') }}</h4>
+    </div>
+    {!! $html !!}
 </body>
 
 </html>

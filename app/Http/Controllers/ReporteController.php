@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\Contrato;
+use App\Models\Empresa;
 use App\Models\Lote;
+use App\Models\Programacion;
 use App\Models\Urbanizacion;
 use App\Models\User;
 use App\Models\VentaLote;
+use App\Models\Viaje;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
@@ -44,62 +48,36 @@ class ReporteController extends Controller
         return $pdf->stream('usuarios.pdf');
     }
 
-    public function lotes_terrenos()
+    public function consolidacion_viajes()
     {
-        return Inertia::render("Reportes/LotesTerrenos");
+        return Inertia::render("Reportes/ConsolidacionViajes");
     }
 
-    public function r_lotes_terrenos(Request $request)
+    public function r_consolidacion_viajes(Request $request)
     {
-        $urbanizacion_id = $request->urbanizacion_id;
-        $manzano_id = $request->manzano_id;
-        $ocupado = $request->ocupado;
-
-        $urbanizacions = Urbanizacion::select("urbanizacions.*");
-        if ($urbanizacion_id != 'todos') {
-            $urbanizacions->where("id", $urbanizacion_id);
-        }
-        $urbanizacions = $urbanizacions->get();
-
-        $pdf = PDF::loadView('reportes.lotes_terrenos', compact('urbanizacions', 'manzano_id', 'ocupado'))->setPaper('letter', 'portrait');
-
-        // ENUMERAR LAS PÁGINAS USANDO CANVAS
-        $pdf->output();
-        $dom_pdf = $pdf->getDomPDF();
-        $canvas = $dom_pdf->get_canvas();
-        $alto = $canvas->get_height();
-        $ancho = $canvas->get_width();
-        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
-
-        return $pdf->stream('lotes_terrenos.pdf');
-    }
-
-    public function clientes()
-    {
-        return Inertia::render("Reportes/Clientes");
-    }
-
-    public function r_clientes(Request $request)
-    {
-        $estado_cliente =  $request->estado_cliente;
+        $empresa_id =  $request->empresa_id;
+        $asociacion_id =  $request->asociacion_id;
         $fecha_ini =  $request->fecha_ini;
         $fecha_fin =  $request->fecha_fin;
 
-        $clientes = Cliente::select("clientes.*")
-            ->join("users", "users.id", "=", "clientes.user_id");
+        $viajes = Viaje::select("viajes.*")
+            ->join("programacions", "programacions.id", "=", "viajes.programacion_id");
 
-        if ($estado_cliente != 'todos') {
-            $clientes->where("clientes.estado_cliente", $estado_cliente);
+        if ($empresa_id != 'todos') {
+            $viajes->where("programacions.empresa_id", $empresa_id);
+        }
+
+        if ($asociacion_id != 'todos') {
+            $viajes->where("programacions.asociacion_id", $asociacion_id);
         }
 
         if ($fecha_ini && $fecha_fin) {
-            $clientes->whereBetween("users.fecha_registro", [$fecha_ini, $fecha_fin]);
+            $viajes->whereBetween("viajes.fecha_registro", [$fecha_ini, $fecha_fin]);
         }
 
-        $clientes = $clientes->get();
+        $viajes = $viajes->get();
 
-
-        $pdf = PDF::loadView('reportes.clientes', compact('clientes'))->setPaper('letter', 'portrait');
+        $pdf = PDF::loadView('reportes.consolidacion_viajes', compact('viajes'))->setPaper('letter', 'portrait');
 
         // ENUMERAR LAS PÁGINAS USANDO CANVAS
         $pdf->output();
@@ -109,27 +87,233 @@ class ReporteController extends Controller
         $ancho = $canvas->get_width();
         $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
 
-        return $pdf->stream('clientes.pdf');
+        return $pdf->stream('consolidacion_viajes.pdf');
     }
 
-    public function planilla_pagos()
+    public function consolidacion_viajes_empresas()
     {
-        return Inertia::render("Reportes/PlanillaPagos");
+        return Inertia::render("Reportes/ConsolidacionViajesEmpresas");
     }
 
-    public function r_planilla_pagos(Request $request)
+    public function r_consolidacion_viajes_empresas(Request $request)
     {
-        $cliente_id =  $request->cliente_id;
+        $empresa_id =  $request->empresa_id;
+        $asociacion_id =  $request->asociacion_id;
+        $fecha_ini =  $request->fecha_ini;
+        $fecha_fin =  $request->fecha_fin;
 
-        $clientes = Cliente::select("clientes.*");
+        $empresas = Empresa::where("tipo", "EMPRESA");
+        if ($empresa_id != 'todos') {
+            $empresas->where("id", $empresa_id);
+        }
+        $empresas = $empresas->get();
 
-        if ($cliente_id != 'todos') {
-            $clientes->where("id", $cliente_id);
+        $asociacions = Empresa::where("tipo", "ASOCIACIÓN");
+        if ($asociacion_id != 'todos') {
+            $asociacions->where("id", $asociacion_id);
+        }
+        $asociacions = $asociacions->get();
+
+        $html = "";
+
+        $fecha_ini_t = date("d/m/Y", strtotime($fecha_ini));
+        $fecha_fin_t = date("d/m/Y", strtotime($fecha_fin));
+
+        foreach ($asociacions as $key => $asociacion) {
+
+            $contratos = Contrato::where("empresa_id", $asociacion->id)->get();
+            foreach ($contratos as $key_contrato => $contrato) {
+                foreach ($empresas as $key_empresa => $empresa) {
+                    if ($fecha_ini && $fecha_fin) {
+                        $html .= '<p class="txt_info">Cisternas Descargadas de ' . $fecha_ini_t . ' al ' . $fecha_fin_t . '</p>';
+                    } else {
+                        $html .= '<p class="txt_info">Cisternas Descargadas</p>';
+                    }
+                    $html .= '<p class="txt_info">Contrato: ' . $contrato->codigo . '</p>';
+                    $html .= '<p class="txt_info">Asociación: ' . $asociacion->razon_social . '</p>';
+                    $html .= '<p class="txt_info">Empresa: ' . $empresa->razon_social . '</p>';
+
+                    $viajes = Viaje::select("viajes.*")
+                        ->join("programacions", "programacions.id", "=", "viajes.programacion_id")
+                        ->where("programacions.empresa_id", $empresa->id)
+                        ->where("programacions.contrato_id", $contrato->id)
+                        ->where("programacions.asociacion_id", $asociacion->id);
+
+                    if ($fecha_ini && $fecha_fin) {
+                        $viajes->whereBetween("viajes.fecha_descarga", [$fecha_ini, $fecha_fin]);
+                    }
+
+                    $viajes =  $viajes->orderBy("viajes.fecha_carga", "asc")
+                        ->get();
+
+                    $html .= '<table border="1">';
+                    $html .= '<thead>';
+                    $html .= '<tr>';
+                    $html .= '<th colspan="6">Información de Origen</th>';
+                    $html .= '<th colspan="4">Información de Destino</th>';
+                    $html .= '<th colspan="3">Merma</th>';
+                    $html .= '<th colspan="2"></th>';
+                    $html .= '</tr>';
+                    $html .= '<tr>';
+                    $html .= '<th width="3%">N°</th>';
+                    $html .= '<th>Fecha carga</th>';
+                    $html .= '<th>Placa</th>';
+                    $html .= '<th>Empresa Transporte</th>';
+                    $html .= '<th>Volumen despacho</th>';
+                    $html .= '<th>Ruta(Origen- Carga - Destino)</th>';
+                    $html .= '<th>Fecha de recepción</th>';
+                    $html .= '<th>Volumen recepción</th>';
+                    $html .= '<th>Planta Descarga</th>';
+                    $html .= '<th>Cre Descarga</th>';
+                    $html .= '<th>Diferencia Desp-Rec</th>';
+                    $html .= '<th>Merma Permisible</th>';
+                    $html .= '<th>Merma</th>';
+                    $html .= '<th>Volumen a Liquidar</th>';
+                    $html .= '<th>Producto</th>';
+                    $html .= '</tr>';
+                    $html .= '</thead>';
+                    $html .= '<tbody>';
+                    $cont = 1;
+
+                    $total1 = 0;
+                    $total2 = 0;
+                    $total3 = 0;
+                    $total4 = 0;
+                    $total5 = 0;
+                    $total6 = 0;
+
+
+                    if (count($viajes) > 0) {
+                        foreach ($viajes as $viaje) {
+                            $html .= '<tr>
+                                <td>' . $cont++ . '</td>
+                                <td>' . $viaje->fecha_carga . '</td>
+                                <td>' . $viaje->programacion->vehiculo->placa . '</td>
+                                <td>' . $empresa->razon_social . '</td>
+                                <td>' . $viaje->volumen_programado . '</td>
+                                <td>' . $viaje->programacion->origen_destino . '</td>
+                                <td>' . $viaje->fecha_descarga_t . '</td>
+                                <td>' . $viaje->volumen_recepcionado . '</td>
+                                <td>YPFBL - LA PAZ</td>
+                                <td>' . $viaje->segun_cre . '</td>
+                                <td>' . $viaje->dif_litros . '</td>
+                                <td>' . $viaje->merma_ypfb . '</td>
+                                <td>' . $viaje->mermas . '</td>
+                                <td>' . $viaje->volumen_facturar . '</td>
+                                <td>' . $viaje->programacion->producto->nombre . '</td>
+                            </tr>';
+                            $total1 += (float)$viaje->volumen_programado;
+                            $total2 += (float)$viaje->volumen_recepcionado;
+                            $total3 += (float)$viaje->dif_litros;
+                            $total4 += (float)$viaje->merma_ypfb;
+                            $total5 += (float)$viaje->mermas;
+                            $total6 += (float)$viaje->volumen_facturar;
+                        }
+                    } else {
+                        $html .= '<tr><td colspan="15" class="centreado">Sin registros</td></tr>';
+                    }
+
+                    // totales
+                    $html .= '<tr class="bg-gray bold">
+                        <td colspan="4" class="bold">TOTALES</td>
+                        <td>' . $total1 . '</td>
+                        <td></td>
+                        <td></td>
+                        <td>' . $total2 . '</td>
+                        <td colspan="2"></td>
+                        <td>' . $total3 . '</td>
+                        <td>' . $total4 . '</td>
+                        <td>' . $total5 . '</td>
+                        <td>' . $total6 . '</td>
+                        <td></td>
+                    </tr>';
+
+                    $html .= '</tbody>';
+                    $html .= '</table>';
+
+                    $html .= '<table>';
+                    $html .= '<tbody>';
+                    $html .= '<tr>
+                        <td>Total cisternas</td>
+                        <td colspan="3">' . count($viajes) . '</td>
+                    <tr>';
+                    $html .= '<tr>
+                        <td>TOTAL VOLUMEN CARGADO EN ORIGEN EN CISTERNAS</td>
+                        <td>' . $total1 . '</td>
+                        <td>TOTAL VOLUMEN RECIBIDO EN TANQUES</td>
+                        <td>' . $total2 . '</td>
+                    <tr>';
+                    $html .= '</tbody>';
+                    $html .= '</table>';
+                    $html .= '<p class="txt_info">Nota: LOS VOLUMENES EN ORIGEN Y LOS RECEPCIONADOS FUERON VERIFICADOS DE ACUERDO A FORMULARIOS CRE</p>';
+
+                    $html .= '<table border="1" class="table_info">';
+                    $html .= '<thead>';
+                    $html .= '<tr>
+                        <th>DESCRIPCIÓN</th>
+                        <th>VOLUMEN EN LITROS</th>
+                        <th>VOLUMEN EN M3</th>
+                    </tr>';
+                    $html .= '<tbody>';
+                    $html .= '<tr>
+                        <td>VOLUMEN CARGA EN PLANTA</td>
+                        <td>' . $total1 . '</td>
+                        <td>' . floor($total1 * 100) / 100 . '</td>
+                    </tr>';
+                    $html .= '<tr>
+                        <td>VOLUMEN RECEPCIONADO EN DESTINO</td>
+                        <td>' . $total2 . '</td>
+                        <td>' . floor($total2 * 100) / 100 . '</td>
+                    </tr>';
+                    $html .= '<tr>
+                        <td>MERMA ESTABLECIDA</td>
+                        <td>' . $total4 . '</td>
+                        <td>' . floor(($total4 / 100) * 100) / 100 . '</td>
+                    </tr>';
+                    $html .= '<tr>
+                        <td>MERMA EXCEDENTE</td>
+                        <td>' . $total5 . '</td>
+                        <td>' . floor(($total5 / 100) * 100) / 100 . '</td>
+                    </tr>';
+                    $html .= '</tbody>';
+                    $html .= '</thead>';
+                    $html .= '</table>';
+
+                    $html .= '<table border="1" class="table_info" style="margin-top:20px;">';
+                    $html .= '<thead>';
+                    $html .= '<tr>
+                                <th>DESCRIPCIÓN</th>
+                                <th>% CUMPLIMIENTO A PROGRAMACIÓN</th>
+                                <th>OBSERVACIONES</th>
+                            </tr>';
+                    $html .= '</thead>';
+                    $html .= '<tbody>';
+                    $html .= '<tr>
+                                <td>CUMPLIMIENTO CLAUSULA N° 15<br/>CONTRATO ' . $contrato->codigo . '</td>
+                                <td>82%</td>
+                                <td></td>
+                            </tr>';
+                    $html .= '</tbody>';
+                    $html .= '</table>';
+
+
+
+                    if ($key_empresa < count($empresas) - 1) {
+                        $html .= '<div class="page-break"></div>';
+                    }
+                }
+
+                if ($key < count($asociacions) - 1) {
+                    $html .= '<div class="page-break"></div>';
+                }
+            }
+            if ($key_contrato < count($contratos) - 1) {
+                $html .= '<div class="page-break"></div>';
+            }
         }
 
-        $clientes = $clientes->get();
 
-        $pdf = PDF::loadView('reportes.planilla_pagos', compact('clientes'))->setPaper('letter', 'portrait');
+        $pdf = PDF::loadView('reportes.consolidacion_viajes_empresas', compact('html'))->setPaper('letter', 'landscape');
 
         // ENUMERAR LAS PÁGINAS USANDO CANVAS
         $pdf->output();
@@ -139,18 +323,28 @@ class ReporteController extends Controller
         $ancho = $canvas->get_width();
         $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
 
-        return $pdf->stream('planilla_pagos.pdf');
+        return $pdf->stream('consolidacion_viajes_empresas.pdf');
     }
 
-    public function planilla_venta(Request $request)
+    public function consolidacion_viajes_facturacion()
     {
-        $venta_lote_id =  $request->venta_lote_id;
-        $venta_lote = VentaLote::find($venta_lote_id);
-        $clientes = Cliente::select("clientes.*");
-        $clientes->where("id", $venta_lote->cliente_id);
-        $clientes = $clientes->get();
+        return Inertia::render("Reportes/ConsolidacionViajesFacturacion");
+    }
 
-        $pdf = PDF::loadView('reportes.planilla_pagos', compact('clientes', 'venta_lote_id'))->setPaper('letter', 'portrait');
+    public function r_consolidacion_viajes_facturacion(Request $request)
+    {
+        $empresa_id =  $request->empresa_id;
+        $asociacion_id =  $request->asociacion_id;
+        $fecha_ini =  $request->fecha_ini;
+        $fecha_fin =  $request->fecha_fin;
+
+        $asociacions = Empresa::where("tipo", "ASOCIACIÓN");
+        if ($asociacion_id != 'todos') {
+            $asociacions->where("id", $asociacion_id);
+        }
+        $asociacions = $asociacions->get();
+
+        $pdf = PDF::loadView('reportes.consolidacion_viajes_facturacion', compact('asociacions', 'fecha_ini', 'fecha_fin', "empresa_id"))->setPaper('legal', 'landscape');
 
         // ENUMERAR LAS PÁGINAS USANDO CANVAS
         $pdf->output();
@@ -160,137 +354,104 @@ class ReporteController extends Controller
         $ancho = $canvas->get_width();
         $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
 
-        return $pdf->stream('planilla_pagos.pdf');
+        return $pdf->stream('consolidacion_viajes_facturacion.pdf');
     }
 
-
-    public function g_lotes_terrenos()
+    public function pagos_empresas()
     {
-        return Inertia::render("Reportes/GLotesTerrenos");
+        return Inertia::render("Reportes/PagosEmpresas");
     }
 
-    public function r_g_lotes_terrenos(Request $request)
+    public function r_pagos_empresas(Request $request)
     {
-        $urbanizacion_id =  $request->urbanizacion_id;
+        $empresa_id =  $request->empresa_id;
+        $asociacion_id =  $request->asociacion_id;
+        $fecha_ini =  $request->fecha_ini;
+        $fecha_fin =  $request->fecha_fin;
 
-        $urbanizacions = Urbanizacion::select("urbanizacions.*");
+        $pdf = PDF::loadView('reportes.pagos_empresas', compact('fecha_ini', 'fecha_fin', "asociacion_id", "empresa_id"))->setPaper('legal', 'landscape');
 
-        if ($urbanizacion_id != 'todos') {
-            $urbanizacions->where("id", $urbanizacion_id);
+        // ENUMERAR LAS PÁGINAS USANDO CANVAS
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+        $canvas = $dom_pdf->get_canvas();
+        $alto = $canvas->get_height();
+        $ancho = $canvas->get_width();
+        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
+
+        return $pdf->stream('pagos_empresas.pdf');
+    }
+
+    public function predicciones()
+    {
+        return Inertia::render("Reportes/Predicciones");
+    }
+
+    public function r_predicciones(Request $request)
+    {
+        $empresa_id =  $request->empresa_id;
+        // $asociacion_id =  $request->asociacion_id;
+        $fecha_ini =  $request->fecha_ini;
+        $fecha_fin =  $request->fecha_fin;
+
+        $empresas = Empresa::select("empresas.*");
+        $empresas->where("tipo", 'EMPRESA');
+        if ($empresa_id != 'todos') {
+            $empresas->where("id", $empresa_id);
+        }
+        $empresas = $empresas->get();
+
+        $fecha1 = date("Y-m", strtotime($fecha_ini . ' -3 month'));
+        $fecha2 = date("Y-m", strtotime($fecha_ini . ' -2 month'));
+        $fecha3 = date("Y-m", strtotime($fecha_ini . ' -1 month'));
+
+        // volumenes por viajes y facturacion
+        $data1 = [];
+        $data2 = [];
+        foreach ($empresas as $empresa) {
+            $sum1 = Viaje::join("programacions", "programacions.id", "=", "viajes.programacion_id")
+                ->where("programacions.empresa_id", $empresa->id)
+                ->where("fecha_descarga", "LIKE", "$fecha1%")
+                ->sum("viajes.volumen_cargado");
+
+            $sum2 = Viaje::join("programacions", "programacions.id", "=", "viajes.programacion_id")
+                ->where("programacions.empresa_id", $empresa->id)
+                ->where("fecha_descarga", "LIKE", "$fecha2%")
+                ->sum("viajes.volumen_cargado");
+
+            $sum3 = Viaje::join("programacions", "programacions.id", "=", "viajes.programacion_id")
+                ->where("programacions.empresa_id", $empresa->id)
+                ->where("fecha_descarga", "LIKE", "$fecha3%")
+                ->sum("viajes.volumen_cargado");
+
+            $prom = ($sum1 + $sum2 + $sum3) / 3;
+            $prom = round($prom, 2);
+            $data1[] = [$empresa->razon_social, (float)$prom];
+
+            $sum1 = Viaje::join("programacions", "programacions.id", "=", "viajes.programacion_id")
+                ->where("programacions.empresa_id", $empresa->id)
+                ->where("fecha_descarga", "LIKE", "$fecha1%")
+                ->sum("viajes.importe_bs");
+
+            $sum2 = Viaje::join("programacions", "programacions.id", "=", "viajes.programacion_id")
+                ->where("programacions.empresa_id", $empresa->id)
+                ->where("fecha_descarga", "LIKE", "$fecha2%")
+                ->sum("viajes.importe_bs");
+
+            $sum3 = Viaje::join("programacions", "programacions.id", "=", "viajes.programacion_id")
+                ->where("programacions.empresa_id", $empresa->id)
+                ->where("fecha_descarga", "LIKE", "$fecha3%")
+                ->sum("viajes.importe_bs");
+
+            $prom = ($sum1 + $sum2 + $sum3) / 3;
+            $prom = round($prom, 2);
+            $data2[] = [$empresa->razon_social, (float)$prom];
         }
 
-        $urbanizacions = $urbanizacions->get();
-        $categories = [];
-        $series = [
-            [
-                "name" => "Disponibles",
-                "data" => [],
-                "color" => "#06bb7f",
-            ],
-            [
-                "name" => "Ocupados",
-                "data" => [],
-                "color" => "#e44a36",
-            ]
-        ];
-        foreach ($urbanizacions as $item) {
-            $categories[] = $item->nombre;
-
-            $disponibles = Lote::where("urbanizacion_id", $item->id)->where("vendido", 0)->count();
-            $ocupados = Lote::where("urbanizacion_id", $item->id)->where("vendido", 1)->count();
-            $series[0]["data"][] = $disponibles;
-            $series[1]["data"][] = $ocupados;
-        }
 
         return response()->JSON([
-            "categories" => $categories,
-            "series" => $series,
+            "data1" => $data1,
+            "data2" => $data2
         ]);
-    }
-
-    public function r_pdf_lotes_terrenos(Request $request)
-    {
-        $urbanizacion_id =  $request->urbanizacion_id;
-
-        $urbanizacions = Urbanizacion::select("urbanizacions.*");
-
-        if ($urbanizacion_id != 'todos') {
-            $urbanizacions->where("id", $urbanizacion_id);
-        }
-
-        $urbanizacions = $urbanizacions->get();
-
-        $pdf = PDF::loadView('reportes.pdf_lotes_terrenos', compact('urbanizacions'))->setPaper('letter', 'portrait');
-
-        // ENUMERAR LAS PÁGINAS USANDO CANVAS
-        $pdf->output();
-        $dom_pdf = $pdf->getDomPDF();
-        $canvas = $dom_pdf->get_canvas();
-        $alto = $canvas->get_height();
-        $ancho = $canvas->get_width();
-        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
-
-        return $pdf->stream('lotes_terrenos.pdf');
-    }
-
-    public function g_venta_lotes()
-    {
-        return Inertia::render("Reportes/GVentaLotes");
-    }
-
-    public function r_g_venta_lotes(Request $request)
-    {
-        $urbanizacion_id =  $request->urbanizacion_id;
-
-        $urbanizacions = Urbanizacion::select("urbanizacions.*");
-
-        if ($urbanizacion_id != 'todos') {
-            $urbanizacions->where("id", $urbanizacion_id);
-        }
-
-        $urbanizacions = $urbanizacions->get();
-        $categories = [];
-        $series = [
-            [
-                "name" => "Total",
-                "data" => [],
-                "color" => "#06bb7f",
-            ],
-        ];
-        foreach ($urbanizacions as $item) {
-            $categories[] = $item->nombre;
-            $total = VentaLote::where("urbanizacion_id", $item->id)->sum("total_venta");
-            $series[0]["data"][] = (float)$total;
-        }
-
-        return response()->JSON([
-            "categories" => $categories,
-            "series" => $series,
-        ]);
-    }
-
-    public function r_pdf_venta_lotes(Request $request)
-    {
-        $urbanizacion_id =  $request->urbanizacion_id;
-
-        $urbanizacions = Urbanizacion::select("urbanizacions.*");
-
-        if ($urbanizacion_id != 'todos') {
-            $urbanizacions->where("id", $urbanizacion_id);
-        }
-
-        $urbanizacions = $urbanizacions->get();
-
-        $pdf = PDF::loadView('reportes.venta_lotes', compact('urbanizacions'))->setPaper('letter', 'portrait');
-
-        // ENUMERAR LAS PÁGINAS USANDO CANVAS
-        $pdf->output();
-        $dom_pdf = $pdf->getDomPDF();
-        $canvas = $dom_pdf->get_canvas();
-        $alto = $canvas->get_height();
-        $ancho = $canvas->get_width();
-        $canvas->page_text($ancho - 90, $alto - 25, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 9, array(0, 0, 0));
-
-        return $pdf->stream('venta_lotes.pdf');
     }
 }

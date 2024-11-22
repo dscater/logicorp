@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 21-11-2024 a las 20:47:52
+-- Tiempo de generación: 22-11-2024 a las 21:04:29
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -40,7 +40,8 @@ CREATE TABLE `asignacions` (
 --
 
 INSERT INTO `asignacions` (`id`, `contrato_id`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 1, '2024-11-20', '2024-11-21 01:06:30', '2024-11-21 01:06:30');
+(1, 1, '2024-11-20', '2024-11-21 01:06:30', '2024-11-21 01:06:30'),
+(2, 2, '2024-11-22', '2024-11-23 00:58:57', '2024-11-23 00:58:57');
 
 -- --------------------------------------------------------
 
@@ -62,7 +63,8 @@ CREATE TABLE `asignacion_detalles` (
 
 INSERT INTO `asignacion_detalles` (`id`, `asignacion_id`, `contrato_detalle_id`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, '2024-11-21 01:06:30', '2024-11-21 01:06:30'),
-(2, 1, 2, '2024-11-21 01:06:30', '2024-11-21 01:06:30');
+(2, 1, 2, '2024-11-21 01:06:30', '2024-11-21 01:06:30'),
+(3, 2, 3, '2024-11-23 00:58:57', '2024-11-23 00:58:57');
 
 -- --------------------------------------------------------
 
@@ -87,7 +89,9 @@ CREATE TABLE `asignacion_empresas` (
 
 INSERT INTO `asignacion_empresas` (`id`, `asignacion_detalle_id`, `empresa_id`, `p_adjudicacion`, `cantidad`, `cantidad_entero`, `created_at`, `updated_at`) VALUES
 (2, 2, 1, 30, 10.5, 10, '2024-11-21 01:06:30', '2024-11-21 01:06:30'),
-(4, 1, 2, 25, 7.5, 7, '2024-11-21 01:18:02', '2024-11-21 01:18:02');
+(4, 1, 2, 25, 7.5, 7, '2024-11-21 01:18:02', '2024-11-21 01:18:02'),
+(5, 3, 1, 20, 40, 40, '2024-11-23 00:58:57', '2024-11-23 00:58:57'),
+(6, 3, 2, 40, 80, 80, '2024-11-23 00:58:57', '2024-11-23 00:58:57');
 
 -- --------------------------------------------------------
 
@@ -123,7 +127,8 @@ CREATE TABLE `conductors` (
 --
 
 INSERT INTO `conductors` (`id`, `nombre`, `paterno`, `materno`, `ci`, `ci_exp`, `nacionalidad`, `fecha_nac`, `sexo`, `estado_civil`, `nro_licencia`, `categoria`, `fecha_emision`, `fecha_vencimiento`, `fono`, `foto`, `observacion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 'PEDRO', 'MARTINEZ', 'MAMANI', '3333333', 'LP', 'BOLIVIANO', '1991-01-01', 'MASCULINO', 'SOLTERO', '3333333', 'C', '2023-01-01', '2027-03-03', '77777777', '1732034697_1.jpg', 'OBSERVACION CONDUCTOR', '2024-11-19', '2024-11-19 20:44:57', '2024-11-19 20:46:58');
+(1, 'PEDRO', 'MARTINEZ', 'MAMANI', '3333333', 'LP', 'BOLIVIANO', '1991-01-01', 'MASCULINO', 'SOLTERO', '3333333', 'C', '2023-01-01', '2027-03-03', '77777777', '1732034697_1.jpg', 'OBSERVACION CONDUCTOR', '2024-11-19', '2024-11-19 20:44:57', '2024-11-19 20:46:58'),
+(2, 'FRANCO', 'CHOQUE', 'CHOQUE', '3333333', 'LP', 'BOLIVIANO', '2000-01-01', 'MASCULINO', 'CASADO', '333333', 'C', '2023-01-01', '2026-01-01', '777777', NULL, '', '2024-11-22', '2024-11-23 00:52:20', '2024-11-23 00:52:20');
 
 -- --------------------------------------------------------
 
@@ -177,7 +182,8 @@ CREATE TABLE `contratos` (
 --
 
 INSERT INTO `contratos` (`id`, `codigo`, `nro_cod`, `nro_lote`, `empresa_id`, `p_asignado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 'C.1', 1, '10001', 2, 90, '2024-11-20', '2024-11-20 20:59:12', '2024-11-20 20:59:12');
+(1, 'C.1', 1, '10001', 2, 90, '2024-11-20', '2024-11-20 20:59:12', '2024-11-20 20:59:12'),
+(2, 'C.2', 2, '1112/2024', 4, 82, '2024-11-22', '2024-11-23 00:58:41', '2024-11-23 00:58:41');
 
 -- --------------------------------------------------------
 
@@ -203,7 +209,8 @@ CREATE TABLE `contrato_detalles` (
 
 INSERT INTO `contrato_detalles` (`id`, `contrato_id`, `proveedor_id`, `producto_id`, `tramo`, `frontera`, `cantidad`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 1, 'TRAMO 1', 'FRONTERA 1', 30, '2024-11-20 20:59:12', '2024-11-20 20:59:12'),
-(2, 1, 2, 2, 'TRAMO 2', 'FRONTERA 2', 35, '2024-11-20 20:59:12', '2024-11-20 20:59:12');
+(2, 1, 2, 2, 'TRAMO 2', 'FRONTERA 2', 35, '2024-11-20 20:59:12', '2024-11-20 20:59:12'),
+(3, 2, 2, 2, 'TRAMO2', 'FRONTERA', 200, '2024-11-23 00:58:41', '2024-11-23 00:58:41');
 
 -- --------------------------------------------------------
 
@@ -232,7 +239,9 @@ CREATE TABLE `empresas` (
 
 INSERT INTO `empresas` (`id`, `razon_social`, `nit`, `nom_representante`, `ap_representante`, `fono`, `correo`, `descripcion`, `tipo`, `fecha_registro`, `created_at`, `updated_at`) VALUES
 (1, 'EMPRESA 1', '111111122', 'JUAN', 'PERES MAMANI', '6666666', 'EMPRESA1@GMAIL.COM', 'DESC. EMPRESA 1', 'EMPRESA', '2024-11-19', '2024-11-19 20:03:36', '2024-11-19 20:03:47'),
-(2, 'SOCIEDAD 1', '222233333', 'FERNANDO', 'PAREDES CHOQUE', '77766666', 'SOCIEDAD1@GMAIL.COM', '', 'ASOCIACIÓN', '2024-11-19', '2024-11-19 20:05:29', '2024-11-19 20:05:29');
+(2, 'SOCIEDAD 1', '222233333', 'FERNANDO', 'PAREDES CHOQUE', '77766666', 'SOCIEDAD1@GMAIL.COM', '', 'ASOCIACIÓN', '2024-11-19', '2024-11-19 20:05:29', '2024-11-19 20:05:29'),
+(3, 'EMPRESA2', '2222222', 'JAVIER', 'MARTINES SOLIZ', '6666666', '', '', 'EMPRESA', '2024-11-22', '2024-11-23 00:51:42', '2024-11-23 00:51:42'),
+(4, 'ASOCIACION 2', '3202323', 'MARIA', 'MAMANI MAMANI', '65767676', '', '', 'ASOCIACIÓN', '2024-11-22', '2024-11-23 00:58:11', '2024-11-23 00:58:11');
 
 -- --------------------------------------------------------
 
@@ -318,7 +327,22 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (57, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN VIAJE', 'id: 3<br/>programacion_id: 1<br/>volumen_programado: 1000<br/>tramo: tramo2<br/>nomina: <br/>resolucion: <br/>dim: <br/>estado: <br/>observaciones: <br/>fecha_carga: <br/>volumen_cargado: <br/>total: <br/>cre_carga: <br/>volumen_recepcionado: <br/>total2: <br/>mermas: <br/>dif_litros: <br/>merma_ypfb: <br/>merma_cobrar: <br/>volumen_facturar: <br/>fecha_descarga: <br/>segun_cre: <br/>factura_lote: <br/>atq_lapaz: <br/>mes_servicio: <br/>dim2: <br/>crt: <br/>vol_crtm3: <br/>peso_crt: <br/>planta_carga_crt: <br/>fecha_cruce_frontera: <br/>mic_dta: <br/>vol_mic: <br/>peso_mic: <br/>parte_recepcion: <br/>vol_parte_mic: <br/>vol_parte_lts: <br/>peso_parte: <br/>observaciones2: <br/>nro_solicitud_hr: <br/>nro_ruta: <br/>fecha_hr: <br/>observaciones3: <br/>nro_fac_albodab: <br/>fecha_factura: <br/>importe_bs: 20000<br/>observaciones4: <br/>observaciones_general: <br/>fecha_registro: 2024-11-21<br/>created_at: 2024-11-21 19:51:20<br/>updated_at: 2024-11-21 19:51:20<br/>', NULL, 'VIAJES', '2024-11-21', '19:51:20', '2024-11-21 23:51:20', '2024-11-21 23:51:20');
 INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `datos_original`, `datos_nuevo`, `modulo`, `fecha`, `hora`, `created_at`, `updated_at`) VALUES
 (58, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PAGO', 'id: 1<br/>programacion_id: 1<br/>viaje_id: 2<br/>mes_anio: abril - 2024<br/>cto: 1111/2024<br/>fecha: 2024-11-21<br/>retencion: 210.00<br/>desc_merma: 100<br/>total_pagado: 3000.00<br/>fecha_registro: 2024-11-21<br/>created_at: 2024-11-21 20:19:20<br/>updated_at: 2024-11-21 20:19:20<br/>', NULL, 'PAGOS', '2024-11-21', '20:19:20', '2024-11-22 00:19:20', '2024-11-22 00:19:20'),
-(59, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PAGO', 'id: 2<br/>programacion_id: 1<br/>viaje_id: 3<br/>mes_anio: agosto-2024<br/>cto: 111/2024<br/>fecha: 2024-11-21<br/>retencion: 1400.00<br/>desc_merma: <br/>total_pagado: 20000.00<br/>fecha_registro: 2024-11-21<br/>created_at: 2024-11-21 20:27:25<br/>updated_at: 2024-11-21 20:27:25<br/>', NULL, 'PAGOS', '2024-11-21', '20:27:25', '2024-11-22 00:27:25', '2024-11-22 00:27:25');
+(59, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PAGO', 'id: 2<br/>programacion_id: 1<br/>viaje_id: 3<br/>mes_anio: agosto-2024<br/>cto: 111/2024<br/>fecha: 2024-11-21<br/>retencion: 1400.00<br/>desc_merma: <br/>total_pagado: 20000.00<br/>fecha_registro: 2024-11-21<br/>created_at: 2024-11-21 20:27:25<br/>updated_at: 2024-11-21 20:27:25<br/>', NULL, 'PAGOS', '2024-11-21', '20:27:25', '2024-11-22 00:27:25', '2024-11-22 00:27:25'),
+(60, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN VIAJE', 'id: 2<br/>programacion_id: 1<br/>volumen_programado: 20000<br/>tramo: TRAMO<br/>nomina: NOMIN<br/>resolucion: RESOLUCION<br/>dim: DIM<br/>estado: ESTADO<br/>observaciones: OBS 1<br/>fecha_carga: 2024-01-01<br/>volumen_cargado: 2000<br/>total: 4000<br/>cre_carga: CRE CARGA<br/>volumen_recepcionado: 2000<br/>total2: 5000<br/>mermas: 30<br/>dif_litros: 100<br/>merma_ypfb: 20<br/>merma_cobrar: 20<br/>volumen_facturar: 3000<br/>fecha_descarga: 2024-03-03<br/>segun_cre: CRE NRO<br/>factura_lote: 10000/2<br/>atq_lapaz: ARICA TAMBO<br/>mes_servicio: ENERO<br/>dim2: DIM<br/>crt: CRT<br/>vol_crtm3: VOL CRT<br/>peso_crt: 30<br/>planta_carga_crt: PLANTA DE CARGA<br/>fecha_cruce_frontera: 2024-04-04<br/>mic_dta: MIC/DTA<br/>vol_mic: 31<br/>peso_mic: 31<br/>parte_recepcion: PART RECEPCION<br/>vol_parte_mic: 32<br/>vol_parte_lts: 33<br/>peso_parte: 34<br/>observaciones2: OBS<br/>nro_solicitud_hr: 111<br/>nro_ruta: 222<br/>fecha_hr: 2024-03-03<br/>observaciones3: OBS<br/>nro_fac_albodab: 33333 ALBO/DAB<br/>fecha_factura: 2024-05-05<br/>importe_bs: 3000.00<br/>observaciones4: OBS 4<br/>observaciones_general: OBS GENERAL<br/>fecha_registro: 2024-11-21<br/>created_at: 2024-11-21 16:31:14<br/>updated_at: 2024-11-21 16:33:59<br/>', 'id: 2<br/>programacion_id: 1<br/>volumen_programado: 20000<br/>tramo: TRAMO<br/>nomina: NOMIN<br/>resolucion: RESOLUCION<br/>dim: DIM<br/>estado: ESTADO<br/>observaciones: OBS 1<br/>fecha_carga: 2024-01-01<br/>volumen_cargado: 2000<br/>total: 4000<br/>cre_carga: CRE CARGA<br/>volumen_recepcionado: 2000<br/>total2: 5000<br/>mermas: 30<br/>dif_litros: 100<br/>merma_ypfb: 20<br/>merma_cobrar: 20<br/>volumen_facturar: 3000<br/>fecha_descarga: 2024-11-03<br/>segun_cre: CRE NRO<br/>factura_lote: 10000/2<br/>atq_lapaz: ARICA TAMBO<br/>mes_servicio: ENERO<br/>dim2: DIM<br/>crt: CRT<br/>vol_crtm3: VOL CRT<br/>peso_crt: 30<br/>planta_carga_crt: PLANTA DE CARGA<br/>fecha_cruce_frontera: 2024-04-04<br/>mic_dta: MIC/DTA<br/>vol_mic: 31<br/>peso_mic: 31<br/>parte_recepcion: PART RECEPCION<br/>vol_parte_mic: 32<br/>vol_parte_lts: 33<br/>peso_parte: 34<br/>observaciones2: OBS<br/>nro_solicitud_hr: 111<br/>nro_ruta: 222<br/>fecha_hr: 2024-03-03<br/>observaciones3: OBS<br/>nro_fac_albodab: 33333 ALBO/DAB<br/>fecha_factura: 2024-05-05<br/>importe_bs: 3000.00<br/>observaciones4: OBS 4<br/>observaciones_general: OBS GENERAL<br/>fecha_registro: 2024-11-21<br/>created_at: 2024-11-21 16:31:14<br/>updated_at: 2024-11-22 17:48:58<br/>', 'VIAJES', '2024-11-22', '17:48:58', '2024-11-22 21:48:58', '2024-11-22 21:48:58'),
+(61, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA PROGRAMACIÓN', 'id: 1<br/>contrato_id: 1<br/>empresa_id: 1<br/>asociacion_id: 2<br/>producto_id: 1<br/>proveedor_id: 1<br/>vehiculo_id: 2<br/>conductor_id: 1<br/>origen_destino: ORIGEN/DESTINO<br/>frontera: FRONTERA<br/>fecha_programacion: 2024-11-30<br/>descripcion: DESC<br/>fecha_registro: 2024-11-21<br/>created_at: 2024-11-21 15:48:13<br/>updated_at: 2024-11-21 15:48:26<br/>', 'id: 1<br/>contrato_id: 1<br/>empresa_id: 1<br/>asociacion_id: 2<br/>producto_id: 1<br/>proveedor_id: 1<br/>vehiculo_id: 2<br/>conductor_id: 1<br/>origen_destino: ORIGEN/DESTINO<br/>frontera: FRONTERA<br/>fecha_programacion: 2024-11-30<br/>descripcion: DESC<br/>fecha_registro: 2024-11-21<br/>created_at: 2024-11-21 15:48:13<br/>updated_at: 2024-11-21 15:48:26<br/>', 'PROGRAMACIÓN', '2024-11-22', '18:49:06', '2024-11-22 22:49:06', '2024-11-22 22:49:06'),
+(62, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN USUARIO', 'id: 3<br/>usuario: CRAMIRES<br/>nombre: CARLOS<br/>paterno: RAMIRES<br/>materno: <br/>ci: 2222<br/>ci_exp: CB<br/>dir: LOS OLIVOS 4<br/>email: CARLOS@GMAIL.COM<br/>fono: 777777<br/>password: $2y$12$yQz1jkGGhuYcAwHpxGC3oOJHhprbqoiqskisHM2Ja5PI5rHmdbQdK<br/>tipo: OPERADOR<br/>foto: 1732308666_CRAMIRES.jpg<br/>fecha_registro: 2024-11-22<br/>acceso: 1<br/>created_at: 2024-11-22 20:51:06<br/>updated_at: 2024-11-22 20:51:06<br/>', NULL, 'USUARIOS', '2024-11-22', '20:51:06', '2024-11-23 00:51:06', '2024-11-23 00:51:06'),
+(63, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UN USUARIO', 'id: 3<br/>usuario: CRAMIRES<br/>nombre: CARLOS<br/>paterno: RAMIRES<br/>materno: <br/>ci: 2222<br/>ci_exp: CB<br/>dir: LOS OLIVOS 4<br/>email: CARLOS@GMAIL.COM<br/>fono: 777777<br/>password: $2y$12$yQz1jkGGhuYcAwHpxGC3oOJHhprbqoiqskisHM2Ja5PI5rHmdbQdK<br/>tipo: OPERADOR<br/>foto: 1732308666_CRAMIRES.jpg<br/>fecha_registro: 2024-11-22<br/>acceso: 1<br/>created_at: 2024-11-22 20:51:06<br/>updated_at: 2024-11-22 20:51:06<br/>', 'id: 3<br/>usuario: CRAMIRES<br/>nombre: CARLOS<br/>paterno: RAMIRES<br/>materno: <br/>ci: 2222<br/>ci_exp: CB<br/>dir: LOS OLIVOS 4<br/>email: CARLOS@GMAIL.COM<br/>fono: 777777<br/>password: $2y$12$yQz1jkGGhuYcAwHpxGC3oOJHhprbqoiqskisHM2Ja5PI5rHmdbQdK<br/>tipo: OPERADOR<br/>foto: 1732308666_CRAMIRES.jpg<br/>fecha_registro: 2024-11-22<br/>acceso: 1<br/>created_at: 2024-11-22 20:51:06<br/>updated_at: 2024-11-22 20:51:06<br/>', 'USUARIOS', '2024-11-22', '20:51:08', '2024-11-23 00:51:08', '2024-11-23 00:51:08'),
+(64, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PROVEEDOR', 'id: 4<br/>razon_social: PROVEEDOR4<br/>descripcion: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:51:17<br/>updated_at: 2024-11-22 20:51:17<br/>', NULL, 'PROVEEDORES', '2024-11-22', '20:51:17', '2024-11-23 00:51:17', '2024-11-23 00:51:17'),
+(65, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA EMPRESA/SOCIEDAD', 'id: 3<br/>razon_social: EMPRESA2<br/>nit: 2222222<br/>nom_representante: JAVIER<br/>ap_representante: MARTINES SOLIZ<br/>fono: 6666666<br/>correo: <br/>descripcion: <br/>tipo: EMPRESA<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:51:42<br/>updated_at: 2024-11-22 20:51:42<br/>', NULL, 'EMPRESA/SOCIEDAD', '2024-11-22', '20:51:43', '2024-11-23 00:51:43', '2024-11-23 00:51:43'),
+(66, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN CONDUCTOR', 'id: 2<br/>nombre: FRANCO<br/>paterno: CHOQUE<br/>materno: CHOQUE<br/>ci: 3333333<br/>ci_exp: LP<br/>nacionalidad: BOLIVIANO<br/>fecha_nac: 2000-01-01<br/>sexo: MASCULINO<br/>estado_civil: CASADO<br/>nro_licencia: 333333<br/>categoria: C<br/>fecha_emision: 2023-01-01<br/>fecha_vencimiento: 2026-01-01<br/>fono: 777777<br/>foto: <br/>observacion: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:52:20<br/>updated_at: 2024-11-22 20:52:20<br/>', NULL, 'CONDUCTORES', '2024-11-22', '20:52:20', '2024-11-23 00:52:20', '2024-11-23 00:52:20'),
+(67, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN CONDUCTOR', 'id: 3<br/>marca: MARCA2<br/>modelo: MODELO2<br/>anio: 2000<br/>placa: 3334 ECF<br/>nro_chasis: 2222<br/>color: ROJO<br/>foto: <br/>descripcion: <br/>nro_bin: <br/>nro_cha_tanque: <br/>marca_tanque: <br/>capacidad_tanque: <br/>nro_compartamiento: <br/>volumen_tanque: 3000<br/>ejes_tanque: <br/>nro_precientos: <br/>tipo_tanque: <br/>conductor_id: 2<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:52:48<br/>updated_at: 2024-11-22 20:52:48<br/>', NULL, 'CONDUCTORES', '2024-11-22', '20:52:48', '2024-11-23 00:52:48', '2024-11-23 00:52:48'),
+(68, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA EMPRESA/SOCIEDAD', 'id: 4<br/>razon_social: ASOCIACION 2<br/>nit: 3202323<br/>nom_representante: MARIA<br/>ap_representante: MAMANI MAMANI<br/>fono: 65767676<br/>correo: <br/>descripcion: <br/>tipo: ASOCIACIÓN<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:58:11<br/>updated_at: 2024-11-22 20:58:11<br/>', NULL, 'EMPRESA/SOCIEDAD', '2024-11-22', '20:58:11', '2024-11-23 00:58:11', '2024-11-23 00:58:11'),
+(69, 3, 'CREACIÓN', 'EL USUARIO CRAMIRES REGISTRO UN CONTRATO', 'id: 2<br/>codigo: C.2<br/>nro_cod: 2<br/>nro_lote: 1112/2024<br/>empresa_id: 4<br/>p_asignado: 82<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:58:41<br/>updated_at: 2024-11-22 20:58:41<br/>', NULL, 'CONTRATOS', '2024-11-22', '20:58:41', '2024-11-23 00:58:41', '2024-11-23 00:58:41'),
+(70, 3, 'CREACIÓN', 'EL USUARIO CRAMIRES REGISTRO UNA ASIGNACIÓN DE EMPRESA/SOCIEDAD', 'id: 2<br/>contrato_id: 2<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:58:57<br/>updated_at: 2024-11-22 20:58:57<br/>', NULL, 'ASIGNACIÓN DE EMPRESA/SOCIEDAD', '2024-11-22', '20:58:57', '2024-11-23 00:58:57', '2024-11-23 00:58:57'),
+(71, 3, 'CREACIÓN', 'EL USUARIO CRAMIRES REGISTRO UNA PROGRAMACIÓN', 'id: 2<br/>contrato_id: 2<br/>empresa_id: 3<br/>asociacion_id: 4<br/>producto_id: 2<br/>proveedor_id: 2<br/>vehiculo_id: 2<br/>conductor_id: 1<br/>origen_destino: ORIGEN DESTINO<br/>frontera: FRONTERA<br/>fecha_programacion: 2024-11-22<br/>descripcion: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:59:17<br/>updated_at: 2024-11-22 20:59:17<br/>', NULL, 'PROGRAMACIÓN', '2024-11-22', '20:59:17', '2024-11-23 00:59:17', '2024-11-23 00:59:17'),
+(72, 3, 'CREACIÓN', 'EL USUARIO CRAMIRES REGISTRO UN VIAJE', 'id: 4<br/>programacion_id: 2<br/>volumen_programado: 3000<br/>tramo: tramo<br/>nomina: <br/>resolucion: <br/>dim: <br/>estado: <br/>observaciones: <br/>fecha_carga: <br/>volumen_cargado: <br/>total: <br/>cre_carga: <br/>volumen_recepcionado: <br/>total2: <br/>mermas: <br/>dif_litros: <br/>merma_ypfb: <br/>merma_cobrar: <br/>volumen_facturar: <br/>fecha_descarga: <br/>segun_cre: <br/>factura_lote: <br/>atq_lapaz: <br/>mes_servicio: <br/>dim2: <br/>crt: <br/>vol_crtm3: <br/>peso_crt: <br/>planta_carga_crt: <br/>fecha_cruce_frontera: <br/>mic_dta: <br/>vol_mic: <br/>peso_mic: <br/>parte_recepcion: <br/>vol_parte_mic: <br/>vol_parte_lts: <br/>peso_parte: <br/>observaciones2: <br/>nro_solicitud_hr: <br/>nro_ruta: <br/>fecha_hr: <br/>observaciones3: <br/>nro_fac_albodab: <br/>fecha_factura: <br/>importe_bs: 2000<br/>observaciones4: <br/>observaciones_general: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:59:30<br/>updated_at: 2024-11-22 20:59:30<br/>', NULL, 'VIAJES', '2024-11-22', '20:59:30', '2024-11-23 00:59:30', '2024-11-23 00:59:30'),
+(73, 3, 'MODIFICACIÓN', 'EL USUARIO CRAMIRES MODIFICÓ UN VIAJE', 'id: 4<br/>programacion_id: 2<br/>volumen_programado: 3000<br/>tramo: tramo<br/>nomina: <br/>resolucion: <br/>dim: <br/>estado: <br/>observaciones: <br/>fecha_carga: <br/>volumen_cargado: <br/>total: <br/>cre_carga: <br/>volumen_recepcionado: <br/>total2: <br/>mermas: <br/>dif_litros: <br/>merma_ypfb: <br/>merma_cobrar: <br/>volumen_facturar: <br/>fecha_descarga: <br/>segun_cre: <br/>factura_lote: <br/>atq_lapaz: <br/>mes_servicio: <br/>dim2: <br/>crt: <br/>vol_crtm3: <br/>peso_crt: <br/>planta_carga_crt: <br/>fecha_cruce_frontera: <br/>mic_dta: <br/>vol_mic: <br/>peso_mic: <br/>parte_recepcion: <br/>vol_parte_mic: <br/>vol_parte_lts: <br/>peso_parte: <br/>observaciones2: <br/>nro_solicitud_hr: <br/>nro_ruta: <br/>fecha_hr: <br/>observaciones3: <br/>nro_fac_albodab: <br/>fecha_factura: <br/>importe_bs: 2000.00<br/>observaciones4: <br/>observaciones_general: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:59:30<br/>updated_at: 2024-11-22 20:59:30<br/>', 'id: 4<br/>programacion_id: 2<br/>volumen_programado: 3000<br/>tramo: tramo<br/>nomina: <br/>resolucion: <br/>dim: <br/>estado: <br/>observaciones: <br/>fecha_carga: <br/>volumen_cargado: <br/>total: <br/>cre_carga: <br/>volumen_recepcionado: <br/>total2: <br/>mermas: <br/>dif_litros: <br/>merma_ypfb: <br/>merma_cobrar: <br/>volumen_facturar: <br/>fecha_descarga: 2024-11-22<br/>segun_cre: <br/>factura_lote: <br/>atq_lapaz: <br/>mes_servicio: <br/>dim2: <br/>crt: <br/>vol_crtm3: <br/>peso_crt: <br/>planta_carga_crt: <br/>fecha_cruce_frontera: <br/>mic_dta: <br/>vol_mic: <br/>peso_mic: <br/>parte_recepcion: <br/>vol_parte_mic: <br/>vol_parte_lts: <br/>peso_parte: <br/>observaciones2: <br/>nro_solicitud_hr: <br/>nro_ruta: <br/>fecha_hr: <br/>observaciones3: <br/>nro_fac_albodab: <br/>fecha_factura: <br/>importe_bs: 2000.00<br/>observaciones4: <br/>observaciones_general: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:59:30<br/>updated_at: 2024-11-22 21:01:26<br/>', 'VIAJES', '2024-11-22', '21:01:26', '2024-11-23 01:01:26', '2024-11-23 01:01:26'),
+(74, 3, 'CREACIÓN', 'EL USUARIO CRAMIRES REGISTRO UN PAGO', 'id: 3<br/>programacion_id: 2<br/>viaje_id: 4<br/>mes_anio: agosto 2024<br/>cto: 12312312<br/>fecha: 2024-11-22<br/>retencion: 140.00<br/>desc_merma: <br/>total_pagado: 2000.00<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 21:02:11<br/>updated_at: 2024-11-22 21:02:11<br/>', NULL, 'PAGOS', '2024-11-22', '21:02:11', '2024-11-23 01:02:11', '2024-11-23 01:02:11');
 
 -- --------------------------------------------------------
 
@@ -381,7 +405,8 @@ CREATE TABLE `pagos` (
 
 INSERT INTO `pagos` (`id`, `programacion_id`, `viaje_id`, `mes_anio`, `cto`, `fecha`, `retencion`, `desc_merma`, `total_pagado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
 (1, 1, 2, 'abril - 2024', '1111/2024', '2024-11-21', 210.00, 100.00, 3000.00, '2024-11-21', '2024-11-22 00:19:20', '2024-11-22 00:19:20'),
-(2, 1, 3, 'agosto-2024', '111/2024', '2024-11-21', 1400.00, NULL, 20000.00, '2024-11-21', '2024-11-22 00:27:25', '2024-11-22 00:27:25');
+(2, 1, 3, 'agosto-2024', '111/2024', '2024-11-21', 1400.00, NULL, 20000.00, '2024-11-21', '2024-11-22 00:27:25', '2024-11-22 00:27:25'),
+(3, 2, 4, 'agosto 2024', '12312312', '2024-11-22', 140.00, NULL, 2000.00, '2024-11-22', '2024-11-23 01:02:11', '2024-11-23 01:02:11');
 
 -- --------------------------------------------------------
 
@@ -436,7 +461,8 @@ CREATE TABLE `programacions` (
 --
 
 INSERT INTO `programacions` (`id`, `contrato_id`, `empresa_id`, `asociacion_id`, `producto_id`, `proveedor_id`, `vehiculo_id`, `conductor_id`, `origen_destino`, `frontera`, `fecha_programacion`, `descripcion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 2, 1, 1, 2, 1, 'ORIGEN/DESTINO', 'FRONTERA', '2024-11-30', 'DESC', '2024-11-21', '2024-11-21 19:48:13', '2024-11-21 19:48:26');
+(1, 1, 1, 2, 1, 1, 2, 1, 'ORIGEN/DESTINO', 'FRONTERA', '2024-11-30', 'DESC', '2024-11-21', '2024-11-21 19:48:13', '2024-11-21 19:48:26'),
+(2, 2, 3, 4, 2, 2, 2, 1, 'ORIGEN DESTINO', 'FRONTERA', '2024-11-22', '', '2024-11-22', '2024-11-23 00:59:17', '2024-11-23 00:59:17');
 
 -- --------------------------------------------------------
 
@@ -460,7 +486,8 @@ CREATE TABLE `proveedors` (
 INSERT INTO `proveedors` (`id`, `razon_social`, `descripcion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
 (1, 'PROVEEDOR 1', 'DESC. 1', '2024-11-19', '2024-11-19 19:44:13', '2024-11-19 19:44:13'),
 (2, 'PROVEEDOR 2', '', '2024-11-19', '2024-11-19 19:46:05', '2024-11-19 19:46:05'),
-(3, 'PROVEEDOR 3', '', '2024-11-19', '2024-11-19 19:46:47', '2024-11-19 19:46:47');
+(3, 'PROVEEDOR 3', '', '2024-11-19', '2024-11-19 19:46:47', '2024-11-19 19:46:47'),
+(4, 'PROVEEDOR4', '', '2024-11-22', '2024-11-23 00:51:17', '2024-11-23 00:51:17');
 
 -- --------------------------------------------------------
 
@@ -494,7 +521,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `usuario`, `nombre`, `paterno`, `materno`, `ci`, `ci_exp`, `dir`, `email`, `fono`, `password`, `tipo`, `foto`, `fecha_registro`, `acceso`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin', 'admin', NULL, '0', '', '', 'admin@admin.com', '', '$2y$12$65d4fgZsvBV5Lc/AxNKh4eoUdbGyaczQ4sSco20feSQANshNLuxSC', 'ADMINISTRADOR', NULL, '2024-11-09', 1, NULL, NULL),
-(2, 'JPERES', 'JUAN', 'PERES', 'MAMANI', '1111', 'LP', 'LOS OLIVOS', 'JUAN@GMAIL.COM', '7777777', '$2y$12$ej1afafysGqKe.LEHxxzXedpL6h7lR3MiSqw32JiOC9Ol5CY30P7y', 'GERENTE', '1731340717_JPERES.jpg', '2024-11-11', 1, '2024-11-11 19:58:37', '2024-11-11 19:58:37');
+(2, 'JPERES', 'JUAN', 'PERES', 'MAMANI', '1111', 'LP', 'LOS OLIVOS', 'JUAN@GMAIL.COM', '7777777', '$2y$12$ej1afafysGqKe.LEHxxzXedpL6h7lR3MiSqw32JiOC9Ol5CY30P7y', 'GERENTE', '1731340717_JPERES.jpg', '2024-11-11', 1, '2024-11-11 19:58:37', '2024-11-11 19:58:37'),
+(3, 'CRAMIRES', 'CARLOS', 'RAMIRES', '', '2222', 'CB', 'LOS OLIVOS 4', 'CARLOS@GMAIL.COM', '777777', '$2y$12$yQz1jkGGhuYcAwHpxGC3oOJHhprbqoiqskisHM2Ja5PI5rHmdbQdK', 'OPERADOR', '1732308666_CRAMIRES.jpg', '2024-11-22', 1, '2024-11-23 00:51:06', '2024-11-23 00:51:06');
 
 -- --------------------------------------------------------
 
@@ -532,7 +560,8 @@ CREATE TABLE `vehiculos` (
 --
 
 INSERT INTO `vehiculos` (`id`, `marca`, `modelo`, `anio`, `placa`, `nro_chasis`, `color`, `foto`, `descripcion`, `nro_bin`, `nro_cha_tanque`, `marca_tanque`, `capacidad_tanque`, `nro_compartamiento`, `volumen_tanque`, `ejes_tanque`, `nro_precientos`, `tipo_tanque`, `conductor_id`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(2, 'MARCA 1', 'MODELO 1', '2024', '2009 EFEE', '21122', 'NEGRO', '1732052725_2.jpg', 'DESCRIPCION', 'BIN1213123', '13123132', 'SOSO22', '80 LTS', '22', '80 LTS', '3', '3', 'TIPO TANQUE', 1, '2024-11-19', '2024-11-20 01:45:25', '2024-11-20 01:46:11');
+(2, 'MARCA 1', 'MODELO 1', '2024', '2009 EFEE', '21122', 'NEGRO', '1732052725_2.jpg', 'DESCRIPCION', 'BIN1213123', '13123132', 'SOSO22', '80 LTS', '22', '80 LTS', '3', '3', 'TIPO TANQUE', 1, '2024-11-19', '2024-11-20 01:45:25', '2024-11-20 01:46:11'),
+(3, 'MARCA2', 'MODELO2', '2000', '3334 ECF', '2222', 'ROJO', NULL, '', '', '', '', '', '', '3000', '', '', '', 2, '2024-11-22', '2024-11-23 00:52:48', '2024-11-23 00:52:48');
 
 -- --------------------------------------------------------
 
@@ -599,8 +628,9 @@ CREATE TABLE `viajes` (
 --
 
 INSERT INTO `viajes` (`id`, `programacion_id`, `volumen_programado`, `tramo`, `nomina`, `resolucion`, `dim`, `estado`, `observaciones`, `fecha_carga`, `volumen_cargado`, `total`, `cre_carga`, `volumen_recepcionado`, `total2`, `mermas`, `dif_litros`, `merma_ypfb`, `merma_cobrar`, `volumen_facturar`, `fecha_descarga`, `segun_cre`, `factura_lote`, `atq_lapaz`, `mes_servicio`, `dim2`, `crt`, `vol_crtm3`, `peso_crt`, `planta_carga_crt`, `fecha_cruce_frontera`, `mic_dta`, `vol_mic`, `peso_mic`, `parte_recepcion`, `vol_parte_mic`, `vol_parte_lts`, `peso_parte`, `observaciones2`, `nro_solicitud_hr`, `nro_ruta`, `fecha_hr`, `observaciones3`, `nro_fac_albodab`, `fecha_factura`, `importe_bs`, `observaciones4`, `observaciones_general`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(2, 1, 20000, 'TRAMO', 'NOMIN', 'RESOLUCION', 'DIM', 'ESTADO', 'OBS 1', '2024-01-01', 2000, 4000, 'CRE CARGA', 2000, 5000, 30, 100, 20, 20, 3000, '2024-03-03', 'CRE NRO', '10000/2', 'ARICA TAMBO', 'ENERO', 'DIM', 'CRT', 'VOL CRT', 30, 'PLANTA DE CARGA', '2024-04-04', 'MIC/DTA', 31, 31, 'PART RECEPCION', 32, 33, 34, 'OBS', '111', '222', '2024-03-03', 'OBS', '33333 ALBO/DAB', '2024-05-05', 3000.00, 'OBS 4', 'OBS GENERAL', '2024-11-21', '2024-11-21 20:31:14', '2024-11-21 20:33:59'),
-(3, 1, 1000, 'tramo2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20000.00, NULL, NULL, '2024-11-21', '2024-11-21 23:51:20', '2024-11-21 23:51:20');
+(2, 1, 20000, 'TRAMO', 'NOMIN', 'RESOLUCION', 'DIM', 'ESTADO', 'OBS 1', '2024-01-01', 2000, 4000, 'CRE CARGA', 2000, 5000, 30, 100, 20, 20, 3000, '2024-11-03', 'CRE NRO', '10000/2', 'ARICA TAMBO', 'ENERO', 'DIM', 'CRT', 'VOL CRT', 30, 'PLANTA DE CARGA', '2024-04-04', 'MIC/DTA', 31, 31, 'PART RECEPCION', 32, 33, 34, 'OBS', '111', '222', '2024-03-03', 'OBS', '33333 ALBO/DAB', '2024-05-05', 3000.00, 'OBS 4', 'OBS GENERAL', '2024-11-21', '2024-11-21 20:31:14', '2024-11-22 21:48:58'),
+(3, 1, 1000, 'tramo2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20000.00, NULL, NULL, '2024-11-21', '2024-11-21 23:51:20', '2024-11-21 23:51:20'),
+(4, 2, 3000, 'tramo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2000.00, NULL, NULL, '2024-11-22', '2024-11-23 00:59:30', '2024-11-23 01:01:26');
 
 --
 -- Índices para tablas volcadas
@@ -737,25 +767,25 @@ ALTER TABLE `viajes`
 -- AUTO_INCREMENT de la tabla `asignacions`
 --
 ALTER TABLE `asignacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `asignacion_detalles`
 --
 ALTER TABLE `asignacion_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `asignacion_empresas`
 --
 ALTER TABLE `asignacion_empresas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `conductors`
 --
 ALTER TABLE `conductors`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracions`
@@ -767,25 +797,25 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `contratos`
 --
 ALTER TABLE `contratos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `contrato_detalles`
 --
 ALTER TABLE `contrato_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -797,7 +827,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -809,31 +839,31 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `programacions`
 --
 ALTER TABLE `programacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedors`
 --
 ALTER TABLE `proveedors`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `viajes`
 --
 ALTER TABLE `viajes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas

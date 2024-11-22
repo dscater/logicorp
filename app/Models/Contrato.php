@@ -18,7 +18,31 @@ class Contrato extends Model
         "fecha_registro",
     ];
 
-    protected $appends = ["fecha_registro_t"];
+    protected $appends = ["fecha_registro_t", "mes_anio"];
+
+
+    public function getMesAnioAttribute()
+    {
+        $meses = [
+            "01" => "ENERO",
+            "02" => "FEBRERO",
+            "03" => "MARZO",
+            "04" => "ABRIL",
+            "05" => "MAYO",
+            "06" => "JUNIO",
+            "07" => "JULIO",
+            "08" => "AGOSTO",
+            "09" => "SEPTIEMBRE",
+            "10" => "OCTUBRE",
+            "11" => "NOVIEMBRE",
+            "12" => "DICIEMBRE",
+        ];
+
+        $mes = date("m", strtotime($this->fecha_registro));
+        $anio = date("Y", strtotime($this->fecha_registro));
+
+        return $meses[$mes] . ' ' . $anio;
+    }
 
     public function getFechaRegistroTAttribute()
     {

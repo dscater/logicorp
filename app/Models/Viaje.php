@@ -60,7 +60,32 @@ class Viaje extends Model
         "fecha_registro",
     ];
 
-    protected $appends = ["fecha_registro_t"];
+    protected $appends = ["fecha_registro_t", "fecha_carga_t", "fecha_descarga_t", "fecha_cruce_frontera_t", "fecha_hr_t", "fecha_factura_t"];
+
+    public function getFechaFacturaTAttribute()
+    {
+        return date("d/m/Y", strtotime($this->fecha_factura));
+    }
+
+    public function getFechaHrTAttribute()
+    {
+        return date("d/m/Y", strtotime($this->fecha_hr));
+    }
+
+    public function getFechaCruceFronteraTAttribute()
+    {
+        return date("d/m/Y", strtotime($this->fecha_cruce_frontera));
+    }
+
+    public function getFechaDescargaTAttribute()
+    {
+        return date("d/m/Y", strtotime($this->fecha_descarga));
+    }
+
+    public function getFechaCargaTAttribute()
+    {
+        return date("d/m/Y", strtotime($this->fecha_carga));
+    }
 
     public function getFechaRegistroTAttribute()
     {

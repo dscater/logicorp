@@ -78,13 +78,13 @@ const columns = [
         data: null,
         render: function (data, type, row) {
             return `
-                <button class="mx-0 rounded-0 btn btn-primary viajes" title="Viajes" data-id="${
+                <button class="mx-0 rounded-0 btn btn-success viajes" title="Viajes" data-id="${
                     row.id
-                }"><i class="fa fa-list"></i></button>
+                }">V</button>
                 
                 <button class="mx-0 rounded-0 btn btn-info pagos" title="Pagos" data-id="${
                     row.id
-                }"><i class="fa fa-clipboard-check"></i></button>
+                }">P</button>
                 <button class="mx-0 rounded-0 btn btn-warning editar" data-id="${
                     row.id
                 }"><i class="fa fa-edit"></i></button>

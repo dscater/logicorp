@@ -654,16 +654,18 @@ const logout = () => {
                     v-if="
                         user_logeado.permisos.includes('reportes.usuarios') ||
                         user_logeado.permisos.includes(
-                            'reportes.lotes_terrenos'
-                        ) ||
-                        user_logeado.permisos.includes('reportes.clientes') ||
-                        user_logeado.permisos.includes(
-                            'reportes.planilla_pagos'
+                            'reportes.consolidacion_viajes'
                         ) ||
                         user_logeado.permisos.includes(
-                            'reportes.g_lotes_terrenos'
+                            'reportes.consolidacion_viajes_empresas'
                         ) ||
-                        user_logeado.permisos.includes('reportes.g_venta_lotes')
+                        user_logeado.permisos.includes(
+                            'reportes.consolidacion_viajes_facturacion'
+                        ) ||
+                        user_logeado.permisos.includes(
+                            'reportes.pagos_empresas'
+                        ) ||
+                        user_logeado.permisos.includes('reportes.predicciones')
                     "
                 >
                     <a href="javascript:;" class="menu-link">
@@ -696,104 +698,114 @@ const logout = () => {
                         <div
                             v-if="
                                 user_logeado.permisos.includes(
-                                    'reportes.lotes_terrenos'
+                                    'reportes.consolidacion_viajes'
                                 )
                             "
                             class="menu-item"
                             :class="[
-                                route_current == 'reportes.lotes_terrenos'
+                                route_current == 'reportes.consolidacion_viajes'
                                     ? 'active'
                                     : '',
                             ]"
                         >
                             <Link
-                                :href="route('reportes.lotes_terrenos')"
+                                :href="route('reportes.consolidacion_viajes')"
                                 class="menu-link"
                                 ><div class="menu-text">
-                                    Lotes de Terrenos
+                                    Consolidación de viajes
                                 </div></Link
                             >
                         </div>
                         <div
                             v-if="
                                 user_logeado.permisos.includes(
-                                    'reportes.clientes'
+                                    'reportes.consolidacion_viajes_empresas'
                                 )
                             "
                             class="menu-item"
                             :class="[
-                                route_current == 'reportes.clientes'
+                                route_current ==
+                                'reportes.consolidacion_viajes_empresas'
                                     ? 'active'
                                     : '',
                             ]"
                         >
                             <Link
-                                :href="route('reportes.clientes')"
-                                class="menu-link"
-                                ><div class="menu-text">Clientes</div></Link
-                            >
-                        </div>
-                        <div
-                            v-if="
-                                user_logeado.permisos.includes(
-                                    'reportes.planilla_pagos'
-                                )
-                            "
-                            class="menu-item"
-                            :class="[
-                                route_current == 'reportes.planilla_pagos'
-                                    ? 'active'
-                                    : '',
-                            ]"
-                        >
-                            <Link
-                                :href="route('reportes.planilla_pagos')"
+                                :href="
+                                    route(
+                                        'reportes.consolidacion_viajes_empresas'
+                                    )
+                                "
                                 class="menu-link"
                                 ><div class="menu-text">
-                                    Planilla de Pagos
+                                    Consolidación de viajes por Empresas
                                 </div></Link
                             >
                         </div>
                         <div
                             v-if="
                                 user_logeado.permisos.includes(
-                                    'reportes.g_lotes_terrenos'
+                                    'reportes.consolidacion_viajes_facturacion'
                                 )
                             "
                             class="menu-item"
                             :class="[
-                                route_current == 'reportes.g_lotes_terrenos'
+                                route_current ==
+                                'reportes.consolidacion_viajes_facturacion'
                                     ? 'active'
                                     : '',
                             ]"
                         >
                             <Link
-                                :href="route('reportes.g_lotes_terrenos')"
+                                :href="
+                                    route(
+                                        'reportes.consolidacion_viajes_facturacion'
+                                    )
+                                "
                                 class="menu-link"
                                 ><div class="menu-text">
-                                    G. Lotes de Terrenos
+                                    Consolidación de viajes para facturación
                                 </div></Link
                             >
                         </div>
                         <div
                             v-if="
                                 user_logeado.permisos.includes(
-                                    'reportes.g_venta_lotes'
+                                    'reportes.pagos_empresas'
                                 )
                             "
                             class="menu-item"
                             :class="[
-                                route_current == 'reportes.g_venta_lotes'
+                                route_current == 'reportes.pagos_empresas'
                                     ? 'active'
                                     : '',
                             ]"
                         >
                             <Link
-                                :href="route('reportes.g_venta_lotes')"
+                                :href="route('reportes.pagos_empresas')"
                                 class="menu-link"
                                 ><div class="menu-text">
-                                    Venta de Terrenos
+                                    Pagos de empresas
                                 </div></Link
+                            >
+                        </div>
+                        <div
+                            v-if="
+                                user_logeado.permisos.includes(
+                                    'reportes.predicciones'
+                                )
+                            "
+                            class="menu-item"
+                            :class="[
+                                route_current == 'reportes.predicciones'
+                                    ? 'active'
+                                    : '',
+                            ]"
+                        >
+                            <Link
+                                :href="route('reportes.predicciones')"
+                                class="menu-link"
+                                ><div class="menu-text">Predicciones</div></Link
                             >
                         </div>
                     </div>

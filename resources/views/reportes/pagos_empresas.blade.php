@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Usuarios</title>
+    <title>Consolidacion de pagos para facturacion</title>
     <style type="text/css">
         * {
             font-family: sans-serif;
@@ -11,9 +11,9 @@
 
         @page {
             margin-top: 1.5cm;
-            margin-bottom: 0.3cm;
-            margin-left: 0.3cm;
-            margin-right: 0.3cm;
+            margin-bottom: 1cm;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         table {
@@ -31,11 +31,11 @@
         }
 
         table thead tr th {
-            font-size: 7pt;
+            font-size: 7.5pt;
         }
 
         table tbody tr td {
-            font-size: 6pt;
+            font-size: 6.5pt;
         }
 
 
@@ -134,14 +134,28 @@
         }
 
         .bg-principal {
-            background: #1867C0;
+            background: #669eb9;
             color: white;
         }
 
-        .txt_rojo {}
+        .bg-gray {
+            background: rgb(236, 236, 236)
+        }
+
+        .bold {
+            font-weight: bold;
+        }
 
         .img_celda img {
             width: 45px;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .text-right {
+            text-align: right;
         }
     </style>
 </head>
@@ -155,43 +169,74 @@
         <h2 class="titulo">
             {{ $configuracion->first()->razon_social }}
         </h2>
-        <h4 class="texto">LISTA DE CLIENTES</h4>
+        <h4 class="texto">CONSOLIDACIÓN DE VIAJES PARA FACTURACIÓN</h4>
         <h4 class="fecha">Expedido: {{ date('d-m-Y') }}</h4>
     </div>
+
     <table border="1">
-        <thead class="bg-principal">
+        <thead>
             <tr>
                 <th width="3%">N°</th>
-                <th width="7%">FOTO</th>
-                <th>PATERNO</th>
-                <th>MATERNO</th>
-                <th>NOMBRE(S)</th>
-                <th>C.I.</th>
-                <th>TELÉFONO/CELULAR</th>
-                <th>ESTADO</th>
-                <th width="9%">FECHA DE REGISTRO</th>
+                <th>MES</th>
+                <th>CTO</th>
+                <th>SOCIEDAD</th>
+                <th>VOL. CARG.</th>
+                <th>FECHA</th>
+                <th>EMPRESA</th>
+                <th>PRODUCTO</th>
+                <th>TRAMO</th>
+                <th>RETENCIÓN 7%</th>
+                <th>DESC. MERMA</th>
+                <th>TOTAL PAGO</th>
             </tr>
         </thead>
         <tbody>
             @php
-                $cont = 1;
-            @endphp
-            @foreach ($clientes as $cliente)
-                <tr>
-                    <td class="centreado">{{ $cont++ }}</td>
-                    <td class="img_celda centreado">
-                        <img src="{{ $cliente->user->foto_b64 }}" alt="Foto">
+                $pagos = App\Models\Pago::select('pagos.*')->join(
+                    'programacions',
+                    'programacions.id',
+                    '=',
+                    'pagos.programacion_id',
+                );
 
-                    </td>
-                    <td class="">{{ $cliente->user->paterno }}</td>
-                    <td class="">{{ $cliente->user->materno }}</td>
-                    <td class="">{{ $cliente->user->nombre }}</td>
-                    <td class="">{{ $cliente->user->full_ci }}</td>
-                    <td class="">{{ $cliente->user->fono }}</td>
-                    <td class="">{{ $cliente->estado_cliente }}</td>
-                    <td class="centreado">{{ $cliente->user->fecha_registro_t }}</td>
+                if ($empresa_id != 'todos') {
+                    $pagos->where('programacions.empresa_id', $empresa_id);
+                }
+
+                if ($asociacion_id != 'todos') {
+                    $pagos->where('programacions.asociacion_id', $asociacion_id);
+                }
+
+                if ($fecha_ini && $fecha_fin) {
+                    $pagos->whereBetween('pagos.fecha_registro', [$fecha_ini, $fecha_fin]);
+                }
+                $pagos = $pagos->get();
+                $cont = 1;
+                $total = 0;
+            @endphp
+            @foreach ($pagos as $key_pago => $pago)
+                <tr>
+                    <td>{{ $cont++ }}</td>
+                    <td>{{ $pago->mes_anio }}</td>
+                    <td>{{ $pago->cto }}</td>
+                    <td>{{ $pago->programacion->asociacion->razon_social }}</td>
+                    <td>{{ $pago->viaje->volumen_cargado }}</td>
+                    <td>{{ $pago->fecha_registro_t }}</td>
+                    <td>{{ $pago->programacion->empresa->razon_social }}</td>
+                    <td>{{ $pago->programacion->producto->nombre }}</td>
+                    <td>{{ $pago->viaje->tramo }}</td>
+                    <td>{{ $pago->retencion }}</td>
+                    <td>{{ $pago->desc_merma }}</td>
+                    <td>{{ $pago->total_pagado }}</td>
+                    @php
+                        $total += (float) $pago->total_pagado;
+                    @endphp
                 </tr>
             @endforeach
+            <tr>
+                <td class="bold text-right" colspan="11">TOTAL</td>
+                <td class="bold">{{ number_format($total, 2, '.', '') }}</td>
+            </tr>
         </tbody>
     </table>
 </body>

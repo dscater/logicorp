@@ -139,6 +139,20 @@ const cargarConductors = async () => {
     listConductors.value = await getConductors();
 };
 
+const oContrato = ref(null);
+const getInfoContrato = () => {
+    if (form.contrato_id) {
+        axios
+            .get(route("contratos.show", form.contrato_id))
+            .then((response) => {
+                oContrato.value = response.data;
+                form.asociacion_id = oContrato.value.empresa_id;
+            });
+    } else {
+        oContrato.value = null;
+    }
+};
+
 const cargarListas = () => {
     cargarContratos();
     cargarEmpresas();
@@ -185,6 +199,7 @@ onMounted(() => {});
                                             form.errors?.contrato_id,
                                     }"
                                     v-model="form.contrato_id"
+                                    @change="getInfoContrato"
                                 >
                                     <option value="">- Seleccione -</option>
                                     <option
@@ -231,8 +246,9 @@ onMounted(() => {});
                                 </ul>
                             </div>
                             <div class="col-md-4">
-                                <label>Seleccionar asociación*</label>
-                                <select
+                                <label>Asociación*</label>
+                                <input type="text" class="form-control" :value="oContrato?.empresa.razon_social" readonly>
+                                <!-- <select
                                     class="form-select"
                                     :class="{
                                         'parsley-error':
@@ -255,7 +271,7 @@ onMounted(() => {});
                                     <li class="parsley-required">
                                         {{ form.errors?.asociacion_id }}
                                     </li>
-                                </ul>
+                                </ul> -->
                             </div>
                             <div class="col-md-4">
                                 <label>Seleccionar producto*</label>

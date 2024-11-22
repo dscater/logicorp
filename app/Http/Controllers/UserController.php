@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contrato;
 use App\Models\Lote;
+use App\Models\Producto;
 use App\Models\User;
+use App\Models\Vehiculo;
 use App\Models\VentaLote;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -68,9 +71,105 @@ class UserController extends Controller
             "configuracions.destroy",
 
             "reportes.usuarios",
+            "reportes.consolidacion_viajes",
+            "reportes.consolidacion_viajes_empresas",
+            "reportes.consolidacion_viajes_facturacion",
+            "reportes.pagos_empresas",
+            "reportes.predicciones",
         ],
-        "GERENTE" => [],
-        "OPERADOR" => [],
+        "GERENTE" => [
+            "proveedors.index",
+            "proveedors.create",
+            "proveedors.edit",
+            "proveedors.destroy",
+
+            "empresas.index",
+            "empresas.create",
+            "empresas.edit",
+            "empresas.destroy",
+
+            "conductors.index",
+            "conductors.create",
+            "conductors.edit",
+            "conductors.destroy",
+
+            "vehiculos.index",
+            "vehiculos.create",
+            "vehiculos.edit",
+            "vehiculos.destroy",
+
+            "productos.index",
+            "productos.create",
+            "productos.edit",
+            "productos.destroy",
+
+            "contratos.index",
+            "contratos.create",
+            "contratos.edit",
+            "contratos.destroy",
+
+            "asignacions.index",
+            "asignacions.create",
+            "asignacions.edit",
+            "asignacions.destroy",
+
+            "programacions.index",
+            "programacions.create",
+            "programacions.edit",
+            "programacions.destroy",
+
+            "viajes.index",
+            "viajes.create",
+            "viajes.edit",
+            "viajes.destroy",
+
+            "configuracions.index",
+            "configuracions.create",
+            "configuracions.edit",
+            "configuracions.destroy",
+
+            "reportes.consolidacion_viajes",
+            "reportes.consolidacion_viajes_empresas",
+            "reportes.consolidacion_viajes_facturacion",
+            "reportes.pagos_empresas",
+            "reportes.predicciones",
+        ],
+        "OPERADOR" => [
+            "vehiculos.index",
+            "vehiculos.create",
+            "vehiculos.edit",
+            "vehiculos.destroy",
+
+            "contratos.index",
+            "contratos.create",
+            "contratos.edit",
+            "contratos.destroy",
+
+            "asignacions.index",
+            "asignacions.create",
+            "asignacions.edit",
+            "asignacions.destroy",
+
+            "programacions.index",
+            "programacions.create",
+            "programacions.edit",
+            "programacions.destroy",
+
+            "viajes.index",
+            "viajes.create",
+            "viajes.edit",
+            "viajes.destroy",
+
+            "configuracions.index",
+            "configuracions.create",
+            "configuracions.edit",
+            "configuracions.destroy",
+
+            "reportes.consolidacion_viajes",
+            "reportes.consolidacion_viajes_empresas",
+            "reportes.consolidacion_viajes_facturacion",
+            "reportes.pagos_empresas",
+        ],
     ];
 
     public static function getPermisosUser()
@@ -120,29 +219,38 @@ class UserController extends Controller
             ];
         }
 
-        $array_infos[] = [
-            'label' => 'CONTRATOS',
-            'cantidad' => 0,
-            'color' => 'bg-principal',
-            'icon' => "fa-clipboard-list",
-            "url" => ""
-        ];
+        if (in_array('contratos.index', self::$permisos[$tipo])) {
+            $contratos = Contrato::count();
+            $array_infos[] = [
+                'label' => 'CONTRATOS',
+                'cantidad' => $contratos,
+                'color' => 'bg-principal',
+                'icon' => "fa-clipboard-list",
+                "url" => "contratos.index"
+            ];
+        }
 
-        $array_infos[] = [
-            'label' => 'PRODUCTOS',
-            'cantidad' => 0,
-            'color' => 'bg-principal',
-            'icon' => "fa-box",
-            "url" => ""
-        ];
+        if (in_array('productos.index', self::$permisos[$tipo])) {
+            $productos = Producto::count();
+            $array_infos[] = [
+                'label' => 'PRODUCTOS',
+                'cantidad' => $productos,
+                'color' => 'bg-principal',
+                'icon' => "fa-box",
+                "url" => "productos.index"
+            ];
+        }
 
-        $array_infos[] = [
-            'label' => 'VEHÍCULOS',
-            'cantidad' => 0,
-            'color' => 'bg-principal',
-            'icon' => "fa-truck",
-            "url" => ""
-        ];
+        if (in_array('vehiculos.index', self::$permisos[$tipo])) {
+            $vehiculos = Vehiculo::count();
+            $array_infos[] = [
+                'label' => 'VEHÍCULOS',
+                'cantidad' => $vehiculos,
+                'color' => 'bg-principal',
+                'icon' => "fa-truck",
+                "url" => "vehiculos.index"
+            ];
+        }
 
         return $array_infos;
     }
