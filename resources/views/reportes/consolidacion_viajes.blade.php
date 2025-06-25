@@ -405,6 +405,27 @@
                     <td class="bg-gray bold">OBS. GENERAL</td>
                     <td>{{ $viaje->observaciones_general }}</td>
                 </tr>
+                @if ($viaje->programacion->reemplazo == 1)
+                    <tr>
+                        <td colspan="2" class="bg-gray bold centreado">REEMPLAZO DE VEHÍCULO</td>
+                    </tr>
+                    <tr>
+                        <td class="bg-gray bold">PLACA</td>
+                        <td>{{ $viaje->programacion->vehiculo_remplazo->placa }}</td>
+                    </tr>
+                    <tr>
+                        <td class="bg-gray bold">MARCA</td>
+                        <td>{{ $viaje->programacion->vehiculo_remplazo->marca }}</td>
+                    </tr>
+                    <tr>
+                        <td class="bg-gray bold">COLOR</td>
+                        <td>{{ $viaje->programacion->vehiculo_remplazo->color }}</td>
+                    </tr>
+                    <tr>
+                        <td class="bg-gray bold">OBSERVACIONES</td>
+                        <td>{{ $viaje->programacion->observacion_reemplazo }}</td>
+                    </tr>
+                @endif
             </tbody>
         </table>
 

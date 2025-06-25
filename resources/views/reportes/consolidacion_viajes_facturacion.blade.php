@@ -157,6 +157,10 @@
         .text-right {
             text-align: right;
         }
+
+        .txt-rojo {
+            color: rgba(206, 0, 0, 0.87);
+        }
     </style>
 </head>
 
@@ -247,7 +251,14 @@
                             <td>{{ $viaje->id }}</td>
                             <td>{{ $viaje->fecha_carga_t }}</td>
                             <td>{{ $viaje->programacion->conductor->full_name }}</td>
-                            <td>{{ $viaje->programacion->vehiculo->placa }}</td>
+                            <td>
+                                <span class="{{ $viaje->programacion->reemplazo == 1 ? 'txt-rojo' : '' }}">
+                                    {{ $viaje->programacion->vehiculo->placa }}
+                                </span>
+                                @if ($viaje->programacion->reemplazo == 1)
+                                    <span>{{ $viaje->programacion->vehiculo_remplazo->placa }}</span>
+                                @endif
+                            </td>
                             <td>{{ $viaje->programacion->producto->nombre }}</td>
                             <td>{{ $viaje->tramo }}</td>
                             <td>{{ $viaje->programacion->empresa->razon_social }}</td>

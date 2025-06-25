@@ -56,7 +56,7 @@ class ProgramacionController extends Controller
 
     public function api(Request $request)
     {
-        $programacions = Programacion::with(["contrato", "empresa", "asociacion", "producto", "proveedor", "vehiculo", "conductor"])->select("programacions.*");
+        $programacions = Programacion::with(["contrato", "empresa", "asociacion", "producto", "proveedor", "vehiculo", "vehiculo_remplazo", "conductor"])->select("programacions.*");
         $programacions = $programacions->get();
         return response()->JSON(["data" => $programacions]);
     }
@@ -84,8 +84,16 @@ class ProgramacionController extends Controller
         try {
             // crear el programacion
             $request["fecha_registro"] = date("Y-m-d");
-            $nuevo_programacion = Programacion::create(array_map('mb_strtoupper', $request->all()));
-            $datos_original = HistorialAccion::getDetalleRegistro($nuevo_programacion, "programacions");
+            $nueva_programacion = Programacion::create(array_map('mb_strtoupper', $request->except(["vehiculo_remplazo_id", "observacion_reemplazo"])));
+            if ($nueva_programacion->reemplazo == 0) {
+                $nueva_programacion->vehiculo_remplazo_id = null;
+                $nueva_programacion->observacion_reemplazo = null;
+            } else {
+                $nueva_programacion->vehiculo_remplazo_id = $request->vehiculo_remplazo_id;
+                $nueva_programacion->observacion_reemplazo = mb_strtoupper($request->observacion_reemplazo);
+            }
+            $nueva_programacion->save();
+            $datos_original = HistorialAccion::getDetalleRegistro($nueva_programacion, "programacions");
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'CREACIÓN',
@@ -117,7 +125,16 @@ class ProgramacionController extends Controller
         DB::beginTransaction();
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($programacion, "programacions");
-            $programacion->update(array_map('mb_strtoupper', $request->all()));
+            $programacion->update(array_map('mb_strtoupper', $request->except(["vehiculo_remplazo_id", "observacion_reemplazo"])));
+
+            if ($programacion->reemplazo == 0) {
+                $programacion->vehiculo_remplazo_id = null;
+                $programacion->observacion_reemplazo = null;
+            } else {
+                $programacion->vehiculo_remplazo_id = $request->vehiculo_remplazo_id;
+                $programacion->observacion_reemplazo = mb_strtoupper($request->observacion_reemplazo);
+            }
+            $programacion->save();
 
             $datos_nuevo = HistorialAccion::getDetalleRegistro($programacion, "programacions");
             HistorialAccion::create([

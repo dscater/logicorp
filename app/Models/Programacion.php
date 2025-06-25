@@ -21,6 +21,9 @@ class Programacion extends Model
         "frontera",
         "fecha_programacion",
         "descripcion",
+        "reemplazo",
+        "vehiculo_remplazo_id",
+        "observacion_reemplazo",
         "fecha_registro",
     ];
 
@@ -92,6 +95,11 @@ class Programacion extends Model
     public function vehiculo()
     {
         return $this->belongsTo(Vehiculo::class, 'vehiculo_id');
+    }
+
+    public function vehiculo_remplazo()
+    {
+        return $this->belongsTo(Vehiculo::class, 'vehiculo_remplazo_id');
     }
 
     public function conductor()

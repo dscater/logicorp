@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string("frontera");
             $table->date("fecha_programacion");
             $table->string("descripcion", 600)->nullable();
+            $table->integer("reemplazo")->default(0);
+            $table->unsignedBigInteger("vehiculo_remplazo_id");
+            $table->text("observacion_reemplazo")->nullable();
             $table->date("fecha_registro")->nullable();
             $table->timestamps();
 

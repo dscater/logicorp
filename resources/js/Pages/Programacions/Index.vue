@@ -70,6 +70,14 @@ const columns = [
         data: "descripcion",
     },
     {
+        title: "VEHICULO REEMPLAZADO",
+        data: "vehiculo_remplazo.full_name",
+    },
+    {
+        title: "OBSERVACIONES",
+        data: "observacion_reemplazo",
+    },
+    {
         title: "FECHA DE REGISTRO",
         data: "fecha_registro_t",
     },

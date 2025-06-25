@@ -185,10 +185,16 @@ class ReporteController extends Controller
 
                     if (count($viajes) > 0) {
                         foreach ($viajes as $viaje) {
+                            $html_vehiculo = $viaje->programacion->vehiculo->placa;
+                            if ($viaje->programacion->reemplazo == 1) {
+                                $html_vehiculo = '<span class="txt-rojo">' . $viaje->programacion->vehiculo->placa . '</span>';
+                                $html_vehiculo .= '<span>' . $viaje->programacion->vehiculo_remplazo->placa . '</span>';
+                            }
+
                             $html .= '<tr>
                                 <td>' . $cont++ . '</td>
                                 <td>' . $viaje->fecha_carga . '</td>
-                                <td>' . $viaje->programacion->vehiculo->placa . '</td>
+                                <td>' . $html_vehiculo . '</td>
                                 <td>' . $empresa->razon_social . '</td>
                                 <td>' . $viaje->volumen_programado . '</td>
                                 <td>' . $viaje->programacion->origen_destino . '</td>

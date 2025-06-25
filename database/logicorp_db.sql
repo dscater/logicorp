@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 22-11-2024 a las 21:04:29
+-- Tiempo de generación: 25-06-2025 a las 18:52:37
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.2.22
 
@@ -183,7 +183,8 @@ CREATE TABLE `contratos` (
 
 INSERT INTO `contratos` (`id`, `codigo`, `nro_cod`, `nro_lote`, `empresa_id`, `p_asignado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
 (1, 'C.1', 1, '10001', 2, 90, '2024-11-20', '2024-11-20 20:59:12', '2024-11-20 20:59:12'),
-(2, 'C.2', 2, '1112/2024', 4, 82, '2024-11-22', '2024-11-23 00:58:41', '2024-11-23 00:58:41');
+(2, 'C.2', 2, '1112/2024', 4, 82, '2024-11-22', '2024-11-23 00:58:41', '2024-11-23 00:58:41'),
+(3, 'C.3', 3, '123123123', 4, 90, '2025-06-25', '2025-06-25 22:25:20', '2025-06-25 22:25:20');
 
 -- --------------------------------------------------------
 
@@ -210,7 +211,8 @@ CREATE TABLE `contrato_detalles` (
 INSERT INTO `contrato_detalles` (`id`, `contrato_id`, `proveedor_id`, `producto_id`, `tramo`, `frontera`, `cantidad`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 1, 'TRAMO 1', 'FRONTERA 1', 30, '2024-11-20 20:59:12', '2024-11-20 20:59:12'),
 (2, 1, 2, 2, 'TRAMO 2', 'FRONTERA 2', 35, '2024-11-20 20:59:12', '2024-11-20 20:59:12'),
-(3, 2, 2, 2, 'TRAMO2', 'FRONTERA', 200, '2024-11-23 00:58:41', '2024-11-23 00:58:41');
+(3, 2, 2, 2, 'TRAMO2', 'FRONTERA', 200, '2024-11-23 00:58:41', '2024-11-23 00:58:41'),
+(4, 3, 1, 1, '120', 'ORURO', 20, '2025-06-25 22:25:20', '2025-06-25 22:25:20');
 
 -- --------------------------------------------------------
 
@@ -342,7 +344,14 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (71, 3, 'CREACIÓN', 'EL USUARIO CRAMIRES REGISTRO UNA PROGRAMACIÓN', 'id: 2<br/>contrato_id: 2<br/>empresa_id: 3<br/>asociacion_id: 4<br/>producto_id: 2<br/>proveedor_id: 2<br/>vehiculo_id: 2<br/>conductor_id: 1<br/>origen_destino: ORIGEN DESTINO<br/>frontera: FRONTERA<br/>fecha_programacion: 2024-11-22<br/>descripcion: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:59:17<br/>updated_at: 2024-11-22 20:59:17<br/>', NULL, 'PROGRAMACIÓN', '2024-11-22', '20:59:17', '2024-11-23 00:59:17', '2024-11-23 00:59:17'),
 (72, 3, 'CREACIÓN', 'EL USUARIO CRAMIRES REGISTRO UN VIAJE', 'id: 4<br/>programacion_id: 2<br/>volumen_programado: 3000<br/>tramo: tramo<br/>nomina: <br/>resolucion: <br/>dim: <br/>estado: <br/>observaciones: <br/>fecha_carga: <br/>volumen_cargado: <br/>total: <br/>cre_carga: <br/>volumen_recepcionado: <br/>total2: <br/>mermas: <br/>dif_litros: <br/>merma_ypfb: <br/>merma_cobrar: <br/>volumen_facturar: <br/>fecha_descarga: <br/>segun_cre: <br/>factura_lote: <br/>atq_lapaz: <br/>mes_servicio: <br/>dim2: <br/>crt: <br/>vol_crtm3: <br/>peso_crt: <br/>planta_carga_crt: <br/>fecha_cruce_frontera: <br/>mic_dta: <br/>vol_mic: <br/>peso_mic: <br/>parte_recepcion: <br/>vol_parte_mic: <br/>vol_parte_lts: <br/>peso_parte: <br/>observaciones2: <br/>nro_solicitud_hr: <br/>nro_ruta: <br/>fecha_hr: <br/>observaciones3: <br/>nro_fac_albodab: <br/>fecha_factura: <br/>importe_bs: 2000<br/>observaciones4: <br/>observaciones_general: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:59:30<br/>updated_at: 2024-11-22 20:59:30<br/>', NULL, 'VIAJES', '2024-11-22', '20:59:30', '2024-11-23 00:59:30', '2024-11-23 00:59:30'),
 (73, 3, 'MODIFICACIÓN', 'EL USUARIO CRAMIRES MODIFICÓ UN VIAJE', 'id: 4<br/>programacion_id: 2<br/>volumen_programado: 3000<br/>tramo: tramo<br/>nomina: <br/>resolucion: <br/>dim: <br/>estado: <br/>observaciones: <br/>fecha_carga: <br/>volumen_cargado: <br/>total: <br/>cre_carga: <br/>volumen_recepcionado: <br/>total2: <br/>mermas: <br/>dif_litros: <br/>merma_ypfb: <br/>merma_cobrar: <br/>volumen_facturar: <br/>fecha_descarga: <br/>segun_cre: <br/>factura_lote: <br/>atq_lapaz: <br/>mes_servicio: <br/>dim2: <br/>crt: <br/>vol_crtm3: <br/>peso_crt: <br/>planta_carga_crt: <br/>fecha_cruce_frontera: <br/>mic_dta: <br/>vol_mic: <br/>peso_mic: <br/>parte_recepcion: <br/>vol_parte_mic: <br/>vol_parte_lts: <br/>peso_parte: <br/>observaciones2: <br/>nro_solicitud_hr: <br/>nro_ruta: <br/>fecha_hr: <br/>observaciones3: <br/>nro_fac_albodab: <br/>fecha_factura: <br/>importe_bs: 2000.00<br/>observaciones4: <br/>observaciones_general: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:59:30<br/>updated_at: 2024-11-22 20:59:30<br/>', 'id: 4<br/>programacion_id: 2<br/>volumen_programado: 3000<br/>tramo: tramo<br/>nomina: <br/>resolucion: <br/>dim: <br/>estado: <br/>observaciones: <br/>fecha_carga: <br/>volumen_cargado: <br/>total: <br/>cre_carga: <br/>volumen_recepcionado: <br/>total2: <br/>mermas: <br/>dif_litros: <br/>merma_ypfb: <br/>merma_cobrar: <br/>volumen_facturar: <br/>fecha_descarga: 2024-11-22<br/>segun_cre: <br/>factura_lote: <br/>atq_lapaz: <br/>mes_servicio: <br/>dim2: <br/>crt: <br/>vol_crtm3: <br/>peso_crt: <br/>planta_carga_crt: <br/>fecha_cruce_frontera: <br/>mic_dta: <br/>vol_mic: <br/>peso_mic: <br/>parte_recepcion: <br/>vol_parte_mic: <br/>vol_parte_lts: <br/>peso_parte: <br/>observaciones2: <br/>nro_solicitud_hr: <br/>nro_ruta: <br/>fecha_hr: <br/>observaciones3: <br/>nro_fac_albodab: <br/>fecha_factura: <br/>importe_bs: 2000.00<br/>observaciones4: <br/>observaciones_general: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:59:30<br/>updated_at: 2024-11-22 21:01:26<br/>', 'VIAJES', '2024-11-22', '21:01:26', '2024-11-23 01:01:26', '2024-11-23 01:01:26'),
-(74, 3, 'CREACIÓN', 'EL USUARIO CRAMIRES REGISTRO UN PAGO', 'id: 3<br/>programacion_id: 2<br/>viaje_id: 4<br/>mes_anio: agosto 2024<br/>cto: 12312312<br/>fecha: 2024-11-22<br/>retencion: 140.00<br/>desc_merma: <br/>total_pagado: 2000.00<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 21:02:11<br/>updated_at: 2024-11-22 21:02:11<br/>', NULL, 'PAGOS', '2024-11-22', '21:02:11', '2024-11-23 01:02:11', '2024-11-23 01:02:11');
+(74, 3, 'CREACIÓN', 'EL USUARIO CRAMIRES REGISTRO UN PAGO', 'id: 3<br/>programacion_id: 2<br/>viaje_id: 4<br/>mes_anio: agosto 2024<br/>cto: 12312312<br/>fecha: 2024-11-22<br/>retencion: 140.00<br/>desc_merma: <br/>total_pagado: 2000.00<br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 21:02:11<br/>updated_at: 2024-11-22 21:02:11<br/>', NULL, 'PAGOS', '2024-11-22', '21:02:11', '2024-11-23 01:02:11', '2024-11-23 01:02:11'),
+(75, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN CONTRATO', 'id: 3<br/>codigo: C.3<br/>nro_cod: 3<br/>nro_lote: 123123123<br/>empresa_id: 4<br/>p_asignado: 90<br/>fecha_registro: 2025-06-25<br/>created_at: 2025-06-25 18:25:20<br/>updated_at: 2025-06-25 18:25:20<br/>', NULL, 'CONTRATOS', '2025-06-25', '18:25:20', '2025-06-25 22:25:20', '2025-06-25 22:25:20'),
+(76, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UNA PROGRAMACIÓN', 'id: 3<br/>contrato_id: 3<br/>empresa_id: 3<br/>asociacion_id: 4<br/>producto_id: 3<br/>proveedor_id: 2<br/>vehiculo_id: 2<br/>conductor_id: 2<br/>origen_destino: LA PAZ<br/>frontera: ORURO<br/>fecha_programacion: 2025-06-25<br/>descripcion: DESC<br/>reemplazo: 0<br/>vehiculo_remplazo_id: <br/>observacion_reemplazo: <br/>fecha_registro: 2025-06-25<br/>created_at: 2025-06-25 18:29:36<br/>updated_at: 2025-06-25 18:29:36<br/>', NULL, 'PROGRAMACIÓN', '2025-06-25', '18:29:36', '2025-06-25 22:29:36', '2025-06-25 22:29:36'),
+(77, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA PROGRAMACIÓN', 'id: 3<br/>contrato_id: 3<br/>empresa_id: 3<br/>asociacion_id: 4<br/>producto_id: 3<br/>proveedor_id: 2<br/>vehiculo_id: 2<br/>conductor_id: 2<br/>origen_destino: LA PAZ<br/>frontera: ORURO<br/>fecha_programacion: 2025-06-25<br/>descripcion: DESC<br/>reemplazo: 0<br/>vehiculo_remplazo_id: <br/>observacion_reemplazo: <br/>fecha_registro: 2025-06-25<br/>created_at: 2025-06-25 18:29:36<br/>updated_at: 2025-06-25 18:29:36<br/>', 'id: 3<br/>contrato_id: 3<br/>empresa_id: 3<br/>asociacion_id: 4<br/>producto_id: 3<br/>proveedor_id: 2<br/>vehiculo_id: 2<br/>conductor_id: 2<br/>origen_destino: LA PAZ<br/>frontera: ORURO<br/>fecha_programacion: 2025-06-25<br/>descripcion: DESC<br/>reemplazo: 1<br/>vehiculo_remplazo_id: 3<br/>observacion_reemplazo: observacion de reemplazo<br/>fecha_registro: 2025-06-25<br/>created_at: 2025-06-25 18:29:36<br/>updated_at: 2025-06-25 18:29:56<br/>', 'PROGRAMACIÓN', '2025-06-25', '18:29:56', '2025-06-25 22:29:56', '2025-06-25 22:29:56'),
+(78, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA PROGRAMACIÓN', 'id: 3<br/>contrato_id: 3<br/>empresa_id: 3<br/>asociacion_id: 4<br/>producto_id: 3<br/>proveedor_id: 2<br/>vehiculo_id: 2<br/>conductor_id: 2<br/>origen_destino: LA PAZ<br/>frontera: ORURO<br/>fecha_programacion: 2025-06-25<br/>descripcion: DESC<br/>reemplazo: 1<br/>vehiculo_remplazo_id: 3<br/>observacion_reemplazo: observacion de reemplazo<br/>fecha_registro: 2025-06-25<br/>created_at: 2025-06-25 18:29:36<br/>updated_at: 2025-06-25 18:29:56<br/>', 'id: 3<br/>contrato_id: 3<br/>empresa_id: 3<br/>asociacion_id: 4<br/>producto_id: 3<br/>proveedor_id: 2<br/>vehiculo_id: 2<br/>conductor_id: 2<br/>origen_destino: LA PAZ<br/>frontera: ORURO<br/>fecha_programacion: 2025-06-25<br/>descripcion: DESC<br/>reemplazo: 1<br/>vehiculo_remplazo_id: 3<br/>observacion_reemplazo: OBSERVACION DE REEMPLAZO<br/>fecha_registro: 2025-06-25<br/>created_at: 2025-06-25 18:29:36<br/>updated_at: 2025-06-25 18:31:33<br/>', 'PROGRAMACIÓN', '2025-06-25', '18:31:33', '2025-06-25 22:31:33', '2025-06-25 22:31:33'),
+(79, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN VIAJE', 'id: 5<br/>programacion_id: 3<br/>volumen_programado: 123132<br/>tramo: 12313<br/>nomina: <br/>resolucion: <br/>dim: <br/>estado: <br/>observaciones: <br/>fecha_carga: <br/>volumen_cargado: <br/>total: <br/>cre_carga: <br/>volumen_recepcionado: <br/>total2: <br/>mermas: <br/>dif_litros: <br/>merma_ypfb: <br/>merma_cobrar: <br/>volumen_facturar: <br/>fecha_descarga: <br/>segun_cre: <br/>factura_lote: <br/>atq_lapaz: <br/>mes_servicio: <br/>dim2: <br/>crt: <br/>vol_crtm3: <br/>peso_crt: <br/>planta_carga_crt: <br/>fecha_cruce_frontera: <br/>mic_dta: <br/>vol_mic: <br/>peso_mic: <br/>parte_recepcion: <br/>vol_parte_mic: <br/>vol_parte_lts: <br/>peso_parte: <br/>observaciones2: <br/>nro_solicitud_hr: <br/>nro_ruta: <br/>fecha_hr: <br/>observaciones3: <br/>nro_fac_albodab: <br/>fecha_factura: <br/>importe_bs: 90000<br/>observaciones4: <br/>observaciones_general: <br/>fecha_registro: 2025-06-25<br/>created_at: 2025-06-25 18:44:06<br/>updated_at: 2025-06-25 18:44:06<br/>', NULL, 'VIAJES', '2025-06-25', '18:44:06', '2025-06-25 22:44:06', '2025-06-25 22:44:06'),
+(80, 1, 'CREACIÓN', 'EL USUARIO admin REGISTRO UN PAGO', 'id: 4<br/>programacion_id: 3<br/>viaje_id: 5<br/>mes_anio: junio 2025<br/>cto: 90000<br/>fecha: 2025-06-25<br/>retencion: 6300.00<br/>desc_merma: <br/>total_pagado: 90000.00<br/>fecha_registro: 2025-06-25<br/>created_at: 2025-06-25 18:47:56<br/>updated_at: 2025-06-25 18:47:56<br/>', NULL, 'PAGOS', '2025-06-25', '18:47:56', '2025-06-25 22:47:56', '2025-06-25 22:47:56'),
+(81, 1, 'MODIFICACIÓN', 'EL USUARIO admin MODIFICÓ UNA PROGRAMACIÓN', 'id: 2<br/>contrato_id: 2<br/>empresa_id: 3<br/>asociacion_id: 4<br/>producto_id: 2<br/>proveedor_id: 2<br/>vehiculo_id: 2<br/>conductor_id: 1<br/>origen_destino: ORIGEN DESTINO<br/>frontera: FRONTERA<br/>fecha_programacion: 2024-11-22<br/>descripcion: <br/>reemplazo: 0<br/>vehiculo_remplazo_id: <br/>observacion_reemplazo: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:59:17<br/>updated_at: 2024-11-22 20:59:17<br/>', 'id: 2<br/>contrato_id: 2<br/>empresa_id: 3<br/>asociacion_id: 4<br/>producto_id: 2<br/>proveedor_id: 2<br/>vehiculo_id: 2<br/>conductor_id: 1<br/>origen_destino: ORIGEN DESTINO<br/>frontera: FRONTERA<br/>fecha_programacion: 2024-11-22<br/>descripcion: <br/>reemplazo: 1<br/>vehiculo_remplazo_id: 3<br/>observacion_reemplazo: <br/>fecha_registro: 2024-11-22<br/>created_at: 2024-11-22 20:59:17<br/>updated_at: 2025-06-25 18:51:59<br/>', 'PROGRAMACIÓN', '2025-06-25', '18:51:59', '2025-06-25 22:51:59', '2025-06-25 22:51:59');
 
 -- --------------------------------------------------------
 
@@ -406,7 +415,8 @@ CREATE TABLE `pagos` (
 INSERT INTO `pagos` (`id`, `programacion_id`, `viaje_id`, `mes_anio`, `cto`, `fecha`, `retencion`, `desc_merma`, `total_pagado`, `fecha_registro`, `created_at`, `updated_at`) VALUES
 (1, 1, 2, 'abril - 2024', '1111/2024', '2024-11-21', 210.00, 100.00, 3000.00, '2024-11-21', '2024-11-22 00:19:20', '2024-11-22 00:19:20'),
 (2, 1, 3, 'agosto-2024', '111/2024', '2024-11-21', 1400.00, NULL, 20000.00, '2024-11-21', '2024-11-22 00:27:25', '2024-11-22 00:27:25'),
-(3, 2, 4, 'agosto 2024', '12312312', '2024-11-22', 140.00, NULL, 2000.00, '2024-11-22', '2024-11-23 01:02:11', '2024-11-23 01:02:11');
+(3, 2, 4, 'agosto 2024', '12312312', '2024-11-22', 140.00, NULL, 2000.00, '2024-11-22', '2024-11-23 01:02:11', '2024-11-23 01:02:11'),
+(4, 3, 5, 'junio 2025', '90000', '2025-06-25', 6300.00, NULL, 90000.00, '2025-06-25', '2025-06-25 22:47:56', '2025-06-25 22:47:56');
 
 -- --------------------------------------------------------
 
@@ -451,6 +461,9 @@ CREATE TABLE `programacions` (
   `frontera` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fecha_programacion` date NOT NULL,
   `descripcion` varchar(600) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reemplazo` int NOT NULL DEFAULT '0',
+  `vehiculo_remplazo_id` bigint UNSIGNED DEFAULT NULL,
+  `observacion_reemplazo` text COLLATE utf8mb4_unicode_ci,
   `fecha_registro` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -460,9 +473,10 @@ CREATE TABLE `programacions` (
 -- Volcado de datos para la tabla `programacions`
 --
 
-INSERT INTO `programacions` (`id`, `contrato_id`, `empresa_id`, `asociacion_id`, `producto_id`, `proveedor_id`, `vehiculo_id`, `conductor_id`, `origen_destino`, `frontera`, `fecha_programacion`, `descripcion`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 2, 1, 1, 2, 1, 'ORIGEN/DESTINO', 'FRONTERA', '2024-11-30', 'DESC', '2024-11-21', '2024-11-21 19:48:13', '2024-11-21 19:48:26'),
-(2, 2, 3, 4, 2, 2, 2, 1, 'ORIGEN DESTINO', 'FRONTERA', '2024-11-22', '', '2024-11-22', '2024-11-23 00:59:17', '2024-11-23 00:59:17');
+INSERT INTO `programacions` (`id`, `contrato_id`, `empresa_id`, `asociacion_id`, `producto_id`, `proveedor_id`, `vehiculo_id`, `conductor_id`, `origen_destino`, `frontera`, `fecha_programacion`, `descripcion`, `reemplazo`, `vehiculo_remplazo_id`, `observacion_reemplazo`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 2, 1, 1, 2, 1, 'ORIGEN/DESTINO', 'FRONTERA', '2024-11-30', 'DESC', 0, NULL, NULL, '2024-11-21', '2024-11-21 19:48:13', '2024-11-21 19:48:26'),
+(2, 2, 3, 4, 2, 2, 2, 1, 'ORIGEN DESTINO', 'FRONTERA', '2024-11-22', '', 1, 3, '', '2024-11-22', '2024-11-23 00:59:17', '2025-06-25 22:51:59'),
+(3, 3, 3, 4, 3, 2, 2, 2, 'LA PAZ', 'ORURO', '2025-06-25', 'DESC', 1, 3, 'OBSERVACION DE REEMPLAZO', '2025-06-25', '2025-06-25 22:29:36', '2025-06-25 22:31:33');
 
 -- --------------------------------------------------------
 
@@ -630,7 +644,8 @@ CREATE TABLE `viajes` (
 INSERT INTO `viajes` (`id`, `programacion_id`, `volumen_programado`, `tramo`, `nomina`, `resolucion`, `dim`, `estado`, `observaciones`, `fecha_carga`, `volumen_cargado`, `total`, `cre_carga`, `volumen_recepcionado`, `total2`, `mermas`, `dif_litros`, `merma_ypfb`, `merma_cobrar`, `volumen_facturar`, `fecha_descarga`, `segun_cre`, `factura_lote`, `atq_lapaz`, `mes_servicio`, `dim2`, `crt`, `vol_crtm3`, `peso_crt`, `planta_carga_crt`, `fecha_cruce_frontera`, `mic_dta`, `vol_mic`, `peso_mic`, `parte_recepcion`, `vol_parte_mic`, `vol_parte_lts`, `peso_parte`, `observaciones2`, `nro_solicitud_hr`, `nro_ruta`, `fecha_hr`, `observaciones3`, `nro_fac_albodab`, `fecha_factura`, `importe_bs`, `observaciones4`, `observaciones_general`, `fecha_registro`, `created_at`, `updated_at`) VALUES
 (2, 1, 20000, 'TRAMO', 'NOMIN', 'RESOLUCION', 'DIM', 'ESTADO', 'OBS 1', '2024-01-01', 2000, 4000, 'CRE CARGA', 2000, 5000, 30, 100, 20, 20, 3000, '2024-11-03', 'CRE NRO', '10000/2', 'ARICA TAMBO', 'ENERO', 'DIM', 'CRT', 'VOL CRT', 30, 'PLANTA DE CARGA', '2024-04-04', 'MIC/DTA', 31, 31, 'PART RECEPCION', 32, 33, 34, 'OBS', '111', '222', '2024-03-03', 'OBS', '33333 ALBO/DAB', '2024-05-05', 3000.00, 'OBS 4', 'OBS GENERAL', '2024-11-21', '2024-11-21 20:31:14', '2024-11-22 21:48:58'),
 (3, 1, 1000, 'tramo2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20000.00, NULL, NULL, '2024-11-21', '2024-11-21 23:51:20', '2024-11-21 23:51:20'),
-(4, 2, 3000, 'tramo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2000.00, NULL, NULL, '2024-11-22', '2024-11-23 00:59:30', '2024-11-23 01:01:26');
+(4, 2, 3000, 'tramo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2000.00, NULL, NULL, '2024-11-22', '2024-11-23 00:59:30', '2024-11-23 01:01:26'),
+(5, 3, 123132, '12313', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 90000.00, NULL, NULL, '2025-06-25', '2025-06-25 22:44:06', '2025-06-25 22:44:06');
 
 --
 -- Índices para tablas volcadas
@@ -797,13 +812,13 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `contratos`
 --
 ALTER TABLE `contratos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `contrato_detalles`
 --
 ALTER TABLE `contrato_detalles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `empresas`
@@ -815,7 +830,7 @@ ALTER TABLE `empresas`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -827,7 +842,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -839,7 +854,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `programacions`
 --
 ALTER TABLE `programacions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedors`
@@ -863,7 +878,7 @@ ALTER TABLE `vehiculos`
 -- AUTO_INCREMENT de la tabla `viajes`
 --
 ALTER TABLE `viajes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas

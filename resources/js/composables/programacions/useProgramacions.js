@@ -15,6 +15,9 @@ const oProgramacion = ref({
     frontera: "",
     fecha_programacion: "",
     descripcion: "",
+    reemplazo: 0,
+    vehiculo_remplazo_id: "",
+    observacion_reemplazo: "",
     _method: "POST",
 });
 
@@ -165,6 +168,11 @@ export const useProgramacions = () => {
             oProgramacion.value.frontera = item.frontera;
             oProgramacion.value.fecha_programacion = item.fecha_programacion;
             oProgramacion.value.descripcion = item.descripcion;
+            oProgramacion.value.reemplazo = item.reemplazo;
+            oProgramacion.value.vehiculo_remplazo_id =
+                item.vehiculo_remplazo_id;
+            oProgramacion.value.observacion_reemplazo =
+                item.observacion_reemplazo;
             oProgramacion.value._method = "PUT";
             return oProgramacion;
         }
@@ -184,6 +192,9 @@ export const useProgramacions = () => {
         oProgramacion.value.frontera = "";
         oProgramacion.value.fecha_programacion = "";
         oProgramacion.value.descripcion = "";
+        oProgramacion.value.reemplazo = 0;
+        oProgramacion.value.vehiculo_remplazo_id = "";
+        oProgramacion.value.observacion_reemplazo = "";
         oProgramacion.value._method = "POST";
     };
 

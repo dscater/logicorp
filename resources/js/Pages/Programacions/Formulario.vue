@@ -247,7 +247,12 @@ onMounted(() => {});
                             </div>
                             <div class="col-md-4">
                                 <label>Asociación*</label>
-                                <input type="text" class="form-control" :value="oContrato?.empresa.razon_social" readonly>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    :value="oContrato?.empresa.razon_social"
+                                    readonly
+                                />
                                 <!-- <select
                                     class="form-select"
                                     :class="{
@@ -457,6 +462,66 @@ onMounted(() => {});
                                 >
                                     <li class="parsley-required">
                                         {{ form.errors?.descripcion }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <br />
+                                <label class="d-flex align-center gap-2"
+                                    >Vehículo reemplazado
+                                    <input
+                                        type="checkbox"
+                                        :true-value="1"
+                                        :false-value="0"
+                                        v-model="form.reemplazo"
+                                /></label>
+                            </div>
+                            <div class="col-md-4" v-if="form.reemplazo == 1">
+                                <label
+                                    >Seleccionar vehículo de reemplazo*</label
+                                >
+                                <select
+                                    class="form-select"
+                                    :class="{
+                                        'parsley-error':
+                                            form.errors?.vehiculo_remplazo_id,
+                                    }"
+                                    v-model="form.vehiculo_remplazo_id"
+                                >
+                                    <option value="">- Seleccione -</option>
+                                    <option
+                                        v-for="item in listVehiculos"
+                                        :value="item.id"
+                                    >
+                                        {{ item.full_name }}
+                                    </option>
+                                </select>
+                                <ul
+                                    v-if="form.errors?.vehiculo_remplazo_id"
+                                    class="parsley-errors-list filled"
+                                >
+                                    <li class="parsley-required">
+                                        {{ form.errors?.vehiculo_remplazo_id }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4" v-if="form.reemplazo == 1">
+                                <label>Observaciones:</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    :class="{
+                                        'parsley-error':
+                                            form.errors?.observacion_reemplazo,
+                                    }"
+                                    v-model="form.observacion_reemplazo"
+                                />
+                                <ul
+                                    v-if="form.errors?.observacion_reemplazo"
+                                    class="parsley-errors-list filled"
+                                >
+                                    <li class="parsley-required">
+                                        {{ form.errors?.observacion_reemplazo }}
                                     </li>
                                 </ul>
                             </div>

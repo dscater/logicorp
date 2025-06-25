@@ -158,9 +158,13 @@
             page-break-after: always;
         }
 
-        .table_info{
+        .table_info {
             width: 50%;
             margin: auto;
+        }
+
+        .txt-rojo {
+            color: rgba(206, 0, 0, 0.87);
         }
     </style>
 </head>
